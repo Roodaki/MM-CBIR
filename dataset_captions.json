@@ -1,0 +1,406 @@
+{
+    "metadata": {
+        "dataset_name": "Corel-10K",
+        "prompt_used": "# CLIP-Optimized Image Captioning Prompt v5\n\n---\n\n## Role\n\nYou are an expert Image Annotator specializing in generating ultra-dense semantic tags for multimodal embedding models (like CLIP). Your output functions purely as a machine-readable semantic anchor for a Content-Based Image Retrieval (CBIR) backend. \n\n---\n\n## Core Constraints\n\n- **Strict JSON Output:** Output exactly one valid JSON object with two keys: `primary` and `extended`. Do not output any markdown formatting (like ```json), preamble, or trailing text.\n- **Zero Prose:** Reject all narrative sentence structures. Do not use periods. Output strictly as a comma-separated list of attribute-noun pairs or tags.\n- **Zero Redundancy:** Do NOT repeat any words from the `primary` string in the `extended` string.\n- **Token Economy:** `primary` maximum 10 comma-separated words. `extended` maximum 40 comma-separated words.\n- **Front-Load Nouns:** Always place the most important semantic noun *before* its modifying adjectives (e.g., \"leaf maple red\" instead of \"red maple leaf\").\n- **Abstract Quantifiers:** Do not use exact integers > 2. Use \"single\", \"pair\", \"group\", or \"crowd\".\n\n---\n\n## Instructions Per Component\n\n### `primary`\nIdentify the core subject using its most specific technical or taxonomical name. Optimize for category retrieval.\n- **Format:** A single, dense, comma-separated string.\n- **Taxonomy First:** If the exact subject is recognized, name it explicitly (e.g., \"vehicle sports-car Ferrari F40\" instead of \"car red\").\n\n### `extended`\nProvide the visual modifiers for the primary subject. Optimize for appearance and scene retrieval.\n\nCover the following elements as a continuous comma-separated string, ordered strictly by salience:\n\n1. **Global Primitives:** Dominant colors and spatial layout (e.g., \"palette crimson white, layout centered overhead\").\n2. **Material/Texture:** Front-loaded specific textures (e.g., \"texture fibrous linen, surface specular wet\").\n3. **Lighting/Atmosphere:** Source and quality (e.g., \"lighting side-lit harsh, atmosphere diffuse overcast\").\n4. **Context/Background:** Foreground/background relationship (e.g., \"background bokeh shallow, angle low wide\").\n5. **OCR (If applicable):** If salient, legible text appears in the image, transcribe it in quotes (e.g., \"text 'Stop'\").\n\n---\n\n## Example Output\n\n{\n  \"primary\": \"pasta spaghetti al-pomodoro, garnish basil fresh\",\n  \"extended\": \"palette crimson white, layout centered overhead, texture glossy starch, sauce thick tomato, lighting daylight diffuse natural, highlight specular soft, background table wood rustic out-of-focus, contrast high color\"\n}\n\n---\n\n## Key Principles\n\n- **Machine Readable Only:** If a human finds the text pleasing to read, you have failed. It must read like a database index.\n- **Front-Loading:** \"lighting daylight diffuse\" works better for token weighting than \"diffuse daylight lighting\".\n- **Absolute Salience:** If the image is a pitch-black silhouette, \"lighting silhouette dark\" comes immediately after the global primitives, pushing textures to the end or omitting them entirely.",
+        "models_evaluated": [
+            "meta-llama/llama-4-scout-17b-16e-instruct"
+        ]
+    },
+    "images": {
+        "0/0.jpeg": {
+            "filename": "0.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft fighter-jet F-16",
+                    "extended": "palette gray metallic, layout centered ascension, texture riveted metallic, lighting daylight harsh, background sky blue cloudy, contrail wispy white"
+                }
+            }
+        },
+        "0/1.jpeg": {
+            "filename": "1.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft fighter-jet Sukhoi Su-35",
+                    "extended": "palette gray blue, layout profile left, texture metallic glossy, lighting daylight harsh, background sky blue clear, angle low dynamic"
+                }
+            }
+        },
+        "0/10.jpeg": {
+            "filename": "10.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft cargo-plane",
+                    "extended": "palette gray white, layout centered side, texture metallic smooth, lighting daylight soft natural, background grass dry yellow, atmosphere clear blue, angle low"
+                }
+            }
+        },
+        "0/11.jpeg": {
+            "filename": "11.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft Boeing 747, airline Japan Airlines",
+                    "extended": "palette white red, layout centered side, texture glossy smooth, lighting daylight clear, background sky blue gradient, atmosphere clear"
+                }
+            }
+        },
+        "0/12.jpeg": {
+            "filename": "12.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft transport plane white",
+                    "extended": "palette white gray, layout side low, texture metallic smooth, lighting daylight overcast soft, background runway grass blur, angle low"
+                }
+            }
+        },
+        "0/13.jpeg": {
+            "filename": "13.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military-transport",
+                    "extended": "palette green gray, layout centered low-angle, texture matte camouflage, lighting daylight harsh, background mountain range hazy, atmosphere clear"
+                }
+            }
+        },
+        "0/14.jpeg": {
+            "filename": "14.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military-transport",
+                    "extended": "palette gray blue, layout centered, lighting daylight clear, background sky blue uniform, texture metallic smooth, angle aerial low"
+                }
+            }
+        },
+        "0/15.jpeg": {
+            "filename": "15.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft bomber large",
+                    "extended": "palette gray blue, layout side low, texture metallic riveted, lighting daylight harsh, background crowd group, angle low wide, surface grass dry"
+                }
+            }
+        },
+        "0/16.jpeg": {
+            "filename": "16.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft commercial-jet white",
+                    "extended": "palette blue clear, layout centered, lighting daylight harsh, background sky cloudless, texture metallic smooth, angle aerial low"
+                }
+            }
+        },
+        "0/17.jpeg": {
+            "filename": "17.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft bomber stealth B-2",
+                    "extended": "palette gray dark, layout centered, lighting daylight clear, background sky blue cloudless, texture metallic reflective"
+                }
+            }
+        },
+        "0/18.jpeg": {
+            "filename": "18.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft jet white",
+                    "extended": "palette white orange, layout centered side, texture metallic smooth, lighting daylight harsh, atmosphere clear blue, background sky gradient blue, trail smoke gray"
+                }
+            }
+        },
+        "0/19.jpeg": {
+            "filename": "19.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military-jet fighter",
+                    "extended": "palette silver yellow black, layout side low, texture metallic smooth, lighting daylight cloudy, background runway grass green, angle low side, contrast medium"
+                }
+            }
+        },
+        "0/2.jpeg": {
+            "filename": "2.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military-jet F-16, landing-gear",
+                    "extended": "palette grey metallic, layout low-angle side, texture metallic smooth, lighting daylight harsh, background mountainous desert, atmosphere clear blue, contrast high"
+                }
+            }
+        },
+        "0/20.jpeg": {
+            "filename": "20.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military-jet trainer",
+                    "extended": "palette gray white, layout profile left, texture metallic smooth, lighting daylight clear, background sky blue hazy, text '635'"
+                }
+            }
+        },
+        "0/21.jpeg": {
+            "filename": "21.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft planes yellow, group",
+                    "extended": "palette yellow gray, layout horizontal linear, texture metallic smooth, lighting daylight overcast soft, background sky cloudy, runway tarmac"
+                }
+            }
+        },
+        "0/22.jpeg": {
+            "filename": "22.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft F-4 Phantom II military",
+                    "extended": "palette gray metallic, layout side profile, texture smooth reflective, lighting daylight harsh, background runway tarmac blurred, text 'ET-2', '8433'"
+                }
+            }
+        },
+        "0/23.jpeg": {
+            "filename": "23.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military-jet F-102 Delta Dagger",
+                    "extended": "palette gray metallic, layout side profile, texture riveted metallic, surface specular reflective, lighting daylight harsh, background runway tarmac out-of-focus, angle low"
+                }
+            }
+        },
+        "0/24.jpeg": {
+            "filename": "24.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft F-4 Phantom II military",
+                    "extended": "palette gray white, layout side profile, texture metallic glossy, lighting daylight soft, background tarmac runway blurred, text 'MARINES', insignia star and stripes"
+                }
+            }
+        },
+        "0/25.jpeg": {
+            "filename": "25.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft F-35, fighter jet",
+                    "extended": "palette gray dark, layout centered, texture matte metallic, lighting daylight harsh, background runway asphalt gray, angle low, contrast high"
+                }
+            }
+        },
+        "0/26.jpeg": {
+            "filename": "26.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft stealth-bomber flying",
+                    "extended": "palette gray dark, layout centered, lighting daylight soft, atmosphere clear blue, background sky cloudy wispy, texture metallic smooth"
+                }
+            }
+        },
+        "0/27.jpeg": {
+            "filename": "27.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft bomber military",
+                    "extended": "palette green gray, layout centered side, texture metallic smooth, lighting daylight hazy, atmosphere clear, background cityscape suburban trees, angle low"
+                }
+            }
+        },
+        "0/28.jpeg": {
+            "filename": "28.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft fighter-jet F-14 Tomcat",
+                    "extended": "palette gray white, layout profile side, texture metallic glossy, lighting daylight harsh, background sky gray uniform, text '202', insignia star white red yellow"
+                }
+            }
+        },
+        "0/29.jpeg": {
+            "filename": "29.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft fighter-jet military",
+                    "extended": "palette gray white, layout centered left, lighting daylight harsh, atmosphere clear blue, texture metallic smooth, background sky blue uniform, motion blur radial"
+                }
+            }
+        },
+        "0/3.jpeg": {
+            "filename": "3.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "balloon hot-air multicolored",
+                    "extended": "palette yellow orange green, layout centered low, texture fabric smooth, lighting daylight clear, background sky blue gradient, atmosphere clear"
+                }
+            }
+        },
+        "0/30.jpeg": {
+            "filename": "30.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "flag American, balloon hot-air",
+                    "extended": "palette red white blue, layout centered, texture fabric smooth, lighting daylight clear, background sky dark blue, contrast high color, pattern stripes, shape spherical"
+                }
+            }
+        },
+        "0/31.jpeg": {
+            "filename": "31.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft fighter-jet F-4 Phantom II",
+                    "extended": "palette gray yellow black, layout side low-angle, texture metallic glossy, lighting daylight harsh, background sky cloudy blue, angle low dynamic"
+                }
+            }
+        },
+        "0/32.jpeg": {
+            "filename": "32.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military-jet OV-10",
+                    "extended": "palette green olive, layout centered low-angle, texture matte camouflage, lighting daylight soft, background runway tarmac blurred, atmosphere clear blue"
+                }
+            }
+        },
+        "0/33.jpeg": {
+            "filename": "33.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft fighter-jet blue",
+                    "extended": "palette blue yellow, layout side low, texture glossy metallic, lighting daylight soft, background trees green blurry, atmosphere clear"
+                }
+            }
+        },
+        "0/34.jpeg": {
+            "filename": "34.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "balloon hot-air",
+                    "extended": "palette multicolor striped, layout side-by-side aerial, texture smooth shiny, lighting daylight clear, background sky blue uniform, contrast high color"
+                }
+            }
+        },
+        "0/35.jpeg": {
+            "filename": "35.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military-jet fighter",
+                    "extended": "palette gray green, layout centered left, texture metallic riveted, lighting daylight harsh, background sky blue wispy-clouds, angle aerial low"
+                }
+            }
+        },
+        "0/36.jpeg": {
+            "filename": "36.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military-jet F-16, landing-gear extended",
+                    "extended": "palette grey blue, layout centered low-angle, texture metallic smooth, lighting daylight harsh, background mountain range hazy, atmosphere clear, contrast medium"
+                }
+            }
+        },
+        "0/37.jpeg": {
+            "filename": "37.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft fighter-jet F-16",
+                    "extended": "palette gray metallic, layout centered aerial, texture riveted metallic, lighting daylight harsh, background sky blue gradient, angle dynamic low-angle"
+                }
+            }
+        },
+        "0/38.jpeg": {
+            "filename": "38.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft fighter-jet F-22 Raptor",
+                    "extended": "palette gray white, layout centered, lighting daylight harsh, atmosphere clear blue, background sky gradient blue"
+                }
+            }
+        },
+        "0/39.jpeg": {
+            "filename": "39.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "balloon hot-air",
+                    "extended": "palette orange red blue yellow, layout centered, texture fabric smooth, lighting daylight clear, background sky blue cloudy, foliage green leafy"
+                }
+            }
+        },
+        "0/4.jpeg": {
+            "filename": "4.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "blimp Goodyear, airship dirigible",
+                    "extended": "palette silver gray, layout centered, texture metallic reflective, lighting daylight clear, background sky blue clear, text 'GOOD YEAR'"
+                }
+            }
+        },
+        "0/40.jpeg": {
+            "filename": "40.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military-jet pair",
+                    "extended": "palette gray white, layout side-by-side angled, texture metallic smooth, lighting daylight clear, background sky blue hazy, angle low dynamic"
+                }
+            }
+        },
+        "0/41.jpeg": {
+            "filename": "41.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military jets, formation",
+                    "extended": "palette red white, layout linear diagonal, texture glossy metallic, lighting daylight harsh, background sky blue clear, angle low side"
+                }
+            }
+        },
+        "0/42.jpeg": {
+            "filename": "42.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military-jet fighter, group",
+                    "extended": "palette red white black, layout linear side, texture metallic glossy, lighting daylight harsh, background tarmac asphalt, angle low side, sky blue hazy"
+                }
+            }
+        },
+        "0/43.jpeg": {
+            "filename": "43.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft fighter-jet F-16, cockpit canopy",
+                    "extended": "palette white red blue, layout centered frontal, texture metallic glossy, lighting daylight harsh, background blurry grassy, angle low"
+                }
+            }
+        },
+        "0/44.jpeg": {
+            "filename": "44.jpeg",
+            "class_label": "0",
+            "captions": {}
+        }
+    }
+}
