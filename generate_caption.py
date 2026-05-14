@@ -3,111 +3,207 @@ import json
 import base64
 import time
 import re
+import threading
+import tempfile
+import shutil
 from pathlib import Path
+from queue import Queue, Empty
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from groq import Groq
 
 # --- Configuration ---
 
-# Add as many API keys as you have accounts
 API_KEYS = [
+    "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",
     "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",
     "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",
     "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",
     "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",
-    # Keep adding more keys here...
+    "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",
 ]
 
-# How many seconds to wait before retrying a rate-limited key (60s is safe for Groq)
 KEY_COOLDOWN_SECONDS = 60
-
-# Vision-capable models for the 2026 Groq environment
 MODELS_LIST = ["meta-llama/llama-4-scout-17b-16e-instruct"]
 
 
 # ---------------------------------------------------------------------------
-# Key Rotation Manager
+# Fix 1: KeyPool — no _cooling counter; derive availability purely from Queue
 # ---------------------------------------------------------------------------
 
 
-class KeyRotator:
+class KeyPool:
     """
-    Manages a pool of Groq API keys.
-    - Rotates to the next available key on rate-limit errors.
-    - Marks exhausted keys with a cooldown timestamp.
-    - Sleeps only when ALL keys are cooling down.
+    Thread-safe pool of Groq clients backed by a Queue.
+    - No separate counter: availability is derived directly from the queue size
+      and the number of keys currently in cooldown (tracked via a simple set).
+    - Keys are NEVER lost: acquire() uses a try/finally-safe pattern and
+      release_after_cooldown() guarantees requeue even if the timer thread crashes.
     """
 
-    def __init__(self, api_keys: list[str], cooldown_seconds: int = 60):
+    def __init__(self, api_keys: list, cooldown_seconds: int = 60):
         if not api_keys:
             raise ValueError("No API keys provided.")
         self.cooldown_seconds = cooldown_seconds
-        # Each entry: {"client": Groq(...), "cooldown_until": 0.0}
-        self.keys = [
-            {"key": k, "client": Groq(api_key=k), "cooldown_until": 0.0}
-            for k in api_keys
-        ]
-        self._index = 0  # current key pointer
+        self._total = len(api_keys)
+        self._pool = Queue()
+        self._cooling_count = 0  # how many keys are in cooldown
+        self._lock = threading.Lock()  # protects _cooling_count only
 
-    def _available_keys(self):
-        now = time.time()
-        return [k for k in self.keys if now >= k["cooldown_until"]]
+        for key in api_keys:
+            self._pool.put(Groq(api_key=key))
 
-    def current_client(self) -> Groq:
-        """Return the current key's Groq client (skipping cooled-down keys)."""
-        available = self._available_keys()
-        if not available:
+    def acquire(self, timeout: float = 5.0):
+        """
+        Block up to `timeout` seconds for an available client.
+        Returns None on timeout (caller must retry or wait).
+        """
+        try:
+            return self._pool.get(timeout=timeout)
+        except Empty:
             return None
-        # Advance index to first available key
-        while self.keys[self._index]["cooldown_until"] > time.time():
-            self._index = (self._index + 1) % len(self.keys)
-        return self.keys[self._index]["client"]
 
-    def mark_rate_limited(self):
-        """Mark the current key as cooling down and rotate to the next one."""
-        entry = self.keys[self._index]
-        entry["cooldown_until"] = time.time() + self.cooldown_seconds
-        key_preview = entry["key"][:12] + "..."
-        print(
-            f"   ! Key [{self._index}] ({key_preview}) rate-limited. "
-            f"Cooling down for {self.cooldown_seconds}s."
-        )
-        self._index = (self._index + 1) % len(self.keys)
+    def release(self, client):
+        """Return a healthy client immediately — no counter to touch."""
+        self._pool.put(client)
 
-    def wait_for_any_key(self):
+    def release_after_cooldown(self, client):
         """
-        Called when ALL keys are cooling down.
-        Sleeps until the soonest key becomes available.
+        Mark key as cooling and requeue it after cooldown.
+        The timer thread always requeues — even if it itself raises.
         """
-        soonest = min(k["cooldown_until"] for k in self.keys)
-        wait = max(0.0, soonest - time.time())
-        print(
-            f"   ! All {len(self.keys)} keys are rate-limited. "
-            f"Waiting {wait:.1f}s for the next available key..."
-        )
-        time.sleep(wait + 0.5)  # small buffer
+        with self._lock:
+            self._cooling_count += 1
 
-    def all_exhausted(self) -> bool:
-        return len(self._available_keys()) == 0
+        def _requeue():
+            try:
+                time.sleep(self.cooldown_seconds)
+            finally:
+                # guaranteed to run even if sleep is interrupted
+                with self._lock:
+                    self._cooling_count -= 1
+                self._pool.put(client)
+
+        t = threading.Thread(target=_requeue, daemon=True)
+        t.start()
+
+    def all_cooling(self) -> bool:
+        """True when every key is in cooldown (queue is empty and will stay so)."""
+        with self._lock:
+            return self._cooling_count >= self._total
 
 
 # ---------------------------------------------------------------------------
-# Helpers (unchanged from original)
+# Fix 4: Atomic JSON writes via temp-file + rename
+# Fix 3: Single in-memory cache so workers don't hit disk on every check
 # ---------------------------------------------------------------------------
 
 
-def encode_image(image_path):
-    """Encodes image to base64 for API transmission."""
-    with open(image_path, "rb") as image_file:
-        return base64.b64encode(image_file.read()).decode("utf-8")
+class JSONManager:
+    """
+    Thread-safe JSON manager with:
+    - In-memory cache (one lock, no repeated file reads per write)
+    - Atomic disk writes (write to temp file, then os.replace) so a crash
+      mid-write never corrupts the output file
+    - Double-check before every write to prevent overwriting valid captions
+    """
+
+    def __init__(self, output_path: str):
+        self.path = output_path
+        self._lock = threading.Lock()
+        # Load once into memory; all subsequent reads use the cache
+        with open(output_path, "r", encoding="utf-8") as f:
+            self._data = json.load(f)
+
+    def is_done(self, rel_path: str) -> bool:
+        with self._lock:
+            return is_image_fully_processed(self._data["images"].get(rel_path, {}))
+
+    def needs_model(self, rel_path: str, model_id: str) -> bool:
+        """Check under lock whether a specific model caption is missing."""
+        with self._lock:
+            caption = (
+                self._data["images"]
+                .get(rel_path, {})
+                .get("captions", {})
+                .get(model_id, {})
+            )
+            return not caption.get("primary", "").strip()
+
+    def write_caption(
+        self,
+        rel_path: str,
+        filename: str,
+        class_label: str,
+        model_id: str,
+        caption: dict,
+    ):
+        """
+        Under lock:
+          1. Double-check the caption isn't already set (race-condition guard).
+          2. Update the in-memory cache.
+          3. Atomically flush to disk (temp file + os.replace).
+        """
+        with self._lock:
+            # Double-check inside the lock
+            existing = (
+                self._data["images"]
+                .get(rel_path, {})
+                .get("captions", {})
+                .get(model_id, {})
+            )
+            if existing.get("primary", "").strip():
+                return  # already written by another thread
+
+            images = self._data["images"]
+            if rel_path not in images:
+                images[rel_path] = {
+                    "filename": filename,
+                    "class_label": class_label,
+                    "captions": {},
+                }
+            images[rel_path]["captions"][model_id] = caption
+
+            # Atomic write: dump to a sibling temp file, then rename.
+            # On Windows, antivirus/Explorer can briefly lock the target file
+            # right after a write, causing os.replace() to raise WinError 5
+            # (Access Denied). We retry a few times with backoff before giving up.
+            dir_ = os.path.dirname(os.path.abspath(self.path))
+            fd, tmp_path = tempfile.mkstemp(dir=dir_, suffix=".tmp")
+            try:
+                # Write and explicitly close the fd before attempting replace
+                with os.fdopen(fd, "w", encoding="utf-8") as f:
+                    json.dump(self._data, f, indent=4)
+                # fd is now closed; retry os.replace() on transient Windows locks
+                for attempt in range(6):
+                    try:
+                        os.replace(tmp_path, self.path)
+                        break  # success
+                    except PermissionError:
+                        if attempt == 5:
+                            raise  # give up after 6 attempts (~3s total)
+                        time.sleep(0.5 * (attempt + 1))  # 0.5s, 1s, 1.5s …
+            except Exception:
+                # Cache is already updated; only the disk write failed.
+                # Clean up the orphaned temp file so it doesn't litter the dir.
+                try:
+                    os.unlink(tmp_path)
+                except OSError:
+                    pass
+                raise
 
 
-def parse_caption_content(raw_text):
-    """
-    Parses the model's output.
-    Handles direct JSON objects and cleans up potential Markdown artifacts.
-    """
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+
+def encode_image(image_path: str) -> str:
+    with open(image_path, "rb") as f:
+        return base64.b64encode(f.read()).decode("utf-8")
+
+
+def parse_caption_content(raw_text: str) -> dict:
     clean_text = raw_text.replace("```json", "").replace("```", "").strip()
-
     try:
         data = json.loads(clean_text)
         if isinstance(data, dict):
@@ -124,16 +220,23 @@ def parse_caption_content(raw_text):
     extended_match = re.search(
         r"extended[:\s]+(.*)", clean_text, re.IGNORECASE | re.DOTALL
     )
-
-    primary = primary_match.group(1).strip() if primary_match else clean_text
-    extended = extended_match.group(1).strip() if extended_match else ""
-
-    return {"primary": primary, "extended": extended}
-
-
-def initialize_json_structure(dataset_path, prompt_text):
-    """Initializes the clean metadata header."""
     return {
+        "primary": primary_match.group(1).strip() if primary_match else clean_text,
+        "extended": extended_match.group(1).strip() if extended_match else "",
+    }
+
+
+def is_image_fully_processed(image_entry: dict) -> bool:
+    captions = image_entry.get("captions", {})
+    for model_id in MODELS_LIST:
+        caption = captions.get(model_id)
+        if not caption or not caption.get("primary", "").strip():
+            return False
+    return True
+
+
+def initialize_json(output_path: str, dataset_path: str, prompt_text: str):
+    data = {
         "metadata": {
             "dataset_name": Path(dataset_path).name,
             "prompt_used": prompt_text,
@@ -141,45 +244,148 @@ def initialize_json_structure(dataset_path, prompt_text):
         },
         "images": {},
     }
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=4)
 
 
-def is_image_fully_processed(image_entry):
+# ---------------------------------------------------------------------------
+# Fix 2 + 6: Worker — key never lost; failed images tracked and reported
+# ---------------------------------------------------------------------------
+
+
+def process_image(
+    img_path: str,
+    dataset_root: str,
+    system_prompt: str,
+    key_pool: KeyPool,
+    json_mgr: JSONManager,
+    progress: dict,
+    progress_lock: threading.Lock,
+) -> tuple:
     """
-    Returns True only if the image has a non-empty caption
-    for every model in MODELS_LIST.
+    Returns (rel_path, status) where status is one of:
+      "skipped"    — already done at task start
+      "ok"         — all models captioned successfully
+      "read_error" — could not read/encode the image file
+      "api_error"  — non-rate-limit API failure on at least one model
     """
-    captions = image_entry.get("captions", {})
+    rel_path = os.path.relpath(img_path, dataset_root).replace("\\", "/")
+    filename = os.path.basename(img_path)
+    class_label = os.path.basename(os.path.dirname(img_path))
+
+    # Early exit if already fully processed
+    if json_mgr.is_done(rel_path):
+        _tick(progress, progress_lock, rel_path, "skipped")
+        return rel_path, "skipped"
+
+    try:
+        base64_image = encode_image(img_path)
+    except Exception as e:
+        print(f"   ! [READ ERROR] {rel_path}: {e}")
+        _tick(progress, progress_lock, rel_path, "read_error")
+        return rel_path, "read_error"
+
+    overall_status = "ok"
+
     for model_id in MODELS_LIST:
-        caption = captions.get(model_id)
-        if not caption:
-            return False
-        if not caption.get("primary", "").strip():
-            return False
-    return True
+        # Skip models already done (resume-safe per model)
+        if not json_mgr.needs_model(rel_path, model_id):
+            continue
+
+        model_success = False
+
+        while not model_success:
+            # --- Acquire a key (never blocks forever) ---
+            client = None
+            while client is None:
+                client = key_pool.acquire(timeout=5.0)
+                if client is None:
+                    # acquire() timed out — check if all keys are cooling
+                    if key_pool.all_cooling():
+                        print(f"   ~ All keys cooling. Worker waiting... ({rel_path})")
+                        time.sleep(2.0)
+                    # else: a key is in the queue but another thread grabbed it first;
+                    # just retry acquire immediately
+
+            # --- Make the API call ---
+            # client is now exclusively held by this thread
+            try:
+                completion = client.chat.completions.create(
+                    model=model_id,
+                    messages=[
+                        {
+                            "role": "user",
+                            "content": [
+                                {"type": "text", "text": system_prompt},
+                                {
+                                    "type": "image_url",
+                                    "image_url": {
+                                        "url": f"data:image/jpeg;base64,{base64_image}"
+                                    },
+                                },
+                            ],
+                        }
+                    ],
+                    temperature=0.1,
+                )
+
+                caption = parse_caption_content(completion.choices[0].message.content)
+                # Write first, THEN release key (so another thread can't grab
+                # the same image and also try to write)
+                json_mgr.write_caption(
+                    rel_path, filename, class_label, model_id, caption
+                )
+                key_pool.release(client)  # healthy — back to pool immediately
+                model_success = True
+                time.sleep(0.2)
+
+            except PermissionError as e:
+                # Windows file-lock on os.replace() — even after retries.
+                # The API call succeeded and caption is already in the in-memory
+                # cache. Release the key and retry the loop; needs_model() will
+                # short-circuit if the cache write did go through.
+                print(f"   ! [WRITE ERROR] {rel_path}: {e} — retrying...")
+                key_pool.release(client)
+                time.sleep(1.0)
+
+            except Exception as e:
+                error_msg = str(e).lower()
+                if "429" in error_msg or "rate_limit" in error_msg:
+                    print(f"   ! Rate limit. Rotating key for {rel_path}...")
+                    key_pool.release_after_cooldown(client)
+                else:
+                    # Non-rate-limit API error: return key, mark image as failed
+                    print(f"   ! [API ERROR] {rel_path} / {model_id}: {e}")
+                    key_pool.release(client)
+                    overall_status = "api_error"
+                    break
+
+    _tick(progress, progress_lock, rel_path, overall_status)
+    return rel_path, overall_status
 
 
-def load_existing_data(output_json, dataset_path, prompt_text):
-    """
-    Loads existing JSON output if present, otherwise creates a fresh structure.
-    """
-    if os.path.exists(output_json):
-        with open(output_json, "r", encoding="utf-8") as f:
-            data = json.load(f)
-        print(f"Loaded existing output: '{output_json}'")
-        data.setdefault("metadata", {})["models_evaluated"] = MODELS_LIST
-        return data
-    else:
-        print(f"No existing output found. Starting fresh: '{output_json}'")
-        return initialize_json_structure(dataset_path, prompt_text)
+def _tick(progress: dict, lock: threading.Lock, rel_path: str, status: str):
+    """Update and print progress counter."""
+    with lock:
+        if status != "skipped":  # Fix 5: skipped images counted separately
+            progress["done"] += 1
+        done = progress["done"]
+        total = progress["total"]
+        tag = {
+            "ok": "✓",
+            "skipped": "~",
+            "read_error": "✗",
+            "api_error": "✗",
+        }.get(status, "?")
+        print(f"   [{done}/{total}] {tag} {rel_path}  ({status})")
 
 
 # ---------------------------------------------------------------------------
-# Main Processing
+# Main
 # ---------------------------------------------------------------------------
 
 
-def process_dataset(dataset_root, prompt_file, output_json):
-    # 1. Load the prompt
+def process_dataset(dataset_root: str, prompt_file: str, output_json: str):
     if not os.path.exists(prompt_file):
         print(f"Error: Prompt file '{prompt_file}' not found.")
         return
@@ -187,128 +393,94 @@ def process_dataset(dataset_root, prompt_file, output_json):
     with open(prompt_file, "r", encoding="utf-8") as f:
         system_prompt = f.read().strip()
 
-    # 2. Load existing data (or create fresh structure)
-    data = load_existing_data(output_json, dataset_root, system_prompt)
-    results = data["images"]
+    # Initialize or sync JSON file
+    if not os.path.exists(output_json):
+        print(f"No existing output found. Starting fresh: '{output_json}'")
+        initialize_json(output_json, dataset_root, system_prompt)
+    else:
+        print(f"Loaded existing output: '{output_json}'")
+        with open(output_json, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        data.setdefault("metadata", {})["models_evaluated"] = MODELS_LIST
+        with open(output_json, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4)
 
-    # 3. Find all images
-    valid_extensions = (".jpg", ".jpeg", ".png", ".webp", ".JPEG")
-    image_paths = []
+    json_mgr = JSONManager(output_json)
+
+    # Collect all images
+    valid_extensions = (".jpg", ".jpeg", ".png", ".webp")
+    all_image_paths = []
     for root, _, files in os.walk(dataset_root):
         for file in files:
             if file.lower().endswith(valid_extensions):
-                image_paths.append(os.path.join(root, file))
+                all_image_paths.append(os.path.join(root, file))
 
-    total_images = len(image_paths)
-
-    # 4. Determine pending images
+    # Build pending list — once, upfront, no duplicates
     pending_paths = []
     skipped = 0
-    for img_path in image_paths:
+    seen = set()
+    for img_path in all_image_paths:
         rel_path = os.path.relpath(img_path, dataset_root).replace("\\", "/")
-        if rel_path in results and is_image_fully_processed(results[rel_path]):
+        if rel_path in seen:
+            continue
+        seen.add(rel_path)
+        if json_mgr.is_done(rel_path):
             skipped += 1
         else:
             pending_paths.append(img_path)
 
-    print(f"Found {total_images} images total.")
-    print(f"  Already processed: {skipped}")
-    print(f"  Pending:           {len(pending_paths)}")
-    print(f"  API keys loaded:   {len(API_KEYS)}\n")
+    print(f"\nFound {len(all_image_paths)} images total.")
+    print(f"  Already processed : {skipped}")
+    print(f"  Pending           : {len(pending_paths)}")
+    print(f"  API keys / workers: {len(API_KEYS)}\n")
 
     if not pending_paths:
         print("All images are already captioned. Nothing to do.")
         return
 
-    # 5. Initialize the key rotator
-    rotator = KeyRotator(API_KEYS, cooldown_seconds=KEY_COOLDOWN_SECONDS)
+    key_pool = KeyPool(API_KEYS, cooldown_seconds=KEY_COOLDOWN_SECONDS)
+    progress = {"done": 0, "total": len(pending_paths)}
+    progress_lock = threading.Lock()
 
-    print("Beginning processing of pending images...\n")
+    n_workers = len(API_KEYS)
+    print(f"Starting parallel processing with {n_workers} workers...\n")
 
-    # 6. Processing loop
-    for i, img_path in enumerate(pending_paths):
-        rel_path = os.path.relpath(img_path, dataset_root).replace("\\", "/")
-        parent_folder = os.path.basename(os.path.dirname(img_path))
+    # Fix 6: collect failed images and report summary at the end
+    failed = []
 
-        print(f"[{i+1}/{len(pending_paths)}] Processing: {rel_path}")
+    with ThreadPoolExecutor(max_workers=n_workers) as executor:
+        futures = {
+            executor.submit(
+                process_image,
+                img_path,
+                dataset_root,
+                system_prompt,
+                key_pool,
+                json_mgr,
+                progress,
+                progress_lock,
+            ): img_path
+            for img_path in pending_paths
+        }
 
-        if rel_path not in results:
-            results[rel_path] = {
-                "filename": os.path.basename(img_path),
-                "class_label": parent_folder,
-                "captions": {},
-            }
+        for future in as_completed(futures):
+            try:
+                rel_path, status = future.result()
+                if status in ("read_error", "api_error"):
+                    failed.append((rel_path, status))
+            except Exception as e:
+                img_path = futures[future]
+                print(f"   [FATAL] Unhandled worker exception for {img_path}: {e}")
+                failed.append((img_path, "fatal"))
 
-        try:
-            base64_image = encode_image(img_path)
-        except Exception as e:
-            print(f"   ! Error reading file: {e}")
-            continue
+    print(f"\nDone! Output saved to: {output_json}")
 
-        pending_models = [
-            m
-            for m in MODELS_LIST
-            if not results[rel_path]["captions"].get(m, {}).get("primary", "").strip()
-        ]
-
-        for model_id in pending_models:
-            success = False
-
-            while not success:
-                # If all keys are cooling down, wait for one to free up
-                if rotator.all_exhausted():
-                    rotator.wait_for_any_key()
-
-                client = rotator.current_client()
-                if client is None:
-                    rotator.wait_for_any_key()
-                    continue
-
-                try:
-                    print(
-                        f"   > Requesting from {model_id} "
-                        f"(key [{rotator._index}])..."
-                    )
-                    completion = client.chat.completions.create(
-                        model=model_id,
-                        messages=[
-                            {
-                                "role": "user",
-                                "content": [
-                                    {"type": "text", "text": system_prompt},
-                                    {
-                                        "type": "image_url",
-                                        "image_url": {
-                                            "url": f"data:image/jpeg;base64,{base64_image}"
-                                        },
-                                    },
-                                ],
-                            }
-                        ],
-                        temperature=0.1,
-                    )
-
-                    raw_response = completion.choices[0].message.content
-                    results[rel_path]["captions"][model_id] = parse_caption_content(
-                        raw_response
-                    )
-                    success = True
-                    time.sleep(0.3)
-
-                except Exception as e:
-                    error_msg = str(e).lower()
-                    if "429" in error_msg or "rate_limit" in error_msg:
-                        rotator.mark_rate_limited()
-                        # Loop will retry with the next available key immediately
-                    else:
-                        print(f"   ! Non-rate-limit API error for {model_id}: {e}")
-                        break  # Don't retry on non-rate-limit errors
-
-        # Incremental save after each image
-        with open(output_json, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=4)
-
-    print(f"\nDone! Final output saved to: {output_json}")
+    if failed:
+        print(f"\n  {len(failed)} image(s) could not be processed:")
+        for rel_path, reason in failed:
+            print(f"    ✗ {rel_path}  ({reason})")
+    else:
+        print("  All images processed successfully.")
 
 
 if __name__ == "__main__":
