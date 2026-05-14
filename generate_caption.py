@@ -20,6 +20,20 @@ API_KEYS = [
     "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",
     "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",
     "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",
+    "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",
+    "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",
+    "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",
+    "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",
+    "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",
+    "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",
+    "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",
+    "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",
+    "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",
+    "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",
+    "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",
+    "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",
+    "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",
+    "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",
 ]
 
 KEY_COOLDOWN_SECONDS = 60
