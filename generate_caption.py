@@ -7,13 +7,92 @@ from pathlib import Path
 from groq import Groq
 
 # --- Configuration ---
-API_KEY = "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"
+
+# Add as many API keys as you have accounts
+API_KEYS = [
+    "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",
+    "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",
+    "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",
+    "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",
+    # Keep adding more keys here...
+]
+
+# How many seconds to wait before retrying a rate-limited key (60s is safe for Groq)
+KEY_COOLDOWN_SECONDS = 60
 
 # Vision-capable models for the 2026 Groq environment
 MODELS_LIST = ["meta-llama/llama-4-scout-17b-16e-instruct"]
 
-# Initialize Client
-client = Groq(api_key=API_KEY)
+
+# ---------------------------------------------------------------------------
+# Key Rotation Manager
+# ---------------------------------------------------------------------------
+
+
+class KeyRotator:
+    """
+    Manages a pool of Groq API keys.
+    - Rotates to the next available key on rate-limit errors.
+    - Marks exhausted keys with a cooldown timestamp.
+    - Sleeps only when ALL keys are cooling down.
+    """
+
+    def __init__(self, api_keys: list[str], cooldown_seconds: int = 60):
+        if not api_keys:
+            raise ValueError("No API keys provided.")
+        self.cooldown_seconds = cooldown_seconds
+        # Each entry: {"client": Groq(...), "cooldown_until": 0.0}
+        self.keys = [
+            {"key": k, "client": Groq(api_key=k), "cooldown_until": 0.0}
+            for k in api_keys
+        ]
+        self._index = 0  # current key pointer
+
+    def _available_keys(self):
+        now = time.time()
+        return [k for k in self.keys if now >= k["cooldown_until"]]
+
+    def current_client(self) -> Groq:
+        """Return the current key's Groq client (skipping cooled-down keys)."""
+        available = self._available_keys()
+        if not available:
+            return None
+        # Advance index to first available key
+        while self.keys[self._index]["cooldown_until"] > time.time():
+            self._index = (self._index + 1) % len(self.keys)
+        return self.keys[self._index]["client"]
+
+    def mark_rate_limited(self):
+        """Mark the current key as cooling down and rotate to the next one."""
+        entry = self.keys[self._index]
+        entry["cooldown_until"] = time.time() + self.cooldown_seconds
+        key_preview = entry["key"][:12] + "..."
+        print(
+            f"   ! Key [{self._index}] ({key_preview}) rate-limited. "
+            f"Cooling down for {self.cooldown_seconds}s."
+        )
+        self._index = (self._index + 1) % len(self.keys)
+
+    def wait_for_any_key(self):
+        """
+        Called when ALL keys are cooling down.
+        Sleeps until the soonest key becomes available.
+        """
+        soonest = min(k["cooldown_until"] for k in self.keys)
+        wait = max(0.0, soonest - time.time())
+        print(
+            f"   ! All {len(self.keys)} keys are rate-limited. "
+            f"Waiting {wait:.1f}s for the next available key..."
+        )
+        time.sleep(wait + 0.5)  # small buffer
+
+    def all_exhausted(self) -> bool:
+        return len(self._available_keys()) == 0
+
+
+# ---------------------------------------------------------------------------
+# Helpers (unchanged from original)
+# ---------------------------------------------------------------------------
 
 
 def encode_image(image_path):
@@ -25,8 +104,7 @@ def encode_image(image_path):
 def parse_caption_content(raw_text):
     """
     Parses the model's output.
-    Handles direct JSON objects (as requested in your prompt)
-    and cleans up potential Markdown artifacts.
+    Handles direct JSON objects and cleans up potential Markdown artifacts.
     """
     clean_text = raw_text.replace("```json", "").replace("```", "").strip()
 
@@ -75,7 +153,6 @@ def is_image_fully_processed(image_entry):
         caption = captions.get(model_id)
         if not caption:
             return False
-        # Treat entries with empty primary as incomplete
         if not caption.get("primary", "").strip():
             return False
     return True
@@ -84,13 +161,11 @@ def is_image_fully_processed(image_entry):
 def load_existing_data(output_json, dataset_path, prompt_text):
     """
     Loads existing JSON output if present, otherwise creates a fresh structure.
-    Also updates models_evaluated in metadata in case MODELS_LIST changed.
     """
     if os.path.exists(output_json):
         with open(output_json, "r", encoding="utf-8") as f:
             data = json.load(f)
         print(f"Loaded existing output: '{output_json}'")
-        # Keep metadata in sync with current config
         data.setdefault("metadata", {})["models_evaluated"] = MODELS_LIST
         return data
     else:
@@ -98,8 +173,13 @@ def load_existing_data(output_json, dataset_path, prompt_text):
         return initialize_json_structure(dataset_path, prompt_text)
 
 
+# ---------------------------------------------------------------------------
+# Main Processing
+# ---------------------------------------------------------------------------
+
+
 def process_dataset(dataset_root, prompt_file, output_json):
-    # 1. Load the prompt from markdown
+    # 1. Load the prompt
     if not os.path.exists(prompt_file):
         print(f"Error: Prompt file '{prompt_file}' not found.")
         return
@@ -111,7 +191,7 @@ def process_dataset(dataset_root, prompt_file, output_json):
     data = load_existing_data(output_json, dataset_root, system_prompt)
     results = data["images"]
 
-    # 3. Find all images in the dataset
+    # 3. Find all images
     valid_extensions = (".jpg", ".jpeg", ".png", ".webp", ".JPEG")
     image_paths = []
     for root, _, files in os.walk(dataset_root):
@@ -121,7 +201,7 @@ def process_dataset(dataset_root, prompt_file, output_json):
 
     total_images = len(image_paths)
 
-    # 4. Determine which images still need processing
+    # 4. Determine pending images
     pending_paths = []
     skipped = 0
     for img_path in image_paths:
@@ -134,21 +214,24 @@ def process_dataset(dataset_root, prompt_file, output_json):
     print(f"Found {total_images} images total.")
     print(f"  Already processed: {skipped}")
     print(f"  Pending:           {len(pending_paths)}")
+    print(f"  API keys loaded:   {len(API_KEYS)}\n")
 
     if not pending_paths:
         print("All images are already captioned. Nothing to do.")
         return
 
+    # 5. Initialize the key rotator
+    rotator = KeyRotator(API_KEYS, cooldown_seconds=KEY_COOLDOWN_SECONDS)
+
     print("Beginning processing of pending images...\n")
 
-    # 5. Processing Loop — only pending images
+    # 6. Processing loop
     for i, img_path in enumerate(pending_paths):
         rel_path = os.path.relpath(img_path, dataset_root).replace("\\", "/")
         parent_folder = os.path.basename(os.path.dirname(img_path))
 
         print(f"[{i+1}/{len(pending_paths)}] Processing: {rel_path}")
 
-        # Ensure the image entry exists in results
         if rel_path not in results:
             results[rel_path] = {
                 "filename": os.path.basename(img_path),
@@ -162,7 +245,6 @@ def process_dataset(dataset_root, prompt_file, output_json):
             print(f"   ! Error reading file: {e}")
             continue
 
-        # Only request captions for models that haven't been run yet for this image
         pending_models = [
             m
             for m in MODELS_LIST
@@ -171,12 +253,22 @@ def process_dataset(dataset_root, prompt_file, output_json):
 
         for model_id in pending_models:
             success = False
-            retries = 0
-            wait_time = 2
 
-            while not success and retries < 5:
+            while not success:
+                # If all keys are cooling down, wait for one to free up
+                if rotator.all_exhausted():
+                    rotator.wait_for_any_key()
+
+                client = rotator.current_client()
+                if client is None:
+                    rotator.wait_for_any_key()
+                    continue
+
                 try:
-                    print(f"   > Requesting from {model_id}...")
+                    print(
+                        f"   > Requesting from {model_id} "
+                        f"(key [{rotator._index}])..."
+                    )
                     completion = client.chat.completions.create(
                         model=model_id,
                         messages=[
@@ -200,22 +292,19 @@ def process_dataset(dataset_root, prompt_file, output_json):
                     results[rel_path]["captions"][model_id] = parse_caption_content(
                         raw_response
                     )
-
                     success = True
-                    time.sleep(0.5)
+                    time.sleep(0.3)
 
                 except Exception as e:
                     error_msg = str(e).lower()
                     if "429" in error_msg or "rate_limit" in error_msg:
-                        print(f"   ! Rate limit hit. Backing off for {wait_time}s...")
-                        time.sleep(wait_time)
-                        wait_time *= 2
-                        retries += 1
+                        rotator.mark_rate_limited()
+                        # Loop will retry with the next available key immediately
                     else:
-                        print(f"   ! API error for {model_id}: {e}")
-                        break
+                        print(f"   ! Non-rate-limit API error for {model_id}: {e}")
+                        break  # Don't retry on non-rate-limit errors
 
-        # Incremental save after each image to prevent data loss
+        # Incremental save after each image
         with open(output_json, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=4)
 

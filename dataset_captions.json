@@ -400,7 +400,272 @@
         "0/44.jpeg": {
             "filename": "44.jpeg",
             "class_label": "0",
-            "captions": {}
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military jet, formation group",
+                    "extended": "palette white gray, layout linear diagonal, texture metallic smooth, lighting daylight clear, background sky blue uniform, atmosphere cloudless"
+                }
+            }
+        },
+        "0/45.jpeg": {
+            "filename": "45.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft fighter-jet F-16, formation pair",
+                    "extended": "palette gray white orange, layout diagonal ascending, texture metallic glossy, lighting daylight harsh, background sky blue uniform, angle low dynamic"
+                }
+            }
+        },
+        "0/46.jpeg": {
+            "filename": "46.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military-jet fighter",
+                    "extended": "palette gray blue, layout diagonal converging, texture metallic reflective, lighting daylight harsh, background sky clear blue, contrails white smoke"
+                }
+            }
+        },
+        "0/47.jpeg": {
+            "filename": "47.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft fighter-jet F-16, formation group",
+                    "extended": "palette blue gray, layout diagonal ascending, texture metallic reflective, lighting daylight harsh, background sky clear blue, contrail single"
+                }
+            }
+        },
+        "0/48.jpeg": {
+            "filename": "48.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military-jet fighter",
+                    "extended": "palette beige gray, layout diagonal converging, texture metallic smooth, lighting daylight clear, atmosphere clear blue, background sky gradient blue, contrails white"
+                }
+            }
+        },
+        "0/49.jpeg": {
+            "filename": "49.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft fighter-jet military",
+                    "extended": "palette beige gray, layout centered, texture metallic riveted, lighting daylight clear, background sky blue gradient, contrail white wispy"
+                }
+            }
+        },
+        "0/5.jpeg": {
+            "filename": "5.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "parachute rainbow-colored, person skydiver",
+                    "extended": "palette blue clear, layout centered, texture fabric nylon shiny, lighting daylight harsh, background sky cloudless, color vibrant multicolor"
+                }
+            }
+        },
+        "0/50.jpeg": {
+            "filename": "50.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military-jet fighter",
+                    "extended": "palette blue gray, layout diagonal converging, texture metallic reflective, lighting daylight harsh, atmosphere clear, background sky blue gradient, trail smoke white contrail"
+                }
+            }
+        },
+        "0/51.jpeg": {
+            "filename": "51.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military-jet trainer",
+                    "extended": "palette white red blue, layout side-by-side airborne, texture metallic smooth, lighting daylight clear, background sky blue hazy, runway grass green, atmosphere sunny"
+                }
+            }
+        },
+        "0/52.jpeg": {
+            "filename": "52.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military-jet fighter",
+                    "extended": "palette gray white red, layout centered side, lighting daylight clear, background sky blue uniform, trail contrail wispy"
+                }
+            }
+        },
+        "0/53.jpeg": {
+            "filename": "53.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft fighter-jet military",
+                    "extended": "palette gray white, layout profile dynamic, texture metallic smooth, lighting daylight harsh, background sky blue clear, contrail trail white"
+                }
+            }
+        },
+        "0/54.jpeg": {
+            "filename": "54.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military-jet fighter",
+                    "extended": "palette blue clear, layout diagonal converging, texture metallic reflective, lighting daylight harsh, background sky gradient blue, contrails white smoke"
+                }
+            }
+        },
+        "0/55.jpeg": {
+            "filename": "55.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military-jet fighter",
+                    "extended": "palette blue azure, layout diagonal converging, texture metallic reflective, lighting daylight clear, atmosphere clear sky, background sky blue gradient, contrails white vapor"
+                }
+            }
+        },
+        "0/56.jpeg": {
+            "filename": "56.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military-jet formation",
+                    "extended": "palette blue white, layout diagonal ascending, texture metallic reflective, lighting daylight harsh, atmosphere clear, background sky blue gradient, contrails white smoke"
+                }
+            }
+        },
+        "0/57.jpeg": {
+            "filename": "57.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft fighter-jet group",
+                    "extended": "palette blue clear, layout diagonal ascending, texture metallic reflective, lighting daylight harsh, background sky cloudless, trail smoke white contrail"
+                }
+            }
+        },
+        "0/58.jpeg": {
+            "filename": "58.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military-jet fighter, group",
+                    "extended": "palette gray orange, layout linear side, texture metallic smooth, lighting daylight soft, background runway concrete, angle low side"
+                }
+            }
+        },
+        "0/59.jpeg": {
+            "filename": "59.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft airplane single-engine",
+                    "extended": "palette white orange blue, layout centered frontal, texture metallic smooth, lighting daylight harsh, background blurred runway, angle low"
+                }
+            }
+        },
+        "0/6.jpeg": {
+            "filename": "6.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "parachute ram-air rectangular, jumper attached",
+                    "extended": "palette yellow black white, layout centered aerial, texture fabric ripstop nylon, lighting daylight clear, background sky blue uniform, contrast high color"
+                }
+            }
+        },
+        "0/60.jpeg": {
+            "filename": "60.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft fighter-jet, helmet red white",
+                    "extended": "palette red white blue, layout side low-angle, texture glossy metallic, lighting daylight harsh, background sky blue cloudy, contrast high color, angle low wide"
+                }
+            }
+        },
+        "0/61.jpeg": {
+            "filename": "61.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft fighter-jet group, vehicle military",
+                    "extended": "palette blue white, layout diagonal overhead, texture metallic reflective, lighting daylight harsh, atmosphere clear, background clouds cumulus, angle aerial low"
+                }
+            }
+        },
+        "0/62.jpeg": {
+            "filename": "62.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft seaplane group, water ocean calm",
+                    "extended": "palette blue white gray, layout scattered horizontal, texture reflective smooth, lighting daylight soft, atmosphere clear hazy, background sky cloudy distant, angle aerial low"
+                }
+            }
+        },
+        "0/63.jpeg": {
+            "filename": "63.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "jet ski, water sea",
+                    "extended": "palette blue green, layout aerial dynamic, lighting daylight harsh, atmosphere sunny clear, background mountain range distant, texture water rippled, speed blur motion"
+                }
+            }
+        },
+        "0/64.jpeg": {
+            "filename": "64.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military-jet fighter",
+                    "extended": "palette blue gray, layout diagonal converging, texture metallic reflective, lighting daylight harsh, atmosphere clear, background sky blue gradient, contrails white smoke"
+                }
+            }
+        },
+        "0/65.jpeg": {
+            "filename": "65.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military jets formation",
+                    "extended": "palette blue azure, layout diagonal crossing, texture metallic reflective, lighting daylight clear, atmosphere clear sky, background sky blue gradient, contrast high"
+                }
+            }
+        },
+        "0/66.jpeg": {
+            "filename": "66.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military-jet formation",
+                    "extended": "palette red white, layout diagonal staggered, texture metallic reflective, lighting daylight harsh, background sky blue clear, contrail single diagonal"
+                }
+            }
+        },
+        "0/67.jpeg": {
+            "filename": "67.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military jets formation",
+                    "extended": "palette blue gray, layout diagonal ascending, texture metallic reflective, lighting daylight harsh, background sky clear blue, contrast high"
+                }
+            }
+        },
+        "0/68.jpeg": {
+            "filename": "68.jpeg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military-jet formation",
+                    "extended": "palette red white, layout diagonal ascending, lighting daylight harsh, atmosphere clear blue, background sky dark, texture contrail wispy"
+                }
+            }
         }
     }
 }
