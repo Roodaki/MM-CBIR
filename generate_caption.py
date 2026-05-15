@@ -9,41 +9,48 @@ import shutil
 from pathlib import Path
 from queue import Queue, Empty
 from concurrent.futures import ThreadPoolExecutor, as_completed
+
+import yaml
 from groq import Groq
 
-# --- Configuration ---
+# ---------------------------------------------------------------------------
+# Load configuration
+# ---------------------------------------------------------------------------
 
-API_KEYS = [
-    "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",
-    "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",
-    "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",
-    "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",
-    "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",
-    "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",
-    "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",
-    "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",
-    "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",
-    "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",
-    "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",
-    "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",
-    "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",
-    "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",
-    "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",
-    "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",
-    "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",
-    "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",
-    "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",
-    "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",
-    "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",
-    "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",
-]
+CONFIG_FILE = "config.yaml"
 
-KEY_COOLDOWN_SECONDS = 60
-MODELS_LIST = ["meta-llama/llama-4-scout-17b-16e-instruct"]
+with open(CONFIG_FILE, "r", encoding="utf-8") as _f:
+    _cfg = yaml.safe_load(_f)
+
+# Paths
+DATASET_PATH = _cfg["paths"]["dataset"]
+PROMPT_MD = _cfg["paths"]["prompt_file"]
+OUTPUT_FILE = _cfg["paths"]["output_json"]
+
+# Models
+MODELS_LIST: list[str] = _cfg["models"]
+
+# API keys
+API_KEYS: list[str] = _cfg["api_keys"]
+
+# Rate limiting
+KEY_COOLDOWN_SECONDS = _cfg["rate_limiting"]["key_cooldown_seconds"]
+ACQUIRE_TIMEOUT = _cfg["rate_limiting"]["acquire_timeout_seconds"]
+ALL_COOLING_SLEEP = _cfg["rate_limiting"]["all_cooling_sleep_seconds"]
+POST_SUCCESS_SLEEP = _cfg["rate_limiting"]["post_success_sleep_seconds"]
+
+# Inference
+TEMPERATURE = _cfg["inference"]["temperature"]
+MAX_TOKENS = _cfg["inference"]["max_tokens"]
+
+# Images
+VALID_EXTENSIONS: tuple[str, ...] = tuple(
+    ext.lower() for ext in _cfg["images"]["valid_extensions"]
+)
 
 
 # ---------------------------------------------------------------------------
-# Fix 1: KeyPool — no _cooling counter; derive availability purely from Queue
+# KeyPool — thread-safe pool of Groq clients
 # ---------------------------------------------------------------------------
 
 
@@ -56,38 +63,28 @@ class KeyPool:
       release_after_cooldown() guarantees requeue even if the timer thread crashes.
     """
 
-    def __init__(self, api_keys: list, cooldown_seconds: int = 60):
+    def __init__(self, api_keys: list, cooldown_seconds: int = KEY_COOLDOWN_SECONDS):
         if not api_keys:
             raise ValueError("No API keys provided.")
         self.cooldown_seconds = cooldown_seconds
         self._total = len(api_keys)
         self._pool = Queue()
-        self._cooling_count = 0  # how many keys are in cooldown
-        self._lock = threading.Lock()  # protects _cooling_count only
+        self._cooling_count = 0
+        self._lock = threading.Lock()
 
         for key in api_keys:
             self._pool.put(Groq(api_key=key))
 
-    def acquire(self, timeout: float = 5.0):
-        """
-        Block up to `timeout` seconds for an available client.
-        Returns None on timeout (caller must retry or wait).
-        """
+    def acquire(self, timeout: float = ACQUIRE_TIMEOUT):
         try:
             return self._pool.get(timeout=timeout)
         except Empty:
             return None
 
     def release(self, client):
-        """Return a healthy client immediately — no counter to touch."""
         self._pool.put(client)
 
     def release_after_cooldown(self, client, cooldown: float = None):
-        """
-        Mark key as cooling and requeue it after cooldown.
-        The timer thread always requeues — even if it itself raises.
-        Pass `cooldown` to override the default (e.g. from a retry-after header).
-        """
         wait = cooldown if cooldown is not None else self.cooldown_seconds
         with self._lock:
             self._cooling_count += 1
@@ -96,7 +93,6 @@ class KeyPool:
             try:
                 time.sleep(wait)
             finally:
-                # guaranteed to run even if sleep is interrupted
                 with self._lock:
                     self._cooling_count -= 1
                 self._pool.put(client)
@@ -105,14 +101,12 @@ class KeyPool:
         t.start()
 
     def all_cooling(self) -> bool:
-        """True when every key is in cooldown (queue is empty and will stay so)."""
         with self._lock:
             return self._cooling_count >= self._total
 
 
 # ---------------------------------------------------------------------------
-# Fix 4: Atomic JSON writes via temp-file + rename
-# Fix 3: Single in-memory cache so workers don't hit disk on every check
+# JSONManager — atomic, thread-safe JSON persistence
 # ---------------------------------------------------------------------------
 
 
@@ -128,7 +122,6 @@ class JSONManager:
     def __init__(self, output_path: str):
         self.path = output_path
         self._lock = threading.Lock()
-        # Load once into memory; all subsequent reads use the cache
         with open(output_path, "r", encoding="utf-8") as f:
             self._data = json.load(f)
 
@@ -137,7 +130,6 @@ class JSONManager:
             return is_image_fully_processed(self._data["images"].get(rel_path, {}))
 
     def needs_model(self, rel_path: str, model_id: str) -> bool:
-        """Check under lock whether a specific model caption is missing."""
         with self._lock:
             caption = (
                 self._data["images"]
@@ -155,14 +147,7 @@ class JSONManager:
         model_id: str,
         caption: dict,
     ):
-        """
-        Under lock:
-          1. Double-check the caption isn't already set (race-condition guard).
-          2. Update the in-memory cache.
-          3. Atomically flush to disk (temp file + os.replace).
-        """
         with self._lock:
-            # Double-check inside the lock
             existing = (
                 self._data["images"]
                 .get(rel_path, {})
@@ -181,28 +166,20 @@ class JSONManager:
                 }
             images[rel_path]["captions"][model_id] = caption
 
-            # Atomic write: dump to a sibling temp file, then rename.
-            # On Windows, antivirus/Explorer can briefly lock the target file
-            # right after a write, causing os.replace() to raise WinError 5
-            # (Access Denied). We retry a few times with backoff before giving up.
             dir_ = os.path.dirname(os.path.abspath(self.path))
             fd, tmp_path = tempfile.mkstemp(dir=dir_, suffix=".tmp")
             try:
-                # Write and explicitly close the fd before attempting replace
                 with os.fdopen(fd, "w", encoding="utf-8") as f:
                     json.dump(self._data, f, indent=4)
-                # fd is now closed; retry os.replace() on transient Windows locks
                 for attempt in range(6):
                     try:
                         os.replace(tmp_path, self.path)
-                        break  # success
+                        break
                     except PermissionError:
                         if attempt == 5:
-                            raise  # give up after 6 attempts (~3s total)
-                        time.sleep(0.5 * (attempt + 1))  # 0.5s, 1s, 1.5s …
+                            raise
+                        time.sleep(0.5 * (attempt + 1))
             except Exception:
-                # Cache is already updated; only the disk write failed.
-                # Clean up the orphaned temp file so it doesn't litter the dir.
                 try:
                     os.unlink(tmp_path)
                 except OSError:
@@ -232,6 +209,8 @@ def parse_caption_content(raw_text: str) -> dict:
     except json.JSONDecodeError:
         pass
 
+    # Fallback regex — logs a warning so malformed outputs can be audited
+    print(f"   ! [PARSE WARNING] JSON decode failed; falling back to regex.")
     primary_match = re.search(
         r"primary[:\s]+(.*?)(?=extended:|$)", clean_text, re.IGNORECASE | re.DOTALL
     )
@@ -267,7 +246,7 @@ def initialize_json(output_path: str, dataset_path: str, prompt_text: str):
 
 
 # ---------------------------------------------------------------------------
-# Fix 2 + 6: Worker — key never lost; failed images tracked and reported
+# Worker
 # ---------------------------------------------------------------------------
 
 
@@ -291,7 +270,6 @@ def process_image(
     filename = os.path.basename(img_path)
     class_label = os.path.basename(os.path.dirname(img_path))
 
-    # Early exit if already fully processed
     if json_mgr.is_done(rel_path):
         _tick(progress, progress_lock, rel_path, "skipped")
         return rel_path, "skipped"
@@ -306,33 +284,24 @@ def process_image(
     overall_status = "ok"
 
     for model_id in MODELS_LIST:
-        # Skip models already done (resume-safe per model)
         if not json_mgr.needs_model(rel_path, model_id):
             continue
 
         model_success = False
 
         while not model_success:
-            # --- Acquire a key (never blocks forever) ---
             client = None
             while client is None:
-                client = key_pool.acquire(timeout=5.0)
+                client = key_pool.acquire(timeout=ACQUIRE_TIMEOUT)
                 if client is None:
-                    # acquire() timed out — check if all keys are cooling
                     if key_pool.all_cooling():
                         print(f"   ~ All keys cooling. Worker waiting... ({rel_path})")
-                        time.sleep(2.0)
-                    # else: a key is in the queue but another thread grabbed it first;
-                    # just retry acquire immediately
+                        time.sleep(ALL_COOLING_SLEEP)
 
-            # --- Make the API call ---
-            # client is now exclusively held by this thread
             try:
                 completion = client.chat.completions.create(
                     model=model_id,
                     messages=[
-                        # Change 5: system prompt in its own role so the model
-                        # treats it as instructions, not user content.
                         {"role": "system", "content": system_prompt},
                         {
                             "role": "user",
@@ -346,27 +315,19 @@ def process_image(
                             ],
                         },
                     ],
-                    temperature=0.1,
-                    # Change 4: prompt.md caps output at 10+40=50 tags (~60-80
-                    # tokens). 150 is a safe ceiling that avoids burning TPM budget.
-                    max_tokens=150,
+                    temperature=TEMPERATURE,
+                    max_tokens=MAX_TOKENS,
                 )
 
                 caption = parse_caption_content(completion.choices[0].message.content)
-                # Write first, THEN release key (so another thread can't grab
-                # the same image and also try to write)
                 json_mgr.write_caption(
                     rel_path, filename, class_label, model_id, caption
                 )
-                key_pool.release(client)  # healthy — back to pool immediately
+                key_pool.release(client)
                 model_success = True
-                time.sleep(0.2)
+                time.sleep(POST_SUCCESS_SLEEP)
 
             except PermissionError as e:
-                # Windows file-lock on os.replace() — even after retries.
-                # The API call succeeded and caption is already in the in-memory
-                # cache. Release the key and retry the loop; needs_model() will
-                # short-circuit if the cache write did go through.
                 print(f"   ! [WRITE ERROR] {rel_path}: {e} — retrying...")
                 key_pool.release(client)
                 time.sleep(1.0)
@@ -374,8 +335,6 @@ def process_image(
             except Exception as e:
                 error_msg = str(e).lower()
                 if "429" in error_msg or "rate_limit" in error_msg:
-                    # Change 3: honour the retry-after header when present so we
-                    # wait exactly as long as the server asks, not a blind 60s.
                     retry_after = None
                     resp = getattr(e, "response", None)
                     if resp is not None:
@@ -393,7 +352,6 @@ def process_image(
                     )
                     key_pool.release_after_cooldown(client, cooldown=retry_after)
                 else:
-                    # Non-rate-limit API error: return key, mark image as failed
                     print(f"   ! [API ERROR] {rel_path} / {model_id}: {e}")
                     key_pool.release(client)
                     overall_status = "api_error"
@@ -404,9 +362,8 @@ def process_image(
 
 
 def _tick(progress: dict, lock: threading.Lock, rel_path: str, status: str):
-    """Update and print progress counter."""
     with lock:
-        if status != "skipped":  # Fix 5: skipped images counted separately
+        if status != "skipped":
             progress["done"] += 1
         done = progress["done"]
         total = progress["total"]
@@ -432,7 +389,6 @@ def process_dataset(dataset_root: str, prompt_file: str, output_json: str):
     with open(prompt_file, "r", encoding="utf-8") as f:
         system_prompt = f.read().strip()
 
-    # Initialize or sync JSON file
     if not os.path.exists(output_json):
         print(f"No existing output found. Starting fresh: '{output_json}'")
         initialize_json(output_json, dataset_root, system_prompt)
@@ -440,21 +396,22 @@ def process_dataset(dataset_root: str, prompt_file: str, output_json: str):
         print(f"Loaded existing output: '{output_json}'")
         with open(output_json, "r", encoding="utf-8") as f:
             data = json.load(f)
+        # Atomic sync of models list to existing file
+        tmp_dir = os.path.dirname(os.path.abspath(output_json))
         data.setdefault("metadata", {})["models_evaluated"] = MODELS_LIST
-        with open(output_json, "w", encoding="utf-8") as f:
+        fd, tmp_path = tempfile.mkstemp(dir=tmp_dir, suffix=".tmp")
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=4)
+        os.replace(tmp_path, output_json)
 
     json_mgr = JSONManager(output_json)
 
-    # Collect all images
-    valid_extensions = (".jpg", ".jpeg", ".png", ".webp")
     all_image_paths = []
     for root, _, files in os.walk(dataset_root):
         for file in files:
-            if file.lower().endswith(valid_extensions):
+            if file.lower().endswith(VALID_EXTENSIONS):
                 all_image_paths.append(os.path.join(root, file))
 
-    # Build pending list — once, upfront, no duplicates
     pending_paths = []
     skipped = 0
     seen = set()
@@ -484,7 +441,6 @@ def process_dataset(dataset_root: str, prompt_file: str, output_json: str):
     n_workers = len(API_KEYS)
     print(f"Starting parallel processing with {n_workers} workers...\n")
 
-    # Fix 6: collect failed images and report summary at the end
     failed = []
 
     with ThreadPoolExecutor(max_workers=n_workers) as executor:
@@ -523,8 +479,4 @@ def process_dataset(dataset_root: str, prompt_file: str, output_json: str):
 
 
 if __name__ == "__main__":
-    DATASET_PATH = r"C:\Users\Digi Max\Desktop\AmirHossein\University\Shiraz University\Research\Projects\1. Content-Based Image Retrieval (CBIR)\Dataset\Corel-10K"
-    PROMPT_MD = "prompt.md"
-    OUTPUT_FILE = "dataset_captions.json"
-
     process_dataset(DATASET_PATH, PROMPT_MD, OUTPUT_FILE)
