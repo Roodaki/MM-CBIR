@@ -68664,6 +68664,176 @@
           "extended": "palette orange yellow, layout hazy misty, lighting backlit silhouette, atmosphere foggy sunrise, background trees silhouetted, texture ground rough"
         }
       }
+    },
+    "70/7087.jpeg": {
+      "filename": "7087.jpeg",
+      "class_label": "70",
+      "captions": {
+        "meta-llama/llama-4-scout-17b-16e-instruct": {
+          "primary": "statue liberty, island rocky",
+          "extended": "palette orange red yellow, layout centered horizon, lighting silhouette backlit, atmosphere sunset clear, background water wavy, texture rocky rugged, contrast high"
+        }
+      }
+    },
+    "70/7071.jpeg": {
+      "filename": "7071.jpeg",
+      "class_label": "70",
+      "captions": {
+        "meta-llama/llama-4-scout-17b-16e-instruct": {
+          "primary": "scene sunset",
+          "extended": "palette orange yellow, layout centered, lighting warm soft, atmosphere cloudy hazy, background gradient dark"
+        }
+      }
+    },
+    "70/7079.jpeg": {
+      "filename": "7079.jpeg",
+      "class_label": "70",
+      "captions": {
+        "meta-llama/llama-4-scout-17b-16e-instruct": {
+          "primary": "plant cactus saguaro, desert landscape",
+          "extended": "palette orange yellow red, layout centered, lighting silhouette dark, atmosphere hazy sunset, background gradient blurred, texture spiny thorny"
+        }
+      }
+    },
+    "70/7085.jpeg": {
+      "filename": "7085.jpeg",
+      "class_label": "70",
+      "captions": {
+        "meta-llama/llama-4-scout-17b-16e-instruct": {
+          "primary": "sunset over water, silhouette",
+          "extended": "palette orange red yellow, layout centered horizon, lighting silhouette dark, atmosphere diffuse hazy, background gradient smooth, reflection rippled water"
+        }
+      }
+    },
+    "70/7078.jpeg": {
+      "filename": "7078.jpeg",
+      "class_label": "70",
+      "captions": {
+        "meta-llama/llama-4-scout-17b-16e-instruct": {
+          "primary": "bird silhouette profile",
+          "extended": "palette orange red yellow, layout centered, lighting silhouette dark, background sunset gradient blur, atmosphere warm"
+        }
+      }
+    },
+    "70/7031.jpeg": {
+      "filename": "7031.jpeg",
+      "class_label": "70",
+      "captions": {
+        "meta-llama/llama-4-scout-17b-16e-instruct": {
+          "primary": "tree leafless dead, water flooded",
+          "extended": "palette orange yellow, layout centered, lighting sunset warm, atmosphere hazy, texture water rippled, background silhouette distant, angle low"
+        }
+      }
+    },
+    "70/7076.jpeg": {
+      "filename": "7076.jpeg",
+      "class_label": "70",
+      "captions": {
+        "meta-llama/llama-4-scout-17b-16e-instruct": {
+          "primary": "sunset sun setting",
+          "extended": "palette orange red, layout centered, lighting diffuse soft, atmosphere warm serene, background water dark, texture rippled reflective"
+        }
+      }
+    },
+    "70/7084.jpeg": {
+      "filename": "7084.jpeg",
+      "class_label": "70",
+      "captions": {
+        "meta-llama/llama-4-scout-17b-16e-instruct": {
+          "primary": "waterfowl goose group, sunset",
+          "extended": "palette orange red yellow, layout centered horizon, lighting backlit silhouette, atmosphere warm serene, background gradient blur, texture water rippled"
+        }
+      }
+    },
+    "70/7080.jpeg": {
+      "filename": "7080.jpeg",
+      "class_label": "70",
+      "captions": {
+        "meta-llama/llama-4-scout-17b-16e-instruct": {
+          "primary": "sunset",
+          "extended": "palette orange yellow red, layout centered horizon, lighting natural sunset, atmosphere cloudy, background silhouette tree, texture blurry"
+        }
+      }
+    },
+    "70/7077.jpeg": {
+      "filename": "7077.jpeg",
+      "class_label": "70",
+      "captions": {
+        "meta-llama/llama-4-scout-17b-16e-instruct": {
+          "primary": "animal bighorn sheep silhouette",
+          "extended": "palette orange yellow green, layout centered overhead, lighting silhouette dark, atmosphere gradient colorful, background sunset gradient blur, texture rough rocky"
+        }
+      }
+    },
+    "70/7073.jpeg": {
+      "filename": "7073.jpeg",
+      "class_label": "70",
+      "captions": {
+        "meta-llama/llama-4-scout-17b-16e-instruct": {
+          "primary": "sunset solar flare",
+          "extended": "palette orange yellow red, layout centered, lighting solar flare intense, atmosphere cloudy hazy, texture cloudy wispy, background gradient darkening"
+        }
+      }
+    },
+    "70/7086.jpeg": {
+      "filename": "7086.jpeg",
+      "class_label": "70",
+      "captions": {
+        "meta-llama/llama-4-scout-17b-16e-instruct": {
+          "primary": "landscape sunset, palm tree single",
+          "extended": "palette orange red yellow, layout horizon centered, lighting sunset warm, atmosphere cloudy wispy, background sky gradient, texture foliage dense green, contrast high color"
+        }
+      }
+    },
+    "70/7050.jpeg": {
+      "filename": "7050.jpeg",
+      "class_label": "70",
+      "captions": {
+        "meta-llama/llama-4-scout-17b-16e-instruct": {
+          "primary": "landscape mountain, body water, shoreline",
+          "extended": "palette orange yellow, layout horizon centered, lighting sunset diffuse, atmosphere cloudy hazy, texture water reflective, background mountain silhouetted, contrast high dynamic range"
+        }
+      }
+    },
+    "70/7074.jpeg": {
+      "filename": "7074.jpeg",
+      "class_label": "70",
+      "captions": {
+        "meta-llama/llama-4-scout-17b-16e-instruct": {
+          "primary": "windmill farm silhouetted",
+          "extended": "palette yellow gold, layout centered, lighting backlit bright, silhouette dark, atmosphere hazy, background gradient blurred, texture metallic"
+        }
+      }
+    },
+    "70/7075.jpeg": {
+      "filename": "7075.jpeg",
+      "class_label": "70",
+      "captions": {
+        "meta-llama/llama-4-scout-17b-16e-instruct": {
+          "primary": "balloon hot-air",
+          "extended": "palette orange red yellow, layout centered, texture fabric woven, lighting backlit silhouette, atmosphere cloudy stormy, background sky sunset"
+        }
+      }
+    },
+    "70/7068.jpeg": {
+      "filename": "7068.jpeg",
+      "class_label": "70",
+      "captions": {
+        "meta-llama/llama-4-scout-17b-16e-instruct": {
+          "primary": "sunset sky cloudy",
+          "extended": "palette orange red yellow, layout centered overhead, lighting diffuse warm, atmosphere cloudy hazy, background gradient dark"
+        }
+      }
+    },
+    "70/7067.jpeg": {
+      "filename": "7067.jpeg",
+      "class_label": "70",
+      "captions": {
+        "meta-llama/llama-4-scout-17b-16e-instruct": {
+          "primary": "sunset sun",
+          "extended": "palette orange yellow, layout centered, lighting harsh, atmosphere hazy, background gradient dark"
+        }
+      }
     }
   }
 }

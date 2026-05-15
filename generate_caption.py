@@ -25,7 +25,11 @@ with open(CONFIG_FILE, "r", encoding="utf-8") as _f:
 # Paths
 DATASET_PATH = _cfg["paths"]["dataset"]
 PROMPT_MD = _cfg["paths"]["prompt_file"]
-OUTPUT_FILE = _cfg["paths"]["output_json"]
+OUTPUT_DIR = _cfg["paths"]["output_dir"]
+
+# Derive output file path: <output_dir>/<dataset_name>_captions.json
+_dataset_name = Path(DATASET_PATH).name
+OUTPUT_FILE = os.path.join(OUTPUT_DIR, f"{_dataset_name}_captions.json")
 
 # Models
 MODELS_LIST: list[str] = _cfg["models"]
@@ -388,6 +392,8 @@ def process_dataset(dataset_root: str, prompt_file: str, output_json: str):
 
     with open(prompt_file, "r", encoding="utf-8") as f:
         system_prompt = f.read().strip()
+
+    os.makedirs(os.path.dirname(os.path.abspath(output_json)), exist_ok=True)
 
     if not os.path.exists(output_json):
         print(f"No existing output found. Starting fresh: '{output_json}'")
