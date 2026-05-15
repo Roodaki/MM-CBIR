@@ -80,17 +80,19 @@ class KeyPool:
         """Return a healthy client immediately — no counter to touch."""
         self._pool.put(client)
 
-    def release_after_cooldown(self, client):
+    def release_after_cooldown(self, client, cooldown: float = None):
         """
         Mark key as cooling and requeue it after cooldown.
         The timer thread always requeues — even if it itself raises.
+        Pass `cooldown` to override the default (e.g. from a retry-after header).
         """
+        wait = cooldown if cooldown is not None else self.cooldown_seconds
         with self._lock:
             self._cooling_count += 1
 
         def _requeue():
             try:
-                time.sleep(self.cooldown_seconds)
+                time.sleep(wait)
             finally:
                 # guaranteed to run even if sleep is interrupted
                 with self._lock:
@@ -327,10 +329,12 @@ def process_image(
                 completion = client.chat.completions.create(
                     model=model_id,
                     messages=[
+                        # Change 5: system prompt in its own role so the model
+                        # treats it as instructions, not user content.
+                        {"role": "system", "content": system_prompt},
                         {
                             "role": "user",
                             "content": [
-                                {"type": "text", "text": system_prompt},
                                 {
                                     "type": "image_url",
                                     "image_url": {
@@ -338,9 +342,12 @@ def process_image(
                                     },
                                 },
                             ],
-                        }
+                        },
                     ],
                     temperature=0.1,
+                    # Change 4: prompt.md caps output at 10+40=50 tags (~60-80
+                    # tokens). 150 is a safe ceiling that avoids burning TPM budget.
+                    max_tokens=150,
                 )
 
                 caption = parse_caption_content(completion.choices[0].message.content)
@@ -365,8 +372,24 @@ def process_image(
             except Exception as e:
                 error_msg = str(e).lower()
                 if "429" in error_msg or "rate_limit" in error_msg:
-                    print(f"   ! Rate limit. Rotating key for {rel_path}...")
-                    key_pool.release_after_cooldown(client)
+                    # Change 3: honour the retry-after header when present so we
+                    # wait exactly as long as the server asks, not a blind 60s.
+                    retry_after = None
+                    resp = getattr(e, "response", None)
+                    if resp is not None:
+                        try:
+                            retry_after = (
+                                float(resp.headers.get("retry-after", 0)) or None
+                            )
+                        except (AttributeError, ValueError):
+                            pass
+                    wait_msg = (
+                        f"{retry_after:.0f}s" if retry_after else "default cooldown"
+                    )
+                    print(
+                        f"   ! Rate limit ({wait_msg}). Rotating key for {rel_path}..."
+                    )
+                    key_pool.release_after_cooldown(client, cooldown=retry_after)
                 else:
                     # Non-rate-limit API error: return key, mark image as failed
                     print(f"   ! [API ERROR] {rel_path} / {model_id}: {e}")
