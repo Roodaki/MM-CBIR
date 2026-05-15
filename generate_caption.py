@@ -34,6 +34,8 @@ API_KEYS = [
     "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",
     "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",
     "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",
+    "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",
+    "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",
 ]
 
 KEY_COOLDOWN_SECONDS = 60
