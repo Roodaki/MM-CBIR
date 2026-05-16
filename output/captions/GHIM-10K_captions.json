@@ -766,6 +766,226 @@
                     "extended": "palette multicolor vibrant, layout scattered expansive, lighting emission bright, atmosphere nighttime dark, background silhouette urban, smoke haze visible, effect burst radiant"
                 }
             }
+        },
+        "0/0_179.jpg": {
+            "filename": "0_179.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display nighttime",
+                    "extended": "palette multicolor vibrant, layout scattered random, lighting explosion bright, atmosphere smoke haze, background cityscape dark, reflection water shimmering"
+                }
+            }
+        },
+        "0/0_173.jpg": {
+            "filename": "0_173.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display nighttime, cityscape skyline",
+                    "extended": "palette gold white blue, layout sprawling horizontal, lighting fireworks burst vibrant, atmosphere nighttime dark, background cityscape silhouette, angle wide aerial, contrast high color"
+                }
+            }
+        },
+        "0/0_164.jpg": {
+            "filename": "0_164.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cityscape Hong Kong skyline, waterfront Victoria Harbour",
+                    "extended": "palette red gold, layout scattered bursts, lighting fireworks explosive, atmosphere nighttime dark, background cityscape illuminated, reflection water shimmering, angle wide aerial"
+                }
+            }
+        },
+        "0/0_186.jpg": {
+            "filename": "0_186.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display aerial",
+                    "extended": "palette pink orange white, layout scattered overhead, lighting fireworks bright bursting, atmosphere night dark, background water body reflective, effect sparkling shimmering"
+                }
+            }
+        },
+        "0/0_176.jpg": {
+            "filename": "0_176.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display nighttime",
+                    "extended": "palette gold orange blue, layout scattered overhead, lighting fireworks bright, atmosphere hazy smoke, background cityscape dark, angle wide aerial"
+                }
+            }
+        },
+        "0/0_188.jpg": {
+            "filename": "0_188.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display aerial",
+                    "extended": "palette red pink white, layout scattered horizontal, lighting explosion bright, atmosphere night dark, background water body reflective, effect burst radial"
+                }
+            }
+        },
+        "0/0_177.jpg": {
+            "filename": "0_177.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display nighttime",
+                    "extended": "palette orange gold crimson, layout scattered expansive, texture burst explosive, lighting illumination vibrant, atmosphere smoke haze, background cityscape dark, reflection water shimmering"
+                }
+            }
+        },
+        "0/0_178.jpg": {
+            "filename": "0_178.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display nighttime",
+                    "extended": "palette gold red orange, layout scattered random, lighting explosion bright, atmosphere hazy smoke, background cityscape dark blurred, reflection water shimmering"
+                }
+            }
+        },
+        "0/0_137.jpg": {
+            "filename": "0_137.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display aerial",
+                    "extended": "palette multicolor vibrant, layout sprawling expansive, lighting nighttime bright, atmosphere hazy smoke, background cityscape dark, water reflective calm"
+                }
+            }
+        },
+        "0/0_175.jpg": {
+            "filename": "0_175.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display nighttime",
+                    "extended": "palette vibrant multicolor, layout sprawling expansive, lighting fireworks bright bursting, atmosphere dark nighttime, background cityscape illuminated, reflection water dark shimmering, contrast high vivid"
+                }
+            }
+        },
+        "0/0_174.jpg": {
+            "filename": "0_174.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display nighttime",
+                    "extended": "palette gold white, layout scattered expansive, lighting fireworks bright bursting, atmosphere smoke haze, background cityscape dark, angle wide aerial, contrast high color"
+                }
+            }
+        },
+        "0/0_182.jpg": {
+            "filename": "0_182.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display nighttime",
+                    "extended": "palette gold white, layout scattered overhead, lighting fireworks bright, atmosphere dark night, background city skyline lit, contrast high color, display aerial bursts"
+                }
+            }
+        },
+        "0/0_18.jpg": {
+            "filename": "0_18.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display aerial",
+                    "extended": "palette red orange yellow, layout scattered overhead, lighting explosion bright, atmosphere night dark, background water body dark, reflection light shimmering, boat illuminated blue"
+                }
+            }
+        },
+        "0/0_183.jpg": {
+            "filename": "0_183.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display nighttime",
+                    "extended": "palette orange red yellow white, layout scattered bursts, lighting explosion bright, atmosphere smoke haze, background cityscape dark, reflection water shimmering"
+                }
+            }
+        },
+        "0/0_169.jpg": {
+            "filename": "0_169.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display night, cityscape Hong Kong",
+                    "extended": "palette vibrant multicolor, layout sprawling waterfront, lighting fireworks explosive bright, atmosphere smoky cloudy, background city skyline illuminated, angle wide aerial, contrast high color"
+                }
+            }
+        },
+        "0/0_187.jpg": {
+            "filename": "0_187.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display, night sky, water",
+                    "extended": "palette red orange, layout horizontal centered, lighting nighttime fireworks, atmosphere dark clear, background water reflective, effect sparkling bursts, color vibrant warm"
+                }
+            }
+        },
+        "0/0_147.jpg": {
+            "filename": "0_147.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display aerial",
+                    "extended": "palette red orange yellow white, layout scattered aerial, lighting nighttime burst, atmosphere dark vibrant, background water body reflective, effect sparkling explosion"
+                }
+            }
+        },
+        "0/0_185.jpg": {
+            "filename": "0_185.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display aerial",
+                    "extended": "palette red green white, layout centered overhead, lighting explosion radiant, atmosphere night dark, background water dark reflective, bridge lit illuminated, contrast high color, effect burst radial"
+                }
+            }
+        },
+        "0/0_171.jpg": {
+            "filename": "0_171.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display, city skyline, waterfront",
+                    "extended": "palette red orange, layout sprawling horizontal, lighting fireworks bright bursting, atmosphere smoke haze, background cityscape dark, reflection water shimmering, angle wide aerial"
+                }
+            }
+        },
+        "0/0_191.jpg": {
+            "filename": "0_191.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display aerial",
+                    "extended": "palette pink purple blue, layout scattered burst, lighting explosion bright, atmosphere night dark, background water body reflective, effect ripple shimmer"
+                }
+            }
+        },
+        "0/0_193.jpg": {
+            "filename": "0_193.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display aerial",
+                    "extended": "palette multicolor red green gold, layout scattered horizontal, lighting nighttime burst, atmosphere dark clear, background water reflective, effect shimmering colorful"
+                }
+            }
+        },
+        "0/0_195.jpg": {
+            "filename": "0_195.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display aerial",
+                    "extended": "palette red white, layout scattered overhead, lighting explosion bright, atmosphere smoke haze, background water dark reflective, contrast high color, effect burst sparkling"
+                }
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ import math
 import random
 import torch
 import torch.nn as nn
+from torch.cuda.amp import GradScaler, autocast
 from torch.utils.data import Dataset, DataLoader, Subset
 from torch.optim import AdamW
 from torch.optim.lr_scheduler import OneCycleLR
@@ -42,15 +43,30 @@ class MultimodalCBIRDataset(Dataset):
         self.class_labels = []
         truncated_count = 0
 
+        print("[INFO] Pre-tokenising captions...")
         for rel_path, meta in raw["images"].items():
             caps = meta["captions"][self.model_key]
             text = f"{caps['primary']}, {caps['extended']}"
+
+            encoded = processor.tokenizer(
+                text,
+                padding="max_length",
+                truncation=True,
+                max_length=self.MAX_TOKENS,
+                return_tensors="pt",
+            )
 
             token_ids = processor.tokenizer.encode(text)
             if len(token_ids) > self.MAX_TOKENS:
                 truncated_count += 1
 
-            self.items.append({"rel_path": rel_path, "text": text})
+            self.items.append(
+                {
+                    "rel_path": rel_path,
+                    "input_ids": encoded["input_ids"].squeeze(0),
+                    "attention_mask": encoded["attention_mask"].squeeze(0),
+                }
+            )
             self.class_labels.append(meta["class_label"])
 
         if truncated_count:
@@ -58,6 +74,7 @@ class MultimodalCBIRDataset(Dataset):
                 f"[WARNING] {truncated_count}/{len(self.items)} captions exceed "
                 f"{self.MAX_TOKENS} tokens and will be truncated."
             )
+        print(f"[INFO] Pre-tokenisation complete. {len(self.items)} items cached.")
 
     def __len__(self):
         return len(self.items)
@@ -74,18 +91,15 @@ class MultimodalCBIRDataset(Dataset):
                 "Check that the file exists and is a valid image."
             ) from exc
 
-        inputs = self.processor(
-            text=[item["text"]],
+        pixel_values = self.processor.image_processor(
             images=image,
             return_tensors="pt",
-            padding="max_length",
-            truncation=True,
-            max_length=self.MAX_TOKENS,
-        )
+        )["pixel_values"].squeeze(0)
+
         return {
-            "pixel_values": inputs["pixel_values"].squeeze(0),
-            "input_ids": inputs["input_ids"].squeeze(0),
-            "attention_mask": inputs["attention_mask"].squeeze(0),
+            "pixel_values": pixel_values,
+            "input_ids": item["input_ids"],
+            "attention_mask": item["attention_mask"],
         }
 
 
@@ -183,7 +197,19 @@ def train(args):
     model, processor = build_lora_model(args.model_id)
     model.to(device)
 
+    if args.compile:
+        if hasattr(torch, "compile"):
+            print("[INFO] Compiling model with torch.compile...")
+            model = torch.compile(model)
+        else:
+            print(
+                "[WARNING] --compile requested but torch.compile is not available (requires PyTorch >= 2.0). Skipping."
+            )
+
     logit_scale = resolve_logit_scale(model)
+
+    use_amp = device == "cuda"
+    scaler = GradScaler(enabled=use_amp)
 
     full_dataset = MultimodalCBIRDataset(args.json_path, args.img_dir, processor)
     train_ds, val_ds = stratified_split(full_dataset, args.val_split, seed=42)
@@ -195,7 +221,7 @@ def train(args):
             "Reduce --val-split or use a larger dataset."
         )
 
-    default_workers = 0 if os.name == "nt" else 4
+    default_workers = 0 if os.name == "nt" else 8
     num_workers = args.num_workers if args.num_workers is not None else default_workers
     persistent = num_workers > 0
     pin = device == "cuda"
@@ -256,6 +282,9 @@ def train(args):
         optimizer.load_state_dict(state["optimizer_state_dict"])
         scheduler.load_state_dict(state["scheduler_state_dict"])
 
+        if "scaler" in state:
+            scaler.load_state_dict(state["scaler"])
+
         if "logit_scale" in state:
             with torch.no_grad():
                 logit_scale.copy_(torch.tensor(state["logit_scale"], device=device))
@@ -297,23 +326,26 @@ def train(args):
             input_ids = batch["input_ids"].to(device)
             attention_mask = batch["attention_mask"].to(device)
 
-            outputs = model(
-                pixel_values=pixel_values,
-                input_ids=input_ids,
-                attention_mask=attention_mask,
-            )
+            with autocast(enabled=use_amp):
+                outputs = model(
+                    pixel_values=pixel_values,
+                    input_ids=input_ids,
+                    attention_mask=attention_mask,
+                )
 
-            img_emb = outputs.image_embeds / outputs.image_embeds.norm(
-                dim=-1, keepdim=True
-            )
-            text_emb = outputs.text_embeds / outputs.text_embeds.norm(
-                dim=-1, keepdim=True
-            )
+                img_emb = outputs.image_embeds / outputs.image_embeds.norm(
+                    dim=-1, keepdim=True
+                )
+                text_emb = outputs.text_embeds / outputs.text_embeds.norm(
+                    dim=-1, keepdim=True
+                )
+                loss = symmetric_infonce_loss(img_emb, text_emb, logit_scale)
 
-            loss = symmetric_infonce_loss(img_emb, text_emb, logit_scale)
-            loss.backward()
+            scaler.scale(loss).backward()
+            scaler.unscale_(optimizer)
             torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
-            optimizer.step()
+            scaler.step(optimizer)
+            scaler.update()
             scheduler.step()
 
             total_train_loss += loss.item()
@@ -331,20 +363,21 @@ def train(args):
                 input_ids = batch["input_ids"].to(device)
                 attention_mask = batch["attention_mask"].to(device)
 
-                outputs = model(
-                    pixel_values=pixel_values,
-                    input_ids=input_ids,
-                    attention_mask=attention_mask,
-                )
+                with autocast(enabled=use_amp):
+                    outputs = model(
+                        pixel_values=pixel_values,
+                        input_ids=input_ids,
+                        attention_mask=attention_mask,
+                    )
 
-                img_emb = outputs.image_embeds / outputs.image_embeds.norm(
-                    dim=-1, keepdim=True
-                )
-                text_emb = outputs.text_embeds / outputs.text_embeds.norm(
-                    dim=-1, keepdim=True
-                )
+                    img_emb = outputs.image_embeds / outputs.image_embeds.norm(
+                        dim=-1, keepdim=True
+                    )
+                    text_emb = outputs.text_embeds / outputs.text_embeds.norm(
+                        dim=-1, keepdim=True
+                    )
+                    loss = symmetric_infonce_loss(img_emb, text_emb, logit_scale)
 
-                loss = symmetric_infonce_loss(img_emb, text_emb, logit_scale)
                 total_val_loss += loss.item()
 
         avg_val = total_val_loss / len(val_loader)
@@ -377,6 +410,7 @@ def train(args):
                 "steps_per_epoch": steps_per_epoch,
                 "optimizer_state_dict": optimizer.state_dict(),
                 "scheduler_state_dict": scheduler.state_dict(),
+                "scaler": scaler.state_dict(),
                 "logit_scale": logit_scale.item(),
             },
             trainer_state_file,
@@ -406,11 +440,15 @@ def parse_args():
     )
     p.add_argument("--model-id", default="openai/clip-vit-base-patch32")
     p.add_argument(
-        "--json-path", default=os.path.join("output", "Corel-10K_captions.json")
+        "--json-path",
+        default=os.path.join("output/captions", "Corel-10K_captions.json"),
     )
     p.add_argument("--img-dir", default=os.path.join("data", "Corel-10K"))
-    p.add_argument("--output-dir", default="./clip-lora-cbir")
-    p.add_argument("--batch-size", type=int, default=64)
+    p.add_argument(
+        "--output-dir",
+        default=f"./output/models/{p.parse_args().model_id.replace('/', '_')}",
+    )
+    p.add_argument("--batch-size", type=int, default=128)
     p.add_argument("--epochs", type=int, default=50)
     p.add_argument("--lr", type=float, default=5e-5)
     p.add_argument("--val-split", type=float, default=0.1)
@@ -418,6 +456,12 @@ def parse_args():
     p.add_argument("--min-delta", type=float, default=0.001)
     p.add_argument("--resume", action="store_true")
     p.add_argument("--num-workers", type=int, default=None)
+    p.add_argument(
+        "--compile",
+        action="store_true",
+        help="Compile the model with torch.compile (PyTorch >= 2.0). "
+        "First epoch will be slow while tracing; subsequent epochs are faster.",
+    )
     return p.parse_args()
 
 
