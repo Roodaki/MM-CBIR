@@ -6,7 +6,7 @@
 # Paths
 # -----------------------------------------------------------------------------
 paths:
-  dataset: "C:/Users/Digi Max/Desktop/AmirHossein/University/Shiraz University/Research/Projects/1. Content-Based Image Retrieval (CBIR)/Dataset/Corel-10K"
+  dataset: "C:/Users/Digi Max/Desktop/AmirHossein/University/Shiraz University/Research/Projects/1. Content-Based Image Retrieval (CBIR)/Dataset/GHIM-10K"
   prompt_file: "prompt.md"
   output_dir: "output" # output file is saved here as <dataset_name>_captions.json
 
