@@ -264,6 +264,8 @@ def train(args):
     start_epoch = 0
     latest_dir = os.path.join(args.output_dir, "latest")
     trainer_state_file = os.path.join(latest_dir, "trainer_state.pt")
+    training_log_file = os.path.join(args.output_dir, "training_log.json")
+    training_log: list[dict] = []
 
     if (
         args.resume
@@ -304,6 +306,13 @@ def train(args):
                 f"--epochs changed since the last checkpoint: "
                 f"saved total_epochs={saved_epochs}, current --epochs={args.epochs}. "
                 "Restore --epochs to its original value or delete the checkpoint."
+            )
+
+        if os.path.exists(training_log_file):
+            with open(training_log_file, "r") as f:
+                training_log = json.load(f)
+            print(
+                f"[INFO] Loaded {len(training_log)} existing log entries from '{training_log_file}'."
             )
 
         print(
@@ -398,6 +407,20 @@ def train(args):
         else:
             patience_counter += 1
 
+        training_log.append(
+            {
+                "epoch": epoch + 1,
+                "train_loss": round(avg_train, 6),
+                "val_loss": round(avg_val, 6),
+                "lr": round(current_lr, 8),
+                "logit_scale": round(logit_scale.exp().item(), 4),
+                "best_val_loss": round(best_val_loss, 6),
+                "improved": improved,
+            }
+        )
+        with open(training_log_file, "w") as f:
+            json.dump(training_log, f, indent=2)
+
         os.makedirs(latest_dir, exist_ok=True)
         model.save_pretrained(latest_dir)
         processor.save_pretrained(latest_dir)
@@ -432,6 +455,7 @@ def train(args):
 
     print(f"\nTraining complete. Best val loss: {best_val_loss:.4f}")
     print(f"Best model weights saved in: {args.output_dir}")
+    print(f"Training log saved to: {training_log_file}")
 
 
 def parse_args():
