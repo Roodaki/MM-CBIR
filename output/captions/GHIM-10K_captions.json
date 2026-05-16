@@ -4886,6 +4886,286 @@
                     "extended": "palette red orange yellow, layout sprawling overhead, lighting explosion bright, atmosphere smoke haze, background water reflective, contrast high color, texture burst radial"
                 }
             }
+        },
+        "0/0_83.jpg": {
+            "filename": "0_83.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display aerial",
+                    "extended": "palette red orange green white, layout burst radial, lighting emission bright, atmosphere night dark, background cityscape lights distant, effect smoke haze"
+                }
+            }
+        },
+        "0/0_89.jpg": {
+            "filename": "0_89.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display night",
+                    "extended": "palette red white, layout centered overhead, lighting fireworks bright, atmosphere dark cloudy, background cityscape silhouette, contrast high color"
+                }
+            }
+        },
+        "0/0_86.jpg": {
+            "filename": "0_86.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display nighttime urban",
+                    "extended": "palette vibrant multicolor, layout sprawling horizontal, lighting fireworks bright bursting, atmosphere nighttime dark, background buildings orange brick residential, contrast high color, texture smooth glowing, scene celebratory festive"
+                }
+            }
+        },
+        "0/0_99.jpg": {
+            "filename": "0_99.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display aerial",
+                    "extended": "palette red blue purple, layout clustered overhead, lighting emission bright, atmosphere night dark, background sky black, contrast high color"
+                }
+            }
+        },
+        "0/0_87.jpg": {
+            "filename": "0_87.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display nighttime",
+                    "extended": "palette white silver, layout centered overhead, lighting fireworks bright bursting, atmosphere dark night, background buildings urban lit, contrast high color, texture sparkling trails"
+                }
+            }
+        },
+        "0/0_94.jpg": {
+            "filename": "0_94.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display aerial",
+                    "extended": "palette multicolor vibrant, layout scattered expansive, lighting nighttime dark, atmosphere celebratory festive, background silhouette urban, contrast high color"
+                }
+            }
+        },
+        "1/1_510.jpg": {
+            "filename": "1_510.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Cologne Gothic",
+                    "extended": "palette gray dark, layout symmetrical facade, texture stone rough-hewn, surface weathered aged, lighting overcast diffuse, atmosphere somber, background sky white featureless, contrast high"
+                }
+            }
+        },
+        "1/1_502.jpg": {
+            "filename": "1_502.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral church Gothic",
+                    "extended": "palette grey brown, layout symmetrical frontal, texture stone rough, surface weathered aged, lighting daylight clear, atmosphere urban daytime, background buildings modern, contrast medium, people crowd small"
+                }
+            }
+        },
+        "0/0_98.jpg": {
+            "filename": "0_98.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display aerial",
+                    "extended": "palette red white, layout scattered overhead, lighting explosion bright, atmosphere night dark, background silhouette palm-trees, crowd group people"
+                }
+            }
+        },
+        "1/1_511.jpg": {
+            "filename": "1_511.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "hotel Fairmont Banff Springs, mountain landscape",
+                    "extended": "palette earthy brown, layout sprawling patio, texture stone brick, surface weathered rustic, lighting daylight soft natural, atmosphere misty cloudy, background mountain range foggy, angle wide expansive"
+                }
+            }
+        },
+        "1/1_517.jpg": {
+            "filename": "1_517.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "US Capitol building, statue bronze",
+                    "extended": "palette blue clear, layout centered frontal, texture stone marble, surface weathered worn, lighting daylight sunny, atmosphere clear wispy, background sky blue, contrast high"
+                }
+            }
+        },
+        "1/1_514.jpg": {
+            "filename": "1_514.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral church gothic",
+                    "extended": "palette blue white, layout centered, texture stone brown, lighting daylight diffuse natural, background clouds wispy, angle low"
+                }
+            }
+        },
+        "1/1_513.jpg": {
+            "filename": "1_513.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral York Minster Gothic",
+                    "extended": "palette beige gray, layout symmetrical vertical, texture stone carved ornate, surface weathered aged, lighting daylight soft, atmosphere cloudy blue, background sky white wispy, contrast medium"
+                }
+            }
+        },
+        "1/1_516.jpg": {
+            "filename": "1_516.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "monument Ulysses S Grant statue equestrian, statue Abraham Lincoln",
+                    "extended": "palette blue clear, layout centered frontal, texture stone marble weathered, surface patina green, lighting daylight sunny, atmosphere clear wispy, background building Capitol white columns, angle low wide, contrast medium"
+                }
+            }
+        },
+        "1/1_1000.jpg": {
+            "filename": "1_1000.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "castle Eltz, tower tall",
+                    "extended": "palette earthy brown, layout asymmetrical multi-tiered, texture stone brick, surface weathered rough, lighting daylight soft natural, atmosphere hazy distant, background landscape rolling hills, foliage dense green, angle elevated panoramic"
+                }
+            }
+        },
+        "1/1_515.jpg": {
+            "filename": "1_515.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building capitol white neoclassical",
+                    "extended": "palette blue clear, layout centered frontal, texture stone smooth, lighting daylight sunny, atmosphere clear wispy, background sky blue gradient, contrails white diagonal"
+                }
+            }
+        },
+        "1/1_519.jpg": {
+            "filename": "1_519.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building Victorian mansion, architecture Richardsonian Romanesque",
+                    "extended": "palette red brown, layout corner turrets, texture brick stone, surface weathered worn, lighting daylight overcast soft, background urban cityscape, angle low wide, contrast medium color"
+                }
+            }
+        },
+        "1/1_512.jpg": {
+            "filename": "1_512.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Gothic Burgos facade",
+                    "extended": "palette beige brown, layout symmetrical frontal, texture stone carved ornate, surface weathered aged, lighting daylight soft, atmosphere clear blue, background sky blue cloudy, contrast medium"
+                }
+            }
+        },
+        "0/0_492.jpg": {
+            "filename": "0_492.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "tower Macau Tower, fireworks display",
+                    "extended": "palette red orange yellow, layout centered overhead, lighting nighttime colorful, atmosphere festive celebratory, background cityscape illuminated, angle wide aerial, contrast high color, texture metallic reflective"
+                }
+            }
+        },
+        "1/1_501.jpg": {
+            "filename": "1_501.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral church Gothic",
+                    "extended": "palette gray brown, layout symmetrical frontal, texture stone rough, lighting daylight clear, background cityscape urban, crowd group people, angle low wide, contrast medium"
+                }
+            }
+        },
+        "1/1_518.jpg": {
+            "filename": "1_518.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "US Capitol Building, statue Abraham Lincoln",
+                    "extended": "palette blue white, layout centered, texture stone marble, lighting daylight clear, background sky blue wispy clouds, angle wide"
+                }
+            }
+        },
+        "0/0_93.jpg": {
+            "filename": "0_93.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display nighttime",
+                    "extended": "palette magenta white, layout scattered overhead, lighting explosion bright, atmosphere smoke haze, background cityscape dark, contrast high color"
+                }
+            }
+        },
+        "1/1_505.jpg": {
+            "filename": "1_505.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Gothic Revival architecture",
+                    "extended": "palette grey brown, layout symmetrical facade, texture stone brick, surface rough weathered, lighting daylight soft, atmosphere clear blue, background sky wispy clouds, angle low-angle shot"
+                }
+            }
+        },
+        "1/1_503.jpg": {
+            "filename": "1_503.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral church Gothic Revival stone",
+                    "extended": "palette gray stone, layout symmetrical facade, texture rough-hewn stone, surface weathered aged, lighting daylight clear blue, atmosphere urban daytime, background cityscape buildings, angle low-angle shot, contrast medium"
+                }
+            }
+        },
+        "0/0_96.jpg": {
+            "filename": "0_96.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display nighttime",
+                    "extended": "palette magenta green gold, layout scattered overhead, lighting explosion bright, atmosphere dark clear, background building silhouette urban, contrast high color"
+                }
+            }
+        },
+        "0/0_9.jpg": {
+            "filename": "0_9.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display",
+                    "extended": "palette orange red yellow green, layout bilateral symmetrical, lighting explosion bright, atmosphere night dark, background cityscape blurred, contrast high color"
+                }
+            }
+        },
+        "1/1_522.jpg": {
+            "filename": "1_522.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "government building palace",
+                    "extended": "palette beige gray, layout symmetrical balanced, texture stone rough, surface weathered aged, lighting daylight clear, atmosphere sunny calm, background blue sky cloudless, angle wide low"
+                }
+            }
+        },
+        "1/1_520.jpg": {
+            "filename": "1_520.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "clock tower Big Ben, building Parliament",
+                    "extended": "palette beige brown, layout symmetrical balanced, texture stone rough-hewn, surface weathered aged, lighting daylight sunny, atmosphere clear blue, background fence metal, angle low wide, contrast medium"
+                }
+            }
         }
     }
 }
