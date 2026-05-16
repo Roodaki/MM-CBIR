@@ -15066,6 +15066,726 @@
                     "extended": "palette green olive, layout side profile dynamic, texture matte camouflage, lighting daylight soft natural, background landscape rural rolling hills, contrast medium color, rotors spinning fast"
                 }
             }
+        },
+        "10/10_5497.jpg": {
+            "filename": "10_5497.jpg",
+            "class_label": "10",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft fighter-jet pair",
+                    "extended": "palette gray blue, layout diagonal ascending, texture metallic smooth, lighting daylight harsh, background clouds white puffy, atmosphere clear"
+                }
+            }
+        },
+        "11/11_5523.jpg": {
+            "filename": "11_5523.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "butterfly pair black, wing white spots",
+                    "extended": "palette orange red yellow, layout centered close-up, texture floral delicate, lighting daylight soft natural, background blur green bokeh, contrast medium color"
+                }
+            }
+        },
+        "10/10_5498.jpg": {
+            "filename": "10_5498.jpg",
+            "class_label": "10",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft F-35A Lightning II, fighter jet",
+                    "extended": "palette grey, layout angled overhead, texture matte camouflage, surface specular metallic, lighting daylight clear, atmosphere blue gradient, background sky gradient, contrast high"
+                }
+            }
+        },
+        "10/10_5467.jpg": {
+            "filename": "10_5467.jpg",
+            "class_label": "10",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military-jet fighter-jet",
+                    "extended": "palette gray dark, layout formation flying, texture metallic riveted, surface specular glossy, lighting daylight clear, atmosphere blue cloudy, background sky gradient, angle side low"
+                }
+            }
+        },
+        "11/11_5526.jpg": {
+            "filename": "11_5526.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly Junonia coenia",
+                    "extended": "palette blue black brown orange, layout centered close-up, texture fibrous dry, lighting daylight soft natural, background blurry pine needles, contrast medium color"
+                }
+            }
+        },
+        "11/11_5514.jpg": {
+            "filename": "11_5514.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly painted-lady",
+                    "extended": "palette orange brown black, layout centered close-up, texture wings spotted smooth, lighting daylight soft natural, background blur green yellow, antennae long thin, flower pink petals drooping"
+                }
+            }
+        },
+        "10/10_5500.jpg": {
+            "filename": "10_5500.jpg",
+            "class_label": "10",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft fighter-jet F-16, camouflage grey",
+                    "extended": "palette grey blue, layout centered aerial, texture metallic glossy, lighting daylight specular, background clouds stratocumulus white, atmosphere clear"
+                }
+            }
+        },
+        "11/11_5534.jpg": {
+            "filename": "11_5534.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly eastern tiger swallowtail, flower pink honeysuckle",
+                    "extended": "palette yellow black red, layout side-view close-up, texture wings smooth glossy, lighting daylight soft natural, background blur green, antennae pair long thin"
+                }
+            }
+        },
+        "11/11_5517.jpg": {
+            "filename": "11_5517.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly black swallowtail",
+                    "extended": "palette black orange white, layout centered close-up, texture wings smooth, lighting daylight natural soft, background blur green foliage, contrast high color"
+                }
+            }
+        },
+        "11/11_5527.jpg": {
+            "filename": "11_5527.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly",
+                    "extended": "palette brown black blue orange white, texture fibrous dry, layout centered close-up, lighting daylight natural soft, background foliage blurred, pattern spotted eyespots"
+                }
+            }
+        },
+        "11/11_5525.jpg": {
+            "filename": "11_5525.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "butterfly black swallowtail, flower orange trumpet-shaped",
+                    "extended": "palette black orange white, layout close-up overhead, texture glossy smooth, lighting daylight soft natural, background blur green leafy, contrast medium color"
+                }
+            }
+        },
+        "11/11_5516.jpg": {
+            "filename": "11_5516.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly painted-lady, flower zinnia pink",
+                    "extended": "palette pink yellow brown black, layout centered close-up, texture petal soft smooth, lighting backlit dramatic, background black solid, contrast high color"
+                }
+            }
+        },
+        "11/11_5535.jpg": {
+            "filename": "11_5535.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly",
+                    "extended": "palette brown white gray, layout profile left, texture wing smooth, lighting daylight diffuse natural, background foliage green blurred, antennae long thin"
+                }
+            }
+        },
+        "11/11_5510.jpg": {
+            "filename": "11_5510.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly, flower zinnia yellow",
+                    "extended": "palette orange black white, layout centered close-up, texture fibrous petals soft, lighting daylight diffuse natural, background bokeh blurred green, contrast medium color"
+                }
+            }
+        },
+        "11/11_5532.jpg": {
+            "filename": "11_5532.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly african-queen, flower milkweed",
+                    "extended": "palette orange yellow red, layout centered close-up, texture glossy waxy, lighting daylight soft natural, background bokeh blurred green, contrast medium color"
+                }
+            }
+        },
+        "11/11_5533.jpg": {
+            "filename": "11_5533.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly",
+                    "extended": "palette orange brown black white, layout profile close-up, texture wings spotted smooth, lighting daylight soft natural, background blur green bokeh, antennae long thin"
+                }
+            }
+        },
+        "11/11_5506.jpg": {
+            "filename": "11_5506.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "butterfly julia, flower marigold",
+                    "extended": "palette orange black, layout centered left, texture fibrous smooth, lighting daylight diffuse natural, background solid black, contrast high color"
+                }
+            }
+        },
+        "11/11_5507.jpg": {
+            "filename": "11_5507.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly painted-lady",
+                    "extended": "palette orange brown black white, layout centered close-up, texture wings smooth scales, lighting daylight soft natural, background blur bokeh green yellow, contrast medium color"
+                }
+            }
+        },
+        "11/11_5530.jpg": {
+            "filename": "11_5530.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly, flower orange marigold",
+                    "extended": "palette orange white brown black, layout centered close-up, texture petal soft delicate, lighting daylight natural soft, background blur bokeh, angle low profile"
+                }
+            }
+        },
+        "11/11_5518.jpg": {
+            "filename": "11_5518.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly black, flower marigold orange-yellow",
+                    "extended": "palette orange yellow green, layout centered close-up, texture petal soft delicate, lighting daylight natural soft, background blur green foliage, contrast medium color"
+                }
+            }
+        },
+        "11/11_5531.jpg": {
+            "filename": "11_5531.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "butterfly, flower bird-of-paradise",
+                    "extended": "palette orange black white, layout centered close-up, texture glossy waxy, lighting daylight diffuse natural, highlight specular soft, background bokeh green blurred, contrast high color"
+                }
+            }
+        },
+        "11/11_5528.jpg": {
+            "filename": "11_5528.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly spotted",
+                    "extended": "palette orange black white, layout centered, texture wings smooth, lighting daylight diffuse natural, background bokeh green, flowers yellow orange"
+                }
+            }
+        },
+        "11/11_5519.jpg": {
+            "filename": "11_5519.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly black, flower orange ixora",
+                    "extended": "palette orange red yellow, layout centered overhead, texture floral delicate, lighting daylight diffuse natural, highlight specular soft, background plain white, contrast high color"
+                }
+            }
+        },
+        "11/11_5546.jpg": {
+            "filename": "11_5546.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly monarch",
+                    "extended": "palette yellow orange black white, layout centered, texture fibrous leafy, lighting daylight diffuse natural, background bokeh green blurred, contrast medium color"
+                }
+            }
+        },
+        "11/11_5529.jpg": {
+            "filename": "11_5529.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "butterfly black spotted, flower orange marigold",
+                    "extended": "palette orange black white, layout centered, texture petal soft, lighting daylight natural, background blurry gray, contrast high color, leaf green"
+                }
+            }
+        },
+        "10/10_5485.jpg": {
+            "filename": "10_5485.jpg",
+            "class_label": "10",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "aircraft military fighter-jets F-16",
+                    "extended": "palette gray metallic, layout linear formation, texture smooth aerodynamic, surface specular reflective, lighting overcast diffuse natural, background runway concrete, angle low profile"
+                }
+            }
+        },
+        "11/11_5548.jpg": {
+            "filename": "11_5548.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly monarch",
+                    "extended": "palette yellow green black white, layout centered close-up, texture fibrous leafy smooth, lighting daylight diffuse natural, highlight specular soft, background bokeh green blurred, contrast medium color"
+                }
+            }
+        },
+        "11/11_5522.jpg": {
+            "filename": "11_5522.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "butterfly eastern black swallowtail, flower Poinciana",
+                    "extended": "palette black white red orange yellow green, layout centered close-up, texture fibrous smooth glossy, lighting daylight natural soft, background bokeh blurred foliage, contrast high color"
+                }
+            }
+        },
+        "11/11_5521.jpg": {
+            "filename": "11_5521.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "butterfly green blue, flower orange",
+                    "extended": "palette green bright, palette orange vibrant, layout centered close-up, texture delicate petals, lighting daylight soft natural, background blur bokeh green, contrast high color"
+                }
+            }
+        },
+        "11/11_5556.jpg": {
+            "filename": "11_5556.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly orange-striped",
+                    "extended": "palette orange black, layout profile close-up, texture wings smooth glossy, lighting daylight soft natural, background blur green foliage, contrast high color"
+                }
+            }
+        },
+        "11/11_5538.jpg": {
+            "filename": "11_5538.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly black-spotted, insect fly small blue",
+                    "extended": "palette green bright, layout centered overhead, texture leafy serrated, lighting daylight diffuse natural, background foliage blurred, contrast medium color"
+                }
+            }
+        },
+        "11/11_5547.jpg": {
+            "filename": "11_5547.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "butterfly monarch black, flower dandelion yellow",
+                    "extended": "palette yellow green black, layout centered close-up, texture glossy wet, lighting daylight diffuse natural, background foliage dense blurred, contrast medium color"
+                }
+            }
+        },
+        "11/11_5539.jpg": {
+            "filename": "11_5539.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly brown",
+                    "extended": "palette brown orange, layout profile side, texture wing veined, lighting daylight natural soft, background blur green bokeh, surface rough stone"
+                }
+            }
+        },
+        "11/11_5549.jpg": {
+            "filename": "11_5549.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly orange-black",
+                    "extended": "palette orange black white, layout dynamic motion, texture wing membrane smooth, lighting daylight natural soft, background bokeh green blur, contrast high color"
+                }
+            }
+        },
+        "11/11_5553.jpg": {
+            "filename": "11_5553.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly",
+                    "extended": "palette orange black, layout centered overhead, texture fibrous leaf, surface specular glossy, lighting daylight diffuse natural, highlight specular soft, background blur green foliage, antennae pair long thin"
+                }
+            }
+        },
+        "11/11_5558.jpg": {
+            "filename": "11_5558.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly Aglais vanilla orange",
+                    "extended": "palette orange black white, layout centered close-up, texture wings veined delicate, lighting daylight soft natural, background blur green bokeh, contrast medium color"
+                }
+            }
+        },
+        "11/11_5555.jpg": {
+            "filename": "11_5555.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly orange black",
+                    "extended": "palette orange black, layout centered close-up, texture wing membrane thin, lighting daylight soft natural, background blur green foliage, antennae pair long thin"
+                }
+            }
+        },
+        "11/11_5545.jpg": {
+            "filename": "11_5545.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "butterfly yellow wings, flower pink orange",
+                    "extended": "palette yellow orange pink, layout centered, texture petal soft, lighting daylight diffuse natural, background blur dark, contrast high color"
+                }
+            }
+        },
+        "11/11_5520.jpg": {
+            "filename": "11_5520.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "butterfly black, flower coral",
+                    "extended": "palette black white, palette coral yellow, layout centered close-up, texture matte soft, lighting daylight natural, background blur green foliage, contrast high color"
+                }
+            }
+        },
+        "11/11_5552.jpg": {
+            "filename": "11_5552.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly orange black",
+                    "extended": "palette orange black, texture wings veined, lighting daylight natural, background leaf green blurred, antennae long thin"
+                }
+            }
+        },
+        "11/11_5537.jpg": {
+            "filename": "11_5537.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly brown",
+                    "extended": "palette brown orange white, layout centered close-up, texture wings patterned smooth, lighting daylight soft natural, background foliage green blurred, flowers small white purple"
+                }
+            }
+        },
+        "11/11_5557.jpg": {
+            "filename": "11_5557.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly glasswinged fritillary",
+                    "extended": "palette orange black, layout centered frontal, texture fibrous wing membrane, lighting daylight diffuse natural, background bokeh green blurred, antennae pair long thin, wings pair wide open"
+                }
+            }
+        },
+        "11/11_5543.jpg": {
+            "filename": "11_5543.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "flower daisy white, insect butterfly black-yellow, insect bee brown",
+                    "extended": "palette white yellow green, layout centered close-up, texture petal soft smooth, lighting daylight natural soft, background blur green bokeh, contrast medium color, pattern wing striped transparent"
+                }
+            }
+        },
+        "11/11_5550.jpg": {
+            "filename": "11_5550.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly brown",
+                    "extended": "palette brown yellow, layout profile view, texture wing patterned, lighting daylight natural, background blur green foliage, antennae long thin"
+                }
+            }
+        },
+        "11/11_5541.jpg": {
+            "filename": "11_5541.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly black, wing gray transparent",
+                    "extended": "palette black red white, layout centered close-up, texture wing striped transparent, lighting daylight diffuse natural, background bokeh blurred green, contrast high color, text 'M'"
+                }
+            }
+        },
+        "11/11_5567.jpg": {
+            "filename": "11_5567.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "butterfly black, flower thistle purple",
+                    "extended": "palette black blue orange, layout centered left, texture fibrous green prickly, lighting daylight diffuse natural, background blur green foliage, contrast high color"
+                }
+            }
+        },
+        "11/11_5540.jpg": {
+            "filename": "11_5540.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly orange spotted",
+                    "extended": "palette orange brown black, layout centered, texture wings smooth, lighting daylight natural, background ground rocky, spots black numerous, antennae long thin"
+                }
+            }
+        },
+        "11/11_5524.jpg": {
+            "filename": "11_5524.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "butterfly black swallowtail, flower coral honeysuckle",
+                    "extended": "palette black yellow red, layout centered overhead, texture fibrous smooth, lighting daylight diffuse natural, background blur green leafy, contrast high color, antennae long thin"
+                }
+            }
+        },
+        "11/11_5570.jpg": {
+            "filename": "11_5570.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly, flower purple aster",
+                    "extended": "palette orange brown black, layout close-up macro, texture fibrous soft, lighting daylight natural, background bokeh green blurred, antennae long thin"
+                }
+            }
+        },
+        "11/11_5542.jpg": {
+            "filename": "11_5542.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "flower daisy white, insect fly black, butterfly wings black-yellow",
+                    "extended": "palette white yellow black, layout centered overhead, texture petal soft smooth, lighting daylight diffuse natural, background blur green leafy, contrast high color, wings transparent veined, insect compound eyes"
+                }
+            }
+        },
+        "11/11_5560.jpg": {
+            "filename": "11_5560.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "butterfly painted-lady, flower lantana",
+                    "extended": "palette orange black white, layout centered close-up, texture matte soft, lighting daylight natural, background blur green foliage, contrast medium color"
+                }
+            }
+        },
+        "11/11_5578.jpg": {
+            "filename": "11_5578.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly spotted",
+                    "extended": "palette orange black, layout centered close-up, texture wings smooth spotted, lighting daylight soft natural, background blur green purple flowers, angle low macro"
+                }
+            }
+        },
+        "11/11_5562.jpg": {
+            "filename": "11_5562.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "butterfly black swallowtail, flower thistle purple",
+                    "extended": "palette black orange purple green, layout centered close-up, texture wing smooth, flower spiny thistle, lighting daylight natural soft, background blur green bokeh, contrast medium color"
+                }
+            }
+        },
+        "11/11_5561.jpg": {
+            "filename": "11_5561.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly Aglais vanillae, plant leaf green",
+                    "extended": "palette orange black white, layout centered overhead, texture matte waxy, lighting daylight diffuse natural, background bokeh green out-of-focus, contrast medium color"
+                }
+            }
+        },
+        "11/11_5544.jpg": {
+            "filename": "11_5544.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect bee butterfly, flower daisy",
+                    "extended": "palette white yellow black, layout centered close-up, texture petal soft flower, lighting daylight natural outdoor, background blur green foliage, contrast high color, wings striped transparent, insect pair"
+                }
+            }
+        },
+        "11/11_5569.jpg": {
+            "filename": "11_5569.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "butterfly painted-lady, flower purple aster",
+                    "extended": "palette orange brown black white, layout centered close-up, texture fibrous soft, lighting daylight natural soft, background bokeh green blurry, contrast medium color"
+                }
+            }
+        },
+        "11/11_5571.jpg": {
+            "filename": "11_5571.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "butterfly spotted orange",
+                    "extended": "palette orange black white, layout centered close-up, texture wings smooth spotted, lighting daylight soft natural, background blur green foliage, flowers purple small clustered"
+                }
+            }
+        },
+        "11/11_5565.jpg": {
+            "filename": "11_5565.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "butterfly black swallowtail, flower thistle",
+                    "extended": "palette green blurred, layout centered close-up, texture wing smooth shiny, color iridescent blue orange, lighting daylight soft natural, background blurry out-of-focus, angle low side"
+                }
+            }
+        },
+        "11/11_5572.jpg": {
+            "filename": "11_5572.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly spotted orange",
+                    "extended": "palette orange black, layout centered overhead, texture wings smooth, lighting daylight diffuse natural, background bokeh green blur, contrast high color, flowers purple clustered"
+                }
+            }
+        },
+        "11/11_5587.jpg": {
+            "filename": "11_5587.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly, flower thistle",
+                    "extended": "palette orange black purple, layout centered close-up, texture fuzzy spiky, lighting daylight soft natural, background blur green foliage, contrast medium color"
+                }
+            }
+        },
+        "11/11_5559.jpg": {
+            "filename": "11_5559.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly painted-lady",
+                    "extended": "palette orange brown black white, layout profile close-up, texture wings veined delicate, lighting daylight soft natural, background blurred brown, flowers yellow pink clustered"
+                }
+            }
+        },
+        "11/11_5551.jpg": {
+            "filename": "11_5551.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly brown",
+                    "extended": "palette brown yellow, texture wing patterned, lighting daylight natural, background leaf green blurred, antennae long thin"
+                }
+            }
+        },
+        "11/11_5574.jpg": {
+            "filename": "11_5574.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly spotted",
+                    "extended": "palette orange black blue, layout centered close-up, texture wing membrane smooth, lighting daylight diffuse natural, background foliage green blurred, flowers small purple out-of-focus, contrast high color"
+                }
+            }
+        },
+        "11/11_5536.jpg": {
+            "filename": "11_5536.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly black-yellow",
+                    "extended": "palette black yellow white, texture wings smooth, lighting daylight natural, background foliage green blurred, layout centered close-up, angle side low"
+                }
+            }
+        },
+        "11/11_5573.jpg": {
+            "filename": "11_5573.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly spotted",
+                    "extended": "palette orange black, layout centered, texture wing membrane smooth, lighting daylight natural, background bokeh green blur, flowers purple small"
+                }
+            }
+        },
+        "11/11_5579.jpg": {
+            "filename": "11_5579.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly, flower aster",
+                    "extended": "palette purple yellow, layout centered close-up, texture petal soft delicate, lighting daylight soft natural, background blur bokeh, angle low macro"
+                }
+            }
+        },
+        "11/11_5590.jpg": {
+            "filename": "11_5590.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly, species Euptoieta claudia",
+                    "extended": "palette orange black, layout profile left, texture wings smooth, lighting daylight diffuse natural, highlight specular soft, background foliage green blurred, contrast high color"
+                }
+            }
+        },
+        "11/11_5554.jpg": {
+            "filename": "11_5554.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect wasp ichneumon orange",
+                    "extended": "palette orange black, layout profile view, texture shiny exoskeleton, lighting daylight natural, background bokeh green leafy, antennae long thin"
+                }
+            }
+        },
+        "11/11_5575.jpg": {
+            "filename": "11_5575.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly spotted orange",
+                    "extended": "palette orange black, layout centered, texture wings translucent, lighting daylight natural, background foliage green blurred, spots black rounded, edge scalloped wavy"
+                }
+            }
+        },
+        "11/11_5564.jpg": {
+            "filename": "11_5564.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly swallowtail black",
+                    "extended": "palette purple green, layout centered close-up, texture fuzzy thorny, lighting daylight soft natural, background blur bokeh, color high contrast, pattern wing orange blue"
+                }
+            }
+        },
+        "11/11_5566.jpg": {
+            "filename": "11_5566.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "butterfly black, wings gray transparent",
+                    "extended": "palette purple green, layout centered close-up, texture fuzzy thistle, lighting daylight soft natural, background blur green bokeh, antennae long thin, wings blur motion"
+                }
+            }
+        },
+        "11/11_5583.jpg": {
+            "filename": "11_5583.jpg",
+            "class_label": "11",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect butterfly, flower daisy purple",
+                    "extended": "palette brown black orange white, layout centered close-up, texture wings smooth, lighting daylight natural soft, background blur green brown, contrast medium"
+                }
+            }
         }
     }
 }
