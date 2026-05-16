@@ -6,7 +6,8 @@ import math
 import random
 import torch
 import torch.nn as nn
-from torch.cuda.amp import GradScaler, autocast
+import torch.nn.functional as F
+from torch.amp import GradScaler, autocast
 from torch.utils.data import Dataset, DataLoader, Subset
 from torch.optim import AdamW
 from torch.optim.lr_scheduler import OneCycleLR
@@ -19,6 +20,10 @@ from peft import (
     set_peft_model_state_dict,
 )
 from tqdm import tqdm
+
+# ---------------------------------------------------------------------------
+# Dataset
+# ---------------------------------------------------------------------------
 
 
 class MultimodalCBIRDataset(Dataset):
@@ -39,8 +44,18 @@ class MultimodalCBIRDataset(Dataset):
             )
         self.model_key = models[0]
 
+        # Build a stable class→int mapping so label integers are consistent
+        # across runs (sorted alphabetically).
+        all_class_labels = sorted(
+            {meta["class_label"] for meta in raw["images"].values()}
+        )
+        self.class_to_int: dict[str, int] = {
+            cls: i for i, cls in enumerate(all_class_labels)
+        }
+
         self.items = []
-        self.class_labels = []
+        self.class_labels: list[str] = []  # string labels (for stratified split)
+        self.class_ints: list[int] = []  # integer labels (fed into UniCL loss)
         truncated_count = 0
 
         print("[INFO] Pre-tokenising captions...")
@@ -67,14 +82,20 @@ class MultimodalCBIRDataset(Dataset):
                     "attention_mask": encoded["attention_mask"].squeeze(0),
                 }
             )
-            self.class_labels.append(meta["class_label"])
+            cls_str = meta["class_label"]
+            self.class_labels.append(cls_str)
+            self.class_ints.append(self.class_to_int[cls_str])
 
         if truncated_count:
             print(
                 f"[WARNING] {truncated_count}/{len(self.items)} captions exceed "
                 f"{self.MAX_TOKENS} tokens and will be truncated."
             )
-        print(f"[INFO] Pre-tokenisation complete. {len(self.items)} items cached.")
+        n_classes = len(self.class_to_int)
+        print(
+            f"[INFO] Pre-tokenisation complete. {len(self.items)} items, "
+            f"{n_classes} classes cached."
+        )
 
     def __len__(self):
         return len(self.items)
@@ -100,7 +121,14 @@ class MultimodalCBIRDataset(Dataset):
             "pixel_values": pixel_values,
             "input_ids": item["input_ids"],
             "attention_mask": item["attention_mask"],
+            # ← NEW: integer class label for UniCL loss
+            "label": torch.tensor(self.class_ints[idx], dtype=torch.long),
         }
+
+
+# ---------------------------------------------------------------------------
+# Stratified split
+# ---------------------------------------------------------------------------
 
 
 def stratified_split(
@@ -130,17 +158,77 @@ def stratified_split(
     return Subset(dataset, train_indices), Subset(dataset, val_indices)
 
 
-def symmetric_infonce_loss(
-    image_embeds: torch.Tensor,
-    text_embeds: torch.Tensor,
-    logit_scale: torch.Tensor,
+# ---------------------------------------------------------------------------
+# UniCL loss  (Yang et al., CVPR 2022 — Algorithm 1)
+#
+# Implements bidirectional contrastive loss in image-text-label space.
+# Unlike plain InfoNCE (CLIP), same-class samples within a batch are treated
+# as POSITIVE pairs, not negatives. This directly satisfies all three goals:
+#   1. Same-class images → positive (via shared text alignment)
+#   2. Same-class texts  → positive (via shared image alignment)
+#   3. Matched image-text pairs → positive (the standard CLIP objective)
+#
+# When every item in the batch has a unique label (i.e. no same-class pairs),
+# the loss reduces exactly to symmetric InfoNCE / CLIP loss.
+# ---------------------------------------------------------------------------
+
+
+def _soft_cross_entropy(
+    logits: torch.Tensor, soft_targets: torch.Tensor
 ) -> torch.Tensor:
-    scale = torch.clamp(logit_scale.exp(), max=100.0)
+    """
+    Soft-target cross-entropy following the SoftCE function in Algorithm 1.
+
+    logits       : (B, B)  raw similarity scores (already scaled by temperature)
+    soft_targets : (B, B)  non-negative matrix; rows need not sum to 1 yet
+                            (we normalise here, matching the paper's
+                            loss/target.sum(dim=-1) formulation)
+    """
+    log_probs = F.log_softmax(logits, dim=-1)  # (B, B)
+    # Normalise each row of the target so it sums to 1.
+    # Rows with no positives (shouldn't happen) are guarded with clamp.
+    target_norm = soft_targets / soft_targets.sum(dim=-1, keepdim=True).clamp(min=1e-8)
+    loss = -(target_norm * log_probs).sum(dim=-1)  # (B,)
+    return loss.mean()
+
+
+def unicl_loss(
+    image_embeds: torch.Tensor,  # (B, D)  L2-normalised
+    text_embeds: torch.Tensor,  # (B, D)  L2-normalised
+    labels: torch.Tensor,  # (B,)    integer class indices
+    logit_scale: torch.Tensor,  # scalar  learnable log-temperature
+) -> torch.Tensor:
+    """
+    Unified Contrastive Learning loss (Yang et al., CVPR 2022).
+
+    Positive mask: target[i, j] = 1  iff  labels[i] == labels[j]
+    This turns the hard diagonal positives of InfoNCE into a soft multi-positive
+    target, which is what makes the loss aware of class structure across both
+    modalities.
+    """
+    # Clamp log-temperature and cast to embedding dtype so the temperature
+    # scaling is numerically consistent under autocast (float16 on CUDA).
+    scale = logit_scale.exp().clamp(max=100.0).to(image_embeds.dtype)
+
+    # (B, B) cosine similarity matrix
     logits = scale * (image_embeds @ text_embeds.T)
-    labels = torch.arange(logits.size(0), device=logits.device)
-    loss_i2t = nn.functional.cross_entropy(logits, labels)
-    loss_t2i = nn.functional.cross_entropy(logits.T, labels)
+
+    # Build binary positive mask from class labels.
+    # target[i, j] = 1 iff labels[i] == labels[j]  (row i = query i's positives)
+    # unsqueeze(1) gives (B,1), unsqueeze(0) gives (1,B) → broadcasts to (B,B)
+    # This matches P(i) = {k | y_k == y_i} from Algorithm 1 of the paper.
+    target = (labels.unsqueeze(1) == labels.unsqueeze(0)).float()  # (B, B)
+
+    # Bidirectional loss: image→text rows, text→image columns
+    loss_i2t = _soft_cross_entropy(logits, target)
+    loss_t2i = _soft_cross_entropy(logits.T, target.T)
+
     return (loss_i2t + loss_t2i) / 2.0
+
+
+# ---------------------------------------------------------------------------
+# Model building
+# ---------------------------------------------------------------------------
 
 
 def build_lora_model(
@@ -198,11 +286,19 @@ def resolve_logit_scale(model: nn.Module) -> nn.Parameter:
     )
 
 
+# ---------------------------------------------------------------------------
+# Training loop
+# ---------------------------------------------------------------------------
+
+
 def train(args):
+    # ── Resolve output dir before any work ────────────────────────────────────
+    if args.output_dir is None:
+        args.output_dir = f"./output/models/{args.model_id.replace('/', '_')}"
+
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"Training on: {device}")
 
-    # Validate grad_accum early so misconfiguration fails before any work is done.
     if args.grad_accum < 1:
         raise ValueError(f"--grad-accum must be >= 1, got {args.grad_accum}.")
 
@@ -224,6 +320,11 @@ def train(args):
     )
     model.to(device)
 
+    # ── Resolve logit_scale BEFORE torch.compile ──────────────────────────────
+    # torch.compile wraps the model in OptimizedModule which may not expose
+    # named_parameters() the same way, making resolve_logit_scale unreliable.
+    logit_scale = resolve_logit_scale(model)
+
     if args.compile:
         if hasattr(torch, "compile"):
             print("[INFO] Compiling model with torch.compile...")
@@ -234,10 +335,9 @@ def train(args):
                 "(requires PyTorch >= 2.0). Skipping."
             )
 
-    logit_scale = resolve_logit_scale(model)
-
     use_amp = device == "cuda"
-    scaler = GradScaler(enabled=use_amp)
+    # ── FIX: use torch.amp instead of deprecated torch.cuda.amp ──────────────
+    scaler = GradScaler(device, enabled=use_amp)
 
     full_dataset = MultimodalCBIRDataset(args.json_path, args.img_dir, processor)
     train_ds, val_ds = stratified_split(full_dataset, args.val_split, seed=42)
@@ -245,7 +345,7 @@ def train(args):
     if len(val_ds) < 2:
         raise ValueError(
             f"Validation set has only {len(val_ds)} sample(s). "
-            "InfoNCE loss requires at least 2 samples per batch. "
+            "InfoNCE/UniCL loss requires at least 2 samples per batch. "
             "Reduce --val-split or use a larger dataset."
         )
 
@@ -261,7 +361,7 @@ def train(args):
         num_workers=num_workers,
         pin_memory=pin,
         persistent_workers=persistent,
-        drop_last=True,
+        drop_last=True,  # InfoNCE / UniCL require uniform batch sizes
     )
     val_loader = DataLoader(
         val_ds,
@@ -270,16 +370,16 @@ def train(args):
         num_workers=num_workers,
         pin_memory=pin,
         persistent_workers=persistent,
-        drop_last=True,
+        drop_last=False,  # FIX: was True — val should use every sample
     )
 
-    # Higher weight_decay (0.1 vs original 0.01) is a strong and cheap
-    # regulariser for contrastive models — it penalises large adapter weights
-    # directly and consistently improves generalisation on small datasets.
-    optimizer = AdamW(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
+    optimizer = AdamW(
+        model.parameters(),
+        lr=args.lr,
+        weight_decay=args.weight_decay,
+    )
 
-    # Optimizer steps happen every grad_accum micro-batches, so the scheduler
-    # must count optimizer steps, not micro-batch steps.
+    # Optimizer steps happen every grad_accum micro-batches.
     steps_per_epoch = len(train_loader)
     optimizer_steps_per_epoch = math.ceil(steps_per_epoch / args.grad_accum)
 
@@ -288,9 +388,9 @@ def train(args):
         max_lr=args.lr,
         steps_per_epoch=optimizer_steps_per_epoch,
         epochs=args.epochs,
-        pct_start=0.05,  # shorter warm-up (was 0.1): ~1 epoch at 30 total
+        pct_start=0.1,  # ~2–3 epochs warm-up at 30-epoch budget
         anneal_strategy="cos",
-        final_div_factor=1000,  # stronger end-of-run decay (was default 1e4/10000)
+        final_div_factor=1000,
     )
 
     os.makedirs(args.output_dir, exist_ok=True)
@@ -313,7 +413,7 @@ def train(args):
         peft_weights = load_peft_weights(latest_dir)
         set_peft_model_state_dict(model, peft_weights)
 
-        state = torch.load(trainer_state_file, map_location=device)
+        state = torch.load(trainer_state_file, map_location=device, weights_only=False)
         start_epoch = state["epoch"] + 1
         best_val_loss = state["best_val_loss"]
         patience_counter = state["patience_counter"]
@@ -348,7 +448,8 @@ def train(args):
             with open(training_log_file, "r") as f:
                 training_log = json.load(f)
             print(
-                f"[INFO] Loaded {len(training_log)} existing log entries from '{training_log_file}'."
+                f"[INFO] Loaded {len(training_log)} existing log entries from "
+                f"'{training_log_file}'."
             )
 
         print(
@@ -357,13 +458,15 @@ def train(args):
         )
     elif args.resume:
         print(
-            "\n[WARNING] --resume flag set but no valid checkpoint found. Starting from scratch.\n"
+            "\n[WARNING] --resume flag set but no valid checkpoint found. "
+            "Starting from scratch.\n"
         )
 
+    # ── Main training loop ─────────────────────────────────────────────────────
     for epoch in range(start_epoch, args.epochs):
         model.train()
         total_train_loss = 0.0
-        optimizer.zero_grad()  # zero once before the epoch starts
+        optimizer.zero_grad()
 
         for step, batch in enumerate(
             tqdm(train_loader, desc=f"Epoch {epoch+1}/{args.epochs} [train]")
@@ -371,8 +474,9 @@ def train(args):
             pixel_values = batch["pixel_values"].to(device)
             input_ids = batch["input_ids"].to(device)
             attention_mask = batch["attention_mask"].to(device)
+            labels = batch["label"].to(device)  # ← NEW
 
-            with autocast(enabled=use_amp):
+            with autocast(device, enabled=use_amp):
                 outputs = model(
                     pixel_values=pixel_values,
                     input_ids=input_ids,
@@ -385,11 +489,10 @@ def train(args):
                 text_emb = outputs.text_embeds / outputs.text_embeds.norm(
                     dim=-1, keepdim=True
                 )
-                loss = symmetric_infonce_loss(img_emb, text_emb, logit_scale)
 
-            # Scale loss by accum steps so gradients are averaged, not summed,
-            # across micro-batches — keeps gradient magnitude independent of
-            # the accumulation factor.
+                # ── UniCL loss replaces symmetric_infonce_loss ─────────────
+                loss = unicl_loss(img_emb, text_emb, labels, logit_scale)
+
             scaled_loss = loss / args.grad_accum
             scaler.scale(scaled_loss).backward()
 
@@ -408,8 +511,10 @@ def train(args):
 
         avg_train = total_train_loss / len(train_loader)
 
+        # ── Validation ────────────────────────────────────────────────────────
         model.eval()
         total_val_loss = 0.0
+        val_batches = 0
 
         with torch.no_grad():
             for batch in tqdm(
@@ -418,8 +523,19 @@ def train(args):
                 pixel_values = batch["pixel_values"].to(device)
                 input_ids = batch["input_ids"].to(device)
                 attention_mask = batch["attention_mask"].to(device)
+                labels = batch["label"].to(device)  # ← NEW
 
-                with autocast(enabled=use_amp):
+                # UniCL requires ≥ 2 samples; skip undersized last batch.
+                if pixel_values.size(0) < 2:
+                    continue
+
+                # Skip mono-class batches: when all labels are identical every
+                # target row is all-ones, log_softmax collapses to uniform, and
+                # the loss is 0. This silently deflates avg_val with shuffle=False.
+                if labels.unique().numel() == 1:
+                    continue
+
+                with autocast(device, enabled=use_amp):
                     outputs = model(
                         pixel_values=pixel_values,
                         input_ids=input_ids,
@@ -432,11 +548,12 @@ def train(args):
                     text_emb = outputs.text_embeds / outputs.text_embeds.norm(
                         dim=-1, keepdim=True
                     )
-                    loss = symmetric_infonce_loss(img_emb, text_emb, logit_scale)
+                    loss = unicl_loss(img_emb, text_emb, labels, logit_scale)
 
                 total_val_loss += loss.item()
+                val_batches += 1
 
-        avg_val = total_val_loss / len(val_loader)
+        avg_val = total_val_loss / max(val_batches, 1)
         current_lr = scheduler.get_last_lr()[0]
 
         print(
@@ -505,10 +622,17 @@ def train(args):
     print(f"Training log saved to: {training_log_file}")
 
 
+# ---------------------------------------------------------------------------
+# Argument parsing
+# ---------------------------------------------------------------------------
+
+
 def parse_args():
     p = argparse.ArgumentParser(
-        description="Fine-tune CLIP ViT-B/32 with LoRA for CBIR"
+        description="Fine-tune CLIP ViT-B/32 with LoRA + UniCL loss for CBIR"
     )
+
+    # ── Paths ─────────────────────────────────────────────────────────────────
     p.add_argument("--model-id", default="openai/clip-vit-base-patch32")
     p.add_argument(
         "--json-path",
@@ -517,60 +641,108 @@ def parse_args():
     p.add_argument("--img-dir", default=os.path.join("data", "Corel-10K"))
     p.add_argument(
         "--output-dir",
-        default=f"./output/models/{p.parse_args().model_id.replace('/', '_')}",
+        default=None,  # FIX: resolved in train() to avoid recursive p.parse_args()
+        help=(
+            "Path to save the best checkpoint. "
+            "Defaults to ./output/models/<model-id>."
+        ),
     )
-    p.add_argument("--batch-size", type=int, default=128)
+
+    # ── Training schedule ─────────────────────────────────────────────────────
+    p.add_argument(
+        "--batch-size",
+        type=int,
+        default=64,
+        help=(
+            "Per-GPU micro-batch size. "
+            "Reduced from 128: UniCL already leverages same-class pairs as "
+            "implicit positives, so the contrastive signal is richer per sample. "
+            "This also reduces the chance of a batch being all same-class after "
+            "drop_last, which would make the loss trivially 0."
+        ),
+    )
     p.add_argument(
         "--grad-accum",
         type=int,
         default=4,
         help=(
-            "Number of micro-batches to accumulate before an optimizer step. "
-            "Effective batch size = batch-size * grad-accum. "
-            "Default 4 gives an effective batch of 512 at batch-size 128, "
-            "which significantly improves InfoNCE contrastive signal without "
-            "extra VRAM cost."
+            "Micro-batches to accumulate before an optimiser step. "
+            "Effective batch size = batch-size * grad-accum = 256. "
+            "Larger effective batches increase the expected number of "
+            "same-class pairs in each UniCL similarity matrix, which "
+            "directly strengthens the multi-positive contrastive signal."
         ),
     )
-    p.add_argument("--epochs", type=int, default=50)
+    p.add_argument(
+        "--epochs",
+        type=int,
+        default=30,
+        help=(
+            "Total training epochs. "
+            "Reduced from 50: UniCL's stronger label-aware signal converges "
+            "faster than plain InfoNCE, and early stopping handles the rest."
+        ),
+    )
     p.add_argument(
         "--lr",
         type=float,
-        default=2e-5,
-        help="Peak learning rate. Lowered from 5e-5 to 3e-5 to reduce overfitting.",
+        default=1e-4,
+        help=(
+            "Peak learning rate. "
+            "Raised from 2e-5 to 1e-4: UniCL uses a richer positive signal "
+            "and the LoRA adapters have relatively few parameters, so a higher "
+            "LR is well-tolerated. Compensated by stronger weight decay."
+        ),
     )
-    p.add_argument("--val-split", type=float, default=0.1)
+    p.add_argument(
+        "--val-split",
+        type=float,
+        default=0.1,
+        help="Fraction of data reserved for validation (stratified).",
+    )
     p.add_argument(
         "--patience",
         type=int,
-        default=7,
-        help="Early-stopping patience in epochs without improvement.",
+        default=8,
+        help=(
+            "Early-stopping patience in epochs without improvement. "
+            "Increased from 7 to 8: UniCL loss can plateau slightly before "
+            "improving when new same-class pairs appear in batches."
+        ),
     )
     p.add_argument(
         "--min-delta",
         type=float,
-        default=0.003,
+        default=0.002,
         help=(
             "Minimum val-loss improvement to reset patience. "
-            "Raised from 0.001 to 0.005 to avoid counting noise as progress."
+            "Slightly reduced from 0.003: UniCL loss values are generally "
+            "lower than InfoNCE (more positives in numerator), so meaningful "
+            "improvements appear as smaller absolute deltas."
         ),
     )
+
+    # ── LoRA ──────────────────────────────────────────────────────────────────
     p.add_argument(
         "--lora-rank",
         type=int,
-        default=4,
+        default=8,
         help=(
-            "LoRA rank r. Lower = fewer trainable parameters = less overfitting. "
-            "Default 8 (was 16). Try 4 if the train/val gap is still large."
+            "LoRA rank r. "
+            "Increased from 4 to 8: UniCL's richer training signal can "
+            "productively use more adapter capacity without overfitting, "
+            "because the label-aware loss provides additional regularisation "
+            "beyond what the InfoNCE diagonal alone offers."
         ),
     )
     p.add_argument(
         "--lora-dropout",
         type=float,
-        default=0.15,
+        default=0.1,
         help=(
-            "Dropout applied inside LoRA adapters. "
-            "Raised from 0.05 to 0.1 for better regularisation."
+            "Dropout inside LoRA adapters. "
+            "Slightly reduced from 0.15 to 0.1: UniCL's label supervision "
+            "already acts as a regulariser; excessive dropout fights the signal."
         ),
     )
     p.add_argument(
@@ -578,21 +750,24 @@ def parse_args():
         action="store_true",
         default=False,
         help=(
-            "Also apply LoRA to the MLP layers (fc1, fc2) in addition to "
-            "attention and projection layers. Increases adapter capacity — "
-            "only enable this if the train/val gap is small and you have "
-            "enough data to support more parameters."
+            "Also apply LoRA to MLP layers (fc1, fc2). "
+            "Keep False unless the train/val gap is small and the dataset "
+            "is large enough to support the additional parameters."
         ),
     )
     p.add_argument(
         "--weight-decay",
         type=float,
-        default=0.1,
+        default=0.15,
         help=(
-            "AdamW weight decay. Raised from 0.01 to 0.1 — a strong and "
-            "cheap regulariser for contrastive models on small datasets."
+            "AdamW weight decay. "
+            "Slightly raised from 0.1 to 0.15 to compensate for the higher "
+            "learning rate. Keeps adapter weights small and prevents the "
+            "logit_scale from diverging."
         ),
     )
+
+    # ── Misc ──────────────────────────────────────────────────────────────────
     p.add_argument("--resume", action="store_true")
     p.add_argument("--num-workers", type=int, default=None)
     p.add_argument(
@@ -603,6 +778,7 @@ def parse_args():
             "First epoch will be slow while tracing; subsequent epochs are faster."
         ),
     )
+
     return p.parse_args()
 
 
