@@ -5166,6 +5166,1986 @@
                     "extended": "palette beige brown, layout symmetrical balanced, texture stone rough-hewn, surface weathered aged, lighting daylight sunny, atmosphere clear blue, background fence metal, angle low wide, contrast medium"
                 }
             }
+        },
+        "1/1_504.jpg": {
+            "filename": "1_504.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral church Gothic Revival stone",
+                    "extended": "palette grey brown, layout symmetrical frontal, texture stone rough-hewn, surface weathered aged, lighting daylight clear, atmosphere urban daytime, background blue sky clear, context cityscape buildings, angle low frontal"
+                }
+            }
+        },
+        "1/1_508.jpg": {
+            "filename": "1_508.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Gothic Revival stone",
+                    "extended": "palette grey brown, layout asymmetrical facade, texture rough-hewn stone, surface weathered aged, lighting overexposed bright, atmosphere hazy urban, background sky blue-white, contrast medium low"
+                }
+            }
+        },
+        "1/1_521.jpg": {
+            "filename": "1_521.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building church stone",
+                    "extended": "palette beige brown, layout corner lot, texture stone rough-hewn, surface weathered aged, lighting daylight bright, angle low-angle shot, background blue sky clear, context urban cityscape, contrast medium"
+                }
+            }
+        },
+        "1/1_533.jpg": {
+            "filename": "1_533.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "city street intersection, building government",
+                    "extended": "palette blue white, layout urban grid, texture stone concrete, lighting daylight clear, background cloudy wispy, angle low wide, contrast medium color, statue bronze, vehicle sedan taxi"
+                }
+            }
+        },
+        "1/1_506.jpg": {
+            "filename": "1_506.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Gothic stone",
+                    "extended": "palette grey blue, layout centered low-angle, texture stone rough, surface weathered old, lighting daylight clear, highlight specular small, background sky blue gradient, contrast medium"
+                }
+            }
+        },
+        "1/1_534.jpg": {
+            "filename": "1_534.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "monument statue, building stone",
+                    "extended": "palette blue white, layout centered, texture stone smooth, lighting daylight diffuse natural, background building facade ornate, angle low wide, sky cloudy wispy"
+                }
+            }
+        },
+        "1/1_539.jpg": {
+            "filename": "1_539.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral gothic entrance, archway ornate stone",
+                    "extended": "palette grey beige, layout symmetrical facade, texture carved stone ornate, surface weathered aged, lighting daylight soft natural, highlight carved details, background blue sky clear, contrast medium"
+                }
+            }
+        },
+        "1/1_532.jpg": {
+            "filename": "1_532.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "government building stone, flags Canadian Quebec",
+                    "extended": "palette grey green, layout symmetrical balanced, texture stone rough, surface weathered aged, lighting overcast diffuse, atmosphere urban civic, background trees foliage lush, angle low wide"
+                }
+            }
+        },
+        "1/1_536.jpg": {
+            "filename": "1_536.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building San Francisco City Hall, architecture neoclassical",
+                    "extended": "palette beige gray, layout symmetrical frontal, texture stone ornate, surface specular reflective, lighting daylight side-lit, atmosphere clear blue, background sky wispy clouds, angle low wide, contrast medium"
+                }
+            }
+        },
+        "1/1_541.jpg": {
+            "filename": "1_541.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "village fountain, statue Virgin Mary, flowers red",
+                    "extended": "palette pastel pink white, layout centered, texture stone wood, surface wet stone, lighting overcast soft, background castle hill, angle low wide, contrast low color"
+                }
+            }
+        },
+        "1/1_523.jpg": {
+            "filename": "1_523.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Santa Maria del Fiore, bell tower Giotto",
+                    "extended": "palette white gray, layout symmetrical frontal, texture stone marble, surface intricate carved, lighting daylight soft, atmosphere clear blue, background sky blue cloudy, angle low-angle shot"
+                }
+            }
+        },
+        "1/1_538.jpg": {
+            "filename": "1_538.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "Colosseum ancient Roman amphitheater",
+                    "extended": "palette beige brown, layout curved facade, texture stone travertine worn, surface weathered aged, lighting daylight harsh, atmosphere clear sunny, background blue sky cloudless, angle low wide"
+                }
+            }
+        },
+        "1/1_537.jpg": {
+            "filename": "1_537.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "hotel exterior, plaza urban",
+                    "extended": "palette beige brown, layout symmetrical rectangular, texture stone rustic, columns row doric, lighting daylight overcast soft, background cloudy gray, angle low wide, people crowd scattered"
+                }
+            }
+        },
+        "1/1_535.jpg": {
+            "filename": "1_535.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "government building large white stone",
+                    "extended": "palette blue white, layout symmetrical balanced, texture stone smooth, surface matte rough, lighting daylight soft, atmosphere clear calm, background sky blue wispy clouds, angle low wide"
+                }
+            }
+        },
+        "1/1_540.jpg": {
+            "filename": "1_540.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "hotel Grampian, building stone",
+                    "extended": "palette grey brown, layout centered, texture stone rough, surface weathered, lighting overcast diffuse, atmosphere foggy misty, background mountain rocky cloudy, angle low wide"
+                }
+            }
+        },
+        "1/1_507.jpg": {
+            "filename": "1_507.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Gothic Revival stone",
+                    "extended": "palette grey brown, layout asymmetrical facade, texture rough-hewn stone, surface weathered aged, lighting daylight soft, atmosphere partly cloudy, background blue sky, angle low-angle shot"
+                }
+            }
+        },
+        "1/1_524.jpg": {
+            "filename": "1_524.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Salamanca Spain",
+                    "extended": "palette beige brown, layout symmetrical facade, texture stone rough-hewn, surface weathered aged, lighting overcast diffuse, atmosphere cloudy gray, background trees green, angle low wide, contrast medium"
+                }
+            }
+        },
+        "1/1_509.jpg": {
+            "filename": "1_509.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral church brick Gothic",
+                    "extended": "palette red brown, layout symmetrical frontal, texture stone brick rough, surface weathered aged, lighting daylight clear, highlight specular slight, background sky blue clear, trees bare leafless, ground snow covered"
+                }
+            }
+        },
+        "1/1_525.jpg": {
+            "filename": "1_525.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building guildhall medieval gothic",
+                    "extended": "palette grey stone, layout symmetrical ornate, texture carved stone intricate, surface weathered aged, lighting daylight clear, atmosphere sunny calm, background sky blue wispy contrails, flags flying colorful"
+                }
+            }
+        },
+        "1/1_527.jpg": {
+            "filename": "1_527.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "tower Giralda bell-tower",
+                    "extended": "palette beige brown, layout centered upright, texture stone carved ornate, surface rough-hewn, lighting daylight diffuse natural, highlight specular soft, background sky blue cloudy, angle low"
+                }
+            }
+        },
+        "1/1_544.jpg": {
+            "filename": "1_544.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building hotel large beige",
+                    "extended": "palette beige gray, layout symmetrical balanced, texture stone smooth, surface weathered aged, lighting overcast diffuse, background sky gray uniform, contrast low color, architecture classical ornate"
+                }
+            }
+        },
+        "1/1_543.jpg": {
+            "filename": "1_543.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building hotel large beige",
+                    "extended": "palette beige gray, layout symmetrical balanced, texture stone smooth, surface weathered aged, lighting overcast diffuse, atmosphere gloomy cloudy, background sky gray, angle low wide"
+                }
+            }
+        },
+        "1/1_526.jpg": {
+            "filename": "1_526.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "church interior baroque",
+                    "extended": "palette beige gold, layout symmetrical axial, texture stone carved ornate, lighting daylight natural filtered, atmosphere reverent calm, background vaulted ceiling mural, contrast high detailed, architecture ornate baroque"
+                }
+            }
+        },
+        "1/1_545.jpg": {
+            "filename": "1_545.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building hotel facade Victorian",
+                    "extended": "palette white red black, layout symmetrical balanced, texture smooth stucco, surface glossy reflective, lighting daylight soft natural, highlight specular subtle, background blue sky cloudy, angle low wide, architecture ornate detailed"
+                }
+            }
+        },
+        "1/1_553.jpg": {
+            "filename": "1_553.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral gothic architecture",
+                    "extended": "palette gray black, layout vertical towering, texture stone carved ornate, lighting daylight soft, background blue sky cloudy, crowd group people"
+                }
+            }
+        },
+        "1/1_548.jpg": {
+            "filename": "1_548.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building hotel white, architecture Victorian Gothic",
+                    "extended": "palette white gray, layout symmetrical balanced, texture stone rough, surface weathered aged, lighting daylight soft, atmosphere clear blue, background sky cloudy, flag American flying, tree bare leafless, angle low wide"
+                }
+            }
+        },
+        "1/1_547.jpg": {
+            "filename": "1_547.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building Victorian brownstone",
+                    "extended": "palette earthy brown, layout symmetrical facade, texture stone brick, roofing slate blue, lighting daylight clear, background clear blue, angle low wide"
+                }
+            }
+        },
+        "1/1_529.jpg": {
+            "filename": "1_529.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building palace ornate",
+                    "extended": "palette gold white, layout symmetrical facade, texture stone carved ornate, surface specular reflective, lighting daylight soft, atmosphere clear overcast, background sky white uniform, detail intricate gilded"
+                }
+            }
+        },
+        "1/1_528.jpg": {
+            "filename": "1_528.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral tower gothic",
+                    "extended": "palette gray black, layout symmetrical vertical, texture stone carved ornate, surface weathered aged, lighting overcast diffuse, background sky white featureless, contrast medium"
+                }
+            }
+        },
+        "1/1_558.jpg": {
+            "filename": "1_558.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building red brick neoclassical, steeple tall Gothic",
+                    "extended": "palette red brown gray, layout urban dense, texture stone brick, surface weathered worn, lighting overcast diffuse, atmosphere city busy, background cloudy blue, angle low wide, contrast medium"
+                }
+            }
+        },
+        "1/1_555.jpg": {
+            "filename": "1_555.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building guildhall gothic",
+                    "extended": "palette grey white, layout symmetrical facade, texture stone carved ornate, architecture gothic medieval, lighting daylight soft, background blue sky wispy clouds, flag belgium"
+                }
+            }
+        },
+        "1/1_559.jpg": {
+            "filename": "1_559.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "city street Victorian architecture, clock tower",
+                    "extended": "palette blue gray, layout linear urban, texture stone rough, lighting daylight clear, background buildings tall, angle low perspective, vehicle buses red double-decker"
+                }
+            }
+        },
+        "1/1_546.jpg": {
+            "filename": "1_546.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building brick Victorian",
+                    "extended": "palette red brown, layout asymmetrical, texture brick rough, surface weathered, lighting daylight clear, background blue sky, angle low"
+                }
+            }
+        },
+        "1/1_552.jpg": {
+            "filename": "1_552.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Milan Gothic",
+                    "extended": "palette grey blue, layout centered, texture stone rough, surface weathered old, lighting daylight soft, atmosphere clear blue, background sky wispy clouds, contrast medium"
+                }
+            }
+        },
+        "1/1_550.jpg": {
+            "filename": "1_550.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building clock-tower sandstone",
+                    "extended": "palette blue white, layout centered low-angle, texture stone rough-hewn, surface weathered aged, lighting daylight partly-cloudy, atmosphere hazy distant, background sky blue cloudy, contrast medium"
+                }
+            }
+        },
+        "1/1_549.jpg": {
+            "filename": "1_549.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "government building neoclassical white marble",
+                    "extended": "palette white gray, layout symmetrical balanced, texture stone marble smooth, columns tall fluted, lighting daylight clear, atmosphere sunny calm, background blue sky, flag American flying"
+                }
+            }
+        },
+        "1/1_551.jpg": {
+            "filename": "1_551.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building row house, architecture medieval eclectic",
+                    "extended": "palette earthy red yellow, layout linear horizontal, texture brick stone, surface rough weathered, lighting daylight soft, atmosphere partly cloudy, background sky blue, angle low"
+                }
+            }
+        },
+        "1/1_556.jpg": {
+            "filename": "1_556.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building plaza mayor, architecture baroque",
+                    "extended": "palette beige gray, layout symmetrical balanced, texture stone carved ornate, surface weathered worn, lighting overcast diffuse soft, atmosphere urban formal, background sky gray uniform, contrast medium low"
+                }
+            }
+        },
+        "1/1_562.jpg": {
+            "filename": "1_562.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "street scene Edinburgh Royal Mile, architecture Victorian Gothic",
+                    "extended": "palette blue white, layout centered horizontal, texture stone rough, surface weathered aged, lighting daylight partly-cloudy, atmosphere vibrant crowded, background sky blue puffy-clouds, angle low wide, clock tower tall spire"
+                }
+            }
+        },
+        "1/1_574.jpg": {
+            "filename": "1_574.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Notre Dame de Paris, facade",
+                    "extended": "palette beige gray, layout symmetrical frontal, texture stone carved ornate, lighting daylight clear, atmosphere sunny calm, background sky blue gradient, crowd group people walking"
+                }
+            }
+        },
+        "1/1_573.jpg": {
+            "filename": "1_573.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "manor castle stone",
+                    "extended": "palette grey beige, layout symmetrical frontal, texture rough-hewn stone, surface weathered aged, lighting daylight soft, atmosphere cloudy overcast, background hedge green manicured, angle low wide"
+                }
+            }
+        },
+        "1/1_575.jpg": {
+            "filename": "1_575.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building castle Scottish baroque",
+                    "extended": "palette beige brown, layout symmetrical formal, texture stone rough-hewn, surface weathered aged, lighting daylight clear, atmosphere sunny calm, background blue sky cloudy, angle low wide"
+                }
+            }
+        },
+        "1/1_578.jpg": {
+            "filename": "1_578.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Gothic Cologne, architecture stone",
+                    "extended": "palette gray black, layout vertical rising, texture stone carved ornate, surface weathered aged, lighting daylight partial cloudy, highlight gold ornamental, background sky blue cloudy, angle low dynamic"
+                }
+            }
+        },
+        "1/1_530.jpg": {
+            "filename": "1_530.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building Louvre Palace, architecture French Renaissance",
+                    "extended": "palette beige stone, layout symmetrical balanced, texture carved ornate, surface weathered aged, lighting daylight soft, atmosphere clear blue, background sky blue cloudy, contrast medium"
+                }
+            }
+        },
+        "1/1_581.jpg": {
+            "filename": "1_581.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building stone medieval",
+                    "extended": "palette beige gray, layout asymmetrical, texture stone rough, surface weathered, ivy green dense, lighting overcast cloudy, background buildings urban, angle low"
+                }
+            }
+        },
+        "1/1_579.jpg": {
+            "filename": "1_579.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral entrance, door green metal, archway ornate stone",
+                    "extended": "palette gray white gold, layout symmetrical centered, texture stone carved ornate, surface weathered aged, lighting daylight soft natural, highlight gold leaf, background archway intricate, contrast high detail, material stone metal"
+                }
+            }
+        },
+        "1/1_576.jpg": {
+            "filename": "1_576.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building chateau Renaissance French",
+                    "extended": "palette beige gray, layout symmetrical balanced, texture stone ashlar, surface weathered aged, lighting daylight clear, atmosphere serene calm, background sky blue gradient, contrast medium low"
+                }
+            }
+        },
+        "1/1_577.jpg": {
+            "filename": "1_577.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building chateau courtyard",
+                    "extended": "palette beige gray, layout symmetrical axial, texture stone rough, surface weathered worn, lighting daylight harsh, shadow long cast, background clear blue, angle low wide"
+                }
+            }
+        },
+        "1/1_557.jpg": {
+            "filename": "1_557.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral church Gothic stone",
+                    "extended": "palette beige brown, layout centered, texture stone rough-hewn, surface weathered aged, lighting daylight soft, atmosphere clear blue, background sky gradient, angle low"
+                }
+            }
+        },
+        "0/0_88.jpg": {
+            "filename": "0_88.jpg",
+            "class_label": "0",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "fireworks display nighttime",
+                    "extended": "palette pink white, layout burst overhead, lighting nighttime dark, atmosphere hazy smoke, background cityscape lit, angle wide aerial"
+                }
+            }
+        },
+        "1/1_566.jpg": {
+            "filename": "1_566.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral, architecture gothic",
+                    "extended": "palette dark grey, stone brown, layout symmetrical frontal, texture stone rough, surface weathered old, lighting overcast diffuse, atmosphere gloomy cloudy, background sky grey, angle low"
+                }
+            }
+        },
+        "1/1_565.jpg": {
+            "filename": "1_565.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building cathedral entrance, arch gothic",
+                    "extended": "palette gray beige, layout symmetrical centered, texture stone carved ornate, surface weathered aged, lighting daylight soft natural, highlight carved details, background wall stone ornate, contrast medium"
+                }
+            }
+        },
+        "1/1_554.jpg": {
+            "filename": "1_554.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "castle medieval stone, tower spire conical",
+                    "extended": "palette earthy brown, layout symmetrical frontal, texture stone rough-hewn, surface weathered aged, lighting daylight soft hazy, atmosphere serene calm, background hill tree line, angle low wide"
+                }
+            }
+        },
+        "1/1_560.jpg": {
+            "filename": "1_560.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building Victorian-era hotel, architecture ornate stone",
+                    "extended": "palette beige brown, layout symmetrical balanced, texture stone carved ornate, surface weathered aged, lighting daylight clear blue, atmosphere sunny calm, background clear blue sky, angle low wide"
+                }
+            }
+        },
+        "1/1_531.jpg": {
+            "filename": "1_531.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building church Gothic, statue stone",
+                    "extended": "palette beige gray, layout centered, texture stone rough, surface weathered old, lighting daylight clear, atmosphere sunny blue, background sky blue cloudy, angle low"
+                }
+            }
+        },
+        "1/1_542.jpg": {
+            "filename": "1_542.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building hotel large stone",
+                    "extended": "palette beige gray, layout symmetrical balanced, texture stone smooth, surface weathered aged, lighting overcast diffuse, atmosphere cloudy gloomy, background sky white, angle low wide, contrast medium"
+                }
+            }
+        },
+        "1/1_568.jpg": {
+            "filename": "1_568.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral entrance Gothic",
+                    "extended": "palette gray white gold, layout symmetrical ornate, texture stone carved intricate, surface weathered aged, lighting daylight soft natural, highlight gold ornamental, background archway vaulted, contrast high detailed"
+                }
+            }
+        },
+        "1/1_567.jpg": {
+            "filename": "1_567.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Gothic Cologne",
+                    "extended": "palette gray black, layout symmetrical facade, texture stone carved ornate, lighting overcast diffuse, background sky white"
+                }
+            }
+        },
+        "1/1_569.jpg": {
+            "filename": "1_569.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Gothic architecture stone facade",
+                    "extended": "palette gray black, layout symmetrical vertical, texture stone rough-hewn, surface weathered aged, lighting overcast diffuse, background sky white featureless, contrast high detailed"
+                }
+            }
+        },
+        "1/1_586.jpg": {
+            "filename": "1_586.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "sculpture king head blue, building beige multi-story",
+                    "extended": "palette beige blue gold, layout corner rooftop, texture smooth concrete, lighting daylight warm, highlight specular sharp, background sky blue clear, angle low"
+                }
+            }
+        },
+        "1/1_561.jpg": {
+            "filename": "1_561.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building castle stone, tower clock",
+                    "extended": "palette blue clear, layout centered, texture stone rough-hewn, surface weathered aged, lighting daylight sunny, atmosphere clear few clouds, background sky blue, angle low wide"
+                }
+            }
+        },
+        "1/1_585.jpg": {
+            "filename": "1_585.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building hotel white, columns tall",
+                    "extended": "palette white beige, layout symmetrical horizontal, texture smooth stucco, surface glossy reflective, lighting daylight warm, atmosphere clear sunny, background blue sky, foliage palm trees green, contrast soft natural"
+                }
+            }
+        },
+        "1/1_587.jpg": {
+            "filename": "1_587.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building opera house",
+                    "extended": "palette white beige, layout symmetrical balanced, texture stone carved ornate, surface weathered smooth, lighting daylight soft natural, atmosphere clear blue sky, background foliage palm green, angle low wide"
+                }
+            }
+        },
+        "1/1_570.jpg": {
+            "filename": "1_570.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building hotel historic",
+                    "extended": "palette beige brown, layout symmetrical corner, texture stone brick, surface wet reflective, lighting overcast diffuse, background urban plaza, angle low wide, text 'hotel' on facade"
+                }
+            }
+        },
+        "1/1_580.jpg": {
+            "filename": "1_580.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral, architecture gothic",
+                    "extended": "palette grey dark, layout centered, texture stone rough, surface weathered aged, lighting daylight soft, atmosphere partly cloudy, background blue sky white clouds, angle low"
+                }
+            }
+        },
+        "1/1_598.jpg": {
+            "filename": "1_598.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Notre Dame de Paris, architecture Gothic",
+                    "extended": "palette beige stone, layout symmetrical vertical, texture carved ornate, surface weathered aged, lighting overcast diffuse, atmosphere cloudy gray, background sky white cloudy, contrast medium low"
+                }
+            }
+        },
+        "1/1_589.jpg": {
+            "filename": "1_589.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Notre Dame de Paris facade",
+                    "extended": "palette white beige, layout symmetrical frontal, texture stone carved ornate, surface weathered smooth, lighting daylight harsh, highlight specular sharp, background sky blue cloudy, contrast medium"
+                }
+            }
+        },
+        "1/1_588.jpg": {
+            "filename": "1_588.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "store Virgin, facade ornate",
+                    "extended": "palette beige white, layout symmetrical balanced, texture stone smooth, columns tall fluted, lighting daylight soft natural, background blue sky scattered clouds, angle low wide"
+                }
+            }
+        },
+        "1/1_590.jpg": {
+            "filename": "1_590.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Gothic, carriage horse-drawn",
+                    "extended": "palette beige brown, layout symmetrical frontal, texture stone rough ornate, architecture medieval pointed-arch, lighting daylight harsh, highlight specular bright, background fence metal ornate, angle low wide"
+                }
+            }
+        },
+        "1/1_601.jpg": {
+            "filename": "1_601.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building St. Peter's Basilica, architecture Renaissance",
+                    "extended": "palette beige white, layout symmetrical frontal, texture stone marble, surface weathered aged, lighting daylight clear, atmosphere sunny calm, background sky blue, angle low frontal, contrast medium"
+                }
+            }
+        },
+        "1/1_597.jpg": {
+            "filename": "1_597.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Notre Dame de Paris Gothic",
+                    "extended": "palette beige gray, layout centered frontal, texture stone carved ornate, lighting overcast diffuse, atmosphere cloudy gloomy, background cityscape urban, crowd group tourists"
+                }
+            }
+        },
+        "1/1_592.jpg": {
+            "filename": "1_592.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "Steigenberger Frankfurter Hof hotel",
+                    "extended": "palette beige gold, layout symmetrical facade, texture stone sandstone, surface rough ornate, lighting daylight sunny, highlight specular bright, background blue sky clear, angle low wide, flags German European"
+                }
+            }
+        },
+        "1/1_600.jpg": {
+            "filename": "1_600.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "sign post London Underground",
+                    "extended": "palette red white black, layout centered overhead, texture metal glossy, lighting daylight natural cloudy, background building stone facade, text 'Bond Street Station', direction arrow"
+                }
+            }
+        },
+        "1/1_571.jpg": {
+            "filename": "1_571.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Notre Dame de Paris facade",
+                    "extended": "palette beige gray, layout symmetrical frontal, texture stone carved ornate, lighting daylight soft, atmosphere cloudy overcast, background sky blue white, contrast medium"
+                }
+            }
+        },
+        "1/1_594.jpg": {
+            "filename": "1_594.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building hotel corner, architecture historic sandstone",
+                    "extended": "palette beige brown, layout corner urban, texture stone ornate, surface weathered aged, lighting daylight warm, atmosphere clear sunny, background blue sky wispy clouds, context street urban, angle low wide, contrast medium"
+                }
+            }
+        },
+        "1/1_593.jpg": {
+            "filename": "1_593.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building corner ornate beige",
+                    "extended": "palette beige brown, layout corner angled, texture stone ornate, surface weathered aged, lighting daylight soft, atmosphere clear blue, background sky wispy clouds, angle low wide, contrast medium"
+                }
+            }
+        },
+        "1/1_563.jpg": {
+            "filename": "1_563.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building MIT Stata Center",
+                    "extended": "palette gray white, layout symmetrical frontal, texture stone smooth, columns tall cylindrical, lighting daylight clear, background lawn green trees leafy, angle low wide"
+                }
+            }
+        },
+        "1/1_582.jpg": {
+            "filename": "1_582.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "church medieval stone",
+                    "extended": "palette grey cloudy, layout asymmetrical, texture stone rough, surface weathered old, lighting overcast diffused, atmosphere moody dramatic, background tree green foliage, angle low-angle"
+                }
+            }
+        },
+        "1/1_584.jpg": {
+            "filename": "1_584.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "guildhalls medieval ornate",
+                    "extended": "palette beige brown gold, layout symmetrical facade, texture stone ornamental, architecture gothic baroque, lighting daylight clear, background blue sky wispy clouds, details red flower boxes, ornamentation statues spires"
+                }
+            }
+        },
+        "1/1_596.jpg": {
+            "filename": "1_596.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building ornate stone, architecture Victorian",
+                    "extended": "palette beige brown, layout symmetrical asymmetrical, texture stone brick, surface weathered worn, lighting daylight clear, atmosphere urban daytime, background blue sky contrails, contrast medium"
+                }
+            }
+        },
+        "1/1_595.jpg": {
+            "filename": "1_595.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building historic stone, architecture ornate Victorian",
+                    "extended": "palette beige brown, layout symmetrical asymmetrical, texture stone brick, surface weathered worn, lighting daylight clear, atmosphere urban modern, background skyscraper glass steel, angle low wide, contrast medium"
+                }
+            }
+        },
+        "1/1_607.jpg": {
+            "filename": "1_607.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building San Francisco City Hall, architecture neoclassical",
+                    "extended": "palette gray white, layout symmetrical balanced, texture stone smooth, surface specular reflective, lighting daylight clear, atmosphere sunny calm, background blue sky wispy clouds, angle low wide"
+                }
+            }
+        },
+        "1/1_609.jpg": {
+            "filename": "1_609.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "gate monumental ornate, archway large stone",
+                    "extended": "palette gray beige, layout symmetrical ornate, texture carved stone, surface weathered rough, lighting daylight overcast soft, atmosphere cloudy diffuse, background sky white cloudy, contrast medium low"
+                }
+            }
+        },
+        "1/1_606.jpg": {
+            "filename": "1_606.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "street urban Parisian, building historic Haussmannian",
+                    "extended": "palette beige gray, layout grid orthogonal, texture stone rusticated, surface asphalt smooth, lighting overcast diffuse, background sky white uniform, angle low wide, contrast medium"
+                }
+            }
+        },
+        "1/1_610.jpg": {
+            "filename": "1_610.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "gate monumental stone ornate",
+                    "extended": "palette gray beige, layout symmetrical frontal, texture carved ornate, surface weathered rough, lighting overexposed bright, atmosphere hazy cloudy, background sky white, contrast medium"
+                }
+            }
+        },
+        "1/1_603.jpg": {
+            "filename": "1_603.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Gothic Cologne, architecture stone",
+                    "extended": "palette gray blue, layout symmetrical frontal, texture stone rough Gothic, surface weathered aged, lighting daylight partial cloudy, atmosphere serene calm, background sky blue cloudy, angle low"
+                }
+            }
+        },
+        "1/1_623.jpg": {
+            "filename": "1_623.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "church cathedral stone",
+                    "extended": "palette beige brown, layout symmetrical rectangular, texture stone rough-hewn, surface weathered aged, lighting daylight clear, atmosphere sunny cloudless, background blue sky, angle low wide, context urban square"
+                }
+            }
+        },
+        "1/1_616.jpg": {
+            "filename": "1_616.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "mosque Suleymaniye, architecture Ottoman",
+                    "extended": "palette gray overcast, layout symmetrical balanced, texture stone smooth, surface weathered aged, lighting diffused soft, atmosphere cloudy serene, background trees bare, angle wide establishing"
+                }
+            }
+        },
+        "1/1_625.jpg": {
+            "filename": "1_625.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral La Seu, architecture Gothic",
+                    "extended": "palette beige brown, layout symmetrical frontal, texture stone rough-hewn, surface weathered aged, lighting daylight soft, atmosphere partly-cloudy blue, background buildings adjacent, angle low wide, construction equipment green metal"
+                }
+            }
+        },
+        "1/1_564.jpg": {
+            "filename": "1_564.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "house Elizabethan half-timbered",
+                    "extended": "palette beige brown, layout symmetrical facade, texture wood beams exposed, surface rough plaster, lighting daylight soft, background fence metal, angle low wide"
+                }
+            }
+        },
+        "1/1_611.jpg": {
+            "filename": "1_611.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building tower clock-tower",
+                    "extended": "palette beige gray, layout centered vertical, texture stone carved ornate, surface weathered aged, lighting daylight soft, atmosphere partly-cloudy blue, background sky scattered-clouds, angle low-angle"
+                }
+            }
+        },
+        "1/1_627.jpg": {
+            "filename": "1_627.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral church Gothic",
+                    "extended": "palette beige brown, layout symmetrical frontal, texture stone rough-hewn, surface weathered aged, lighting daylight soft, atmosphere cloudy overcast, background sky blue-white, angle low frontal"
+                }
+            }
+        },
+        "1/1_624.jpg": {
+            "filename": "1_624.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building church Gothic",
+                    "extended": "palette beige gray, layout symmetrical ornate, texture stone rough-hewn, surface weathered aged, lighting overcast diffuse, background hill bare tree-less, architecture ornate intricate"
+                }
+            }
+        },
+        "1/1_608.jpg": {
+            "filename": "1_608.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building government institution neoclassical",
+                    "extended": "palette gray white, layout symmetrical balanced, texture stone carved, surface rough weathered, lighting daylight clear, atmosphere sunny calm, background blue sky wispy clouds, details ornate gold accents, statues figurative"
+                }
+            }
+        },
+        "1/1_622.jpg": {
+            "filename": "1_622.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "church cathedral Gothic stone",
+                    "extended": "palette beige brown, layout symmetrical facade, texture stone brick rough, surface weathered aged, lighting daylight soft natural, highlight specular slight, background sky blue clear, architecture ornate intricate"
+                }
+            }
+        },
+        "1/1_602.jpg": {
+            "filename": "1_602.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral York Minster Gothic",
+                    "extended": "palette beige gray, layout asymmetrical, texture stone carved, lighting daylight soft, atmosphere partly cloudy, background blue sky, contrast medium"
+                }
+            }
+        },
+        "1/1_631.jpg": {
+            "filename": "1_631.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building church tower Gothic",
+                    "extended": "palette beige brown, layout centered vertical, texture stone carved, lighting daylight soft, background sky blue cloudy, clock white face"
+                }
+            }
+        },
+        "1/1_612.jpg": {
+            "filename": "1_612.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "clock tower, building stone ornate, mosque",
+                    "extended": "palette blue grey, layout centered, texture stone ornate, lighting daylight natural, background cloudy blue, contrast medium, people walking, tree bare, minaret tall slender"
+                }
+            }
+        },
+        "1/1_614.jpg": {
+            "filename": "1_614.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building ornate stone, facade carved",
+                    "extended": "palette beige gray, layout asymmetrical, texture stone carved ornate, surface weathered, lighting daylight soft, atmosphere overcast, background tree bare, angle low"
+                }
+            }
+        },
+        "1/1_583.jpg": {
+            "filename": "1_583.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "church stone-gothic",
+                    "extended": "palette beige brown, layout symmetrical facade, texture stone rough-hewn, lighting overcast cloudy, atmosphere diffuse soft, background trees green foliage, angle low wide"
+                }
+            }
+        },
+        "1/1_599.jpg": {
+            "filename": "1_599.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "square cityscape, buildings ornate, tower spire",
+                    "extended": "palette pastel blue, layout symmetrical balanced, texture stone brick, surface weathered aged, lighting daylight soft, atmosphere clear serene, background gradient sky, angle low wide"
+                }
+            }
+        },
+        "1/1_615.jpg": {
+            "filename": "1_615.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "mosque Blue Mosque, landmark historic",
+                    "extended": "palette blue grey, layout symmetrical frontal, texture stone marble, surface ornate intricate, lighting daylight overcast soft, atmosphere serene calm, background cloudy sky, angle low wide, contrast medium"
+                }
+            }
+        },
+        "1/1_617.jpg": {
+            "filename": "1_617.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "mosque islamic architecture, minaret tall spire",
+                    "extended": "palette gray beige, layout asymmetrical, texture stone ornate, lighting overcast diffuse, background tree bare, angle low-angle"
+                }
+            }
+        },
+        "1/1_628.jpg": {
+            "filename": "1_628.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral church Gothic",
+                    "extended": "palette beige gray, layout symmetrical vertical, texture stone block, surface weathered rough, lighting daylight soft, atmosphere clear blue, background sky cloudy, contrast medium"
+                }
+            }
+        },
+        "1/1_630.jpg": {
+            "filename": "1_630.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "church cathedral gothic",
+                    "extended": "palette beige brown, layout symmetrical facade, texture stone block, lighting daylight soft, background blue sky white clouds, gate metal ornate, plants potted green"
+                }
+            }
+        },
+        "1/1_629.jpg": {
+            "filename": "1_629.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Gothic stone",
+                    "extended": "palette beige gray, layout symmetrical facade, texture stone rough-hewn, surface weathered aged, lighting daylight soft, atmosphere clear blue, background sky cloudy, angle low-angle shot"
+                }
+            }
+        },
+        "1/1_632.jpg": {
+            "filename": "1_632.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral York Minster Gothic",
+                    "extended": "palette beige gray, layout centered, texture stone Gothic, lighting daylight cloudy, background blue sky white clouds, angle high aerial, contrast medium"
+                }
+            }
+        },
+        "1/1_619.jpg": {
+            "filename": "1_619.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "mosque islamic architecture stone",
+                    "extended": "palette gray beige, layout symmetrical facade, texture stone brick, surface weathered worn, lighting overcast diffuse, atmosphere cloudy gloomy, background tree bare, angle low wide, contrast medium"
+                }
+            }
+        },
+        "1/1_591.jpg": {
+            "filename": "1_591.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "tower Giralda bell-tower",
+                    "extended": "palette beige brown, layout centered vertical, texture stone carved ornate, surface weathered rough, lighting daylight soft, atmosphere clear blue, background sky cloudy white, angle low-angle shot"
+                }
+            }
+        },
+        "1/1_642.jpg": {
+            "filename": "1_642.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral facade gothic",
+                    "extended": "palette grey stone, layout symmetrical ornate, texture carved intricate, surface weathered aged, lighting daylight soft natural, highlight subtle low, background clear blue, contrast medium"
+                }
+            }
+        },
+        "1/1_613.jpg": {
+            "filename": "1_613.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building palace baroque",
+                    "extended": "palette beige brown, layout curved facade, texture stone carved ornate, surface weathered aged, lighting daylight soft, atmosphere cloudy blue, background trees bare, angle low"
+                }
+            }
+        },
+        "1/1_634.jpg": {
+            "filename": "1_634.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral gothic architecture",
+                    "extended": "palette dark gray, layout symmetrical facade, texture stone carved intricate, lighting spotlight focused, atmosphere nighttime dark, background sky clear, contrast high shadow"
+                }
+            }
+        },
+        "1/1_635.jpg": {
+            "filename": "1_635.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Milan Duomo Gothic",
+                    "extended": "palette earthtone brown, layout centered frontal, texture stone rough-hewn, architecture ornate spires, lighting daylight warm, atmosphere clear blue, background tree foliage autumn, people crowd walking"
+                }
+            }
+        },
+        "1/1_636.jpg": {
+            "filename": "1_636.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Cologne Gothic",
+                    "extended": "palette grey brown, layout symmetrical facade, texture stone rough-hewn, surface weathered aged, lighting overcast soft, atmosphere hazy distant, background sky blue-white gradient, contrast medium"
+                }
+            }
+        },
+        "1/1_646.jpg": {
+            "filename": "1_646.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "tower church bell-tower Gothic",
+                    "extended": "palette beige white, layout centered vertical, texture stone block, surface rough-hewn, lighting daylight soft, atmosphere partly-cloudy blue, background sky wispy-clouds, angle low"
+                }
+            }
+        },
+        "1/1_618.jpg": {
+            "filename": "1_618.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "mosque building stone",
+                    "extended": "palette gray white, layout asymmetrical low-angle, texture stone block rough, surface weathered aged, lighting overcast diffuse soft, atmosphere cloudy gloomy, background sky white-gray, contrast low"
+                }
+            }
+        },
+        "1/1_633.jpg": {
+            "filename": "1_633.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Notre Dame de Paris, architecture Gothic",
+                    "extended": "palette beige stone, layout symmetrical facade, texture carved ornate, lighting daylight soft, atmosphere partly cloudy blue, background cityscape urban, crowd people tourist"
+                }
+            }
+        },
+        "1/1_653.jpg": {
+            "filename": "1_653.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Gothic architecture facade",
+                    "extended": "palette gray stone, layout symmetrical ornate, texture carved intricate, surface weathered aged, lighting daylight soft natural, highlight specular subtle, background none, contrast medium"
+                }
+            }
+        },
+        "1/1_648.jpg": {
+            "filename": "1_648.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "church cathedral Gothic Revival stone",
+                    "extended": "palette beige white, layout symmetrical frontal, texture stone ashlar, surface rough-hewn, lighting daylight clear, atmosphere serene calm, background trees green, angle low wide, contrast medium"
+                }
+            }
+        },
+        "1/1_643.jpg": {
+            "filename": "1_643.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Milan Duomo facade Gothic",
+                    "extended": "palette gray white, layout symmetrical ornate, texture stone carved intricate, surface weathered aged, lighting daylight soft natural, atmosphere diffuse cloudy, background none, contrast high detailed"
+                }
+            }
+        },
+        "1/1_651.jpg": {
+            "filename": "1_651.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral church Gothic",
+                    "extended": "palette blue white, layout low-angle shot, texture stone grey rough, lighting daylight cloudy, background sky blue, foliage green purple flowers, clock face white numerals"
+                }
+            }
+        },
+        "1/1_652.jpg": {
+            "filename": "1_652.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral gothic architecture, building stone",
+                    "extended": "palette gray dark, layout symmetrical facade, texture stone carved ornate, surface weathered aged, lighting daylight clear, atmosphere sunny clear, background sky blue gradient, angle low angle"
+                }
+            }
+        },
+        "1/1_644.jpg": {
+            "filename": "1_644.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Gothic Cologne",
+                    "extended": "palette beige brown, layout symmetrical vertical, texture stone carved ornate, surface weathered aged, lighting daylight warm, atmosphere clear blue, background sky wispy clouds, contrast high detailed"
+                }
+            }
+        },
+        "1/1_654.jpg": {
+            "filename": "1_654.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Gothic stone",
+                    "extended": "palette grey beige, layout symmetrical facade, texture stone rough-hewn, architecture ornate intricate, lighting daylight soft, background trees green leafy, sky blue clear, tower tall slender"
+                }
+            }
+        },
+        "1/1_649.jpg": {
+            "filename": "1_649.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "church cathedral Gothic Revival",
+                    "extended": "palette beige white, layout symmetrical frontal, texture stone ashlar, surface rough-hewn, lighting daylight clear, atmosphere sunny blue-sky, background suburban residential, angle low wide, contrast medium"
+                }
+            }
+        },
+        "1/1_641.jpg": {
+            "filename": "1_641.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral entrance gothic, statues saints",
+                    "extended": "palette gray stone, layout symmetrical ornate, texture carved intricate, lighting warm spotlight, atmosphere formal solemn, background archway pointed, contrast high detailed"
+                }
+            }
+        },
+        "1/1_637.jpg": {
+            "filename": "1_637.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Gothic Cologne",
+                    "extended": "palette gold brown, layout centered vertical, texture stone carved Gothic, lighting daylight warm side-lit, atmosphere clear blue, background sky wispy clouds, structure spires tall pointed, material stone sanded"
+                }
+            }
+        },
+        "1/1_640.jpg": {
+            "filename": "1_640.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Cologne, architecture Gothic",
+                    "extended": "palette gray stone, layout symmetrical facade, texture carved ornate, lighting daylight warm highlight, background urban sidewalk, people group sitting standing, dog single white"
+                }
+            }
+        },
+        "1/1_655.jpg": {
+            "filename": "1_655.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "castle Neuschwanstein Bavarian Romanesque",
+                    "extended": "palette beige gray, layout asymmetrical hillside, texture stone rough-hewn, roofing slate dark, lighting daylight clear, atmosphere hazy distant, background landscape rolling hills lake, contrast medium"
+                }
+            }
+        },
+        "1/1_650.jpg": {
+            "filename": "1_650.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Gothic York Minster stone",
+                    "extended": "palette beige gray, layout centered elevated, texture stone carved ornate, surface weathered aged, lighting daylight soft diffuse, atmosphere cloudy overcast, background sky blue white"
+                }
+            }
+        },
+        "1/1_656.jpg": {
+            "filename": "1_656.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building city-hall Dutch Renaissance",
+                    "extended": "palette blue white, layout centered, texture stone brick, surface weathered, lighting daylight cloudy, atmosphere partly-overcast, background buildings row, angle low wide, contrast medium"
+                }
+            }
+        },
+        "1/1_664.jpg": {
+            "filename": "1_664.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral St. Vitus Gothic",
+                    "extended": "palette beige brown, layout symmetrical frontal, texture stone carved ornate, lighting daylight soft, atmosphere partly cloudy blue, background sky white clouds, crowd group tourists"
+                }
+            }
+        },
+        "1/1_663.jpg": {
+            "filename": "1_663.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral St. Vitus Gothic",
+                    "extended": "palette beige brown, layout symmetrical facade, texture stone carved ornate, surface weathered aged, lighting daylight clear, highlight carved details, background sky blue clear, angle low angle"
+                }
+            }
+        },
+        "1/1_645.jpg": {
+            "filename": "1_645.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Russian Orthodox church",
+                    "extended": "palette blue gray, layout centered frontal, texture stone brick ornate, surface snow covered, lighting daylight soft, atmosphere clear blue, background sky gradient, contrast medium"
+                }
+            }
+        },
+        "1/1_638.jpg": {
+            "filename": "1_638.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Milan Gothic",
+                    "extended": "palette beige brown, layout symmetrical facade, texture stone carved ornate, lighting daylight harsh, background blue sky clear, architecture pointed spires"
+                }
+            }
+        },
+        "1/1_657.jpg": {
+            "filename": "1_657.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "church brick Gothic",
+                    "extended": "palette beige brown gray, layout centered, texture stone brick, lighting daylight cloudy, atmosphere overcast, background tree bare, angle low, people crowd, vehicle bicycle"
+                }
+            }
+        },
+        "1/1_647.jpg": {
+            "filename": "1_647.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "church Catholic Gothic Revival",
+                    "extended": "palette beige white, layout symmetrical frontal, texture stone carved, surface rough-hewn limestone, lighting daylight clear, atmosphere serene calm, background trees green, angle low wide, contrast medium"
+                }
+            }
+        },
+        "1/1_668.jpg": {
+            "filename": "1_668.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "house Victorian mansion, turret conical",
+                    "extended": "palette beige gray, layout asymmetrical multi-story, texture siding horizontal wood, roofing slate shingle, lighting daylight clear, background blue sky wispy clouds, foreground road asphalt marked, feature turret rounded bay window, feature dormer multiple, vegetation tree weeping green, decor flower red hanging"
+                }
+            }
+        },
+        "1/1_639.jpg": {
+            "filename": "1_639.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral gothic architecture",
+                    "extended": "palette earthy brown, layout symmetrical facade, texture stone carved ornate, lighting daylight warm golden, atmosphere clear blue sky, background wispy clouds, angle low-angle shot"
+                }
+            }
+        },
+        "1/1_675.jpg": {
+            "filename": "1_675.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "monument Arc de Triomphe, landmark Parisian",
+                    "extended": "palette beige gold, layout symmetrical frontal, texture stone carved ornate, lighting daylight partial shadow, atmosphere clear blue, background buildings urban, crowd group people walking, flag French national"
+                }
+            }
+        },
+        "1/1_672.jpg": {
+            "filename": "1_672.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Saint Isaac's Cathedral, dome gold",
+                    "extended": "palette blue white, layout centered frontal, texture stone beige, surface weathered aged, lighting daylight cloudy soft, atmosphere partly overcast, background trees green, angle low wide, contrast medium"
+                }
+            }
+        },
+        "1/1_665.jpg": {
+            "filename": "1_665.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Notre Dame de Paris, facade Gothic",
+                    "extended": "palette beige gray, layout symmetrical frontal, texture stone carved ornate, surface weathered aged, lighting daylight partial overcast, highlight specular soft, background sky blue gradient, angle low upward"
+                }
+            }
+        },
+        "1/1_621.jpg": {
+            "filename": "1_621.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "church cathedral Gothic stone",
+                    "extended": "palette beige brown, layout symmetrical frontal, texture stone brick rough, lighting daylight harsh, atmosphere clear sunny, background sky blue gradient, contrast medium"
+                }
+            }
+        },
+        "1/1_605.jpg": {
+            "filename": "1_605.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Gothic Toledo Spain",
+                    "extended": "palette beige gray, layout symmetrical frontal, texture stone carved ornate, lighting daylight clear, background blue sky, architecture ornate arched, contrast medium"
+                }
+            }
+        },
+        "1/1_673.jpg": {
+            "filename": "1_673.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building town-hall clock-tower",
+                    "extended": "palette beige brown, layout symmetrical frontal, texture stone carved, columns tall Doric, lighting daylight clear, background skyscrapers modern glass, angle low wide, contrast medium"
+                }
+            }
+        },
+        "1/1_676.jpg": {
+            "filename": "1_676.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building monumental stone, archway ornate",
+                    "extended": "palette beige gray, layout symmetrical formal, texture stone block, surface weathered aged, lighting daylight soft, atmosphere partly cloudy blue, background sky wispy clouds, angle low wide"
+                }
+            }
+        },
+        "1/1_671.jpg": {
+            "filename": "1_671.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building historic hotel exterior",
+                    "extended": "palette gray beige, layout corner lot, texture stone facade, lighting daylight clear, background blue sky, angle low angle, vehicle cable car, color red yellow, people crowd walking"
+                }
+            }
+        },
+        "1/1_669.jpg": {
+            "filename": "1_669.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "city hall San Francisco",
+                    "extended": "palette gray beige, layout symmetrical frontal, texture stone smooth, surface paved brown, lighting daylight clear, atmosphere sunny, background trees green, angle low wide, flags American"
+                }
+            }
+        },
+        "1/1_626.jpg": {
+            "filename": "1_626.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral church Gothic",
+                    "extended": "palette beige brown, layout symmetrical frontal, texture stone carved ornate, lighting daylight cloudy soft, background sky blue white clouds, contrast medium"
+                }
+            }
+        },
+        "1/1_677.jpg": {
+            "filename": "1_677.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building church facade",
+                    "extended": "palette beige cream, layout symmetrical facade, texture stone rough-hewn, surface weathered aged, lighting daylight soft, atmosphere clear blue, background sky wispy clouds, contrail diagonal white"
+                }
+            }
+        },
+        "1/1_659.jpg": {
+            "filename": "1_659.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral St Bavo's, architecture gothic",
+                    "extended": "palette blue white, layout centered symmetrical, texture stone rough-hewn, surface weathered aged, lighting side-lit soft, atmosphere cloudy serene, background garden manicured, angle low wide, contrast medium"
+                }
+            }
+        },
+        "1/1_666.jpg": {
+            "filename": "1_666.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Notre Dame Gothic",
+                    "extended": "palette beige brown, layout asymmetrical, texture stone carved, lighting daylight soft, background sky blue wispy clouds, architecture ornate spires"
+                }
+            }
+        },
+        "1/1_667.jpg": {
+            "filename": "1_667.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "church cathedral",
+                    "extended": "palette beige gold, layout symmetrical facade, texture stone ornate, columns tall fluted, lighting daylight soft, background blue sky wispy clouds, angle low angle"
+                }
+            }
+        },
+        "1/1_686.jpg": {
+            "filename": "1_686.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral church Gothic Revival stone",
+                    "extended": "palette gray beige, layout symmetrical frontal, texture stone rough-hewn, surface weathered aged, lighting daylight soft, atmosphere clear blue, background sky white-clouded, contrast medium"
+                }
+            }
+        },
+        "1/1_685.jpg": {
+            "filename": "1_685.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building church facade gothic",
+                    "extended": "palette beige tan, layout symmetrical centered, texture stone carved ornate, surface weathered aged, lighting daylight soft natural, highlight specular subtle, background none, contrast low"
+                }
+            }
+        },
+        "1/1_660.jpg": {
+            "filename": "1_660.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "courtyard gothic architecture, fountain ornate",
+                    "extended": "palette grey stone, layout symmetrical formal, texture carved stone ornate, lighting overcast diffuse natural, background building facade intricate, hedge maze geometric manicured, statue figurative bronze, contrast medium color"
+                }
+            }
+        },
+        "1/1_683.jpg": {
+            "filename": "1_683.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral St. Andrew's Anglican Sydney",
+                    "extended": "palette beige brown, layout symmetrical frontal, texture stone carved ornate, surface weathered rough, lighting daylight clear, atmosphere sunny calm, background clear blue sky, angle low wide, contrast medium"
+                }
+            }
+        },
+        "1/1_678.jpg": {
+            "filename": "1_678.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "tower Pisa leaning, cathedral Pisa",
+                    "extended": "palette white gray, layout centered horizontal, texture stone marble, surface weathered worn, lighting daylight clear, atmosphere sunny blue, background sky clear blue, angle low wide, contrast medium"
+                }
+            }
+        },
+        "1/1_690.jpg": {
+            "filename": "1_690.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "train station building clock tower",
+                    "extended": "palette blue white, layout centered horizontal, texture brick stone glass, surface weathered worn, lighting daylight cloudy, atmosphere clear urban, background sky blue cloudy, angle low wide, clock white face, bus red double-decker, vehicles parked"
+                }
+            }
+        },
+        "1/1_684.jpg": {
+            "filename": "1_684.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "statue man bronze, pedestal stone ornate",
+                    "extended": "palette earthy beige, layout centered frontal, texture stone rough, material bronze dark, lighting daylight soft, atmosphere clear blue, background tower distant, angle low-angle"
+                }
+            }
+        },
+        "1/1_662.jpg": {
+            "filename": "1_662.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cityscape Boston, building clock-tower",
+                    "extended": "palette blue gray, layout urban park, texture glass steel, lighting daylight soft, atmosphere partly cloudy, background skyscrapers, angle low"
+                }
+            }
+        },
+        "1/1_697.jpg": {
+            "filename": "1_697.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral church Gothic",
+                    "extended": "palette golden brown, layout symmetrical vertical, texture stone carved ornate, lighting daylight soft, atmosphere cloudy blue, background sky white clouds, architecture spires tall pointed"
+                }
+            }
+        },
+        "1/1_694.jpg": {
+            "filename": "1_694.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "street urban scene, building brick, tower clock",
+                    "extended": "palette beige brown, layout linear crowded, texture brick rough, surface weathered old, lighting daylight clear, atmosphere sunny calm, background blue sky, people crowd walking, streetlamp metal tall, angle low"
+                }
+            }
+        },
+        "1/1_687.jpg": {
+            "filename": "1_687.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "clock tower brick, building church",
+                    "extended": "palette blue white, layout centered, texture brick stone, surface weathered, lighting daylight sunny, highlight specular, background sky blue cloudy, flags red"
+                }
+            }
+        },
+        "1/1_620.jpg": {
+            "filename": "1_620.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "church cathedral Gothic stone",
+                    "extended": "palette beige brown, layout symmetrical facade, texture stone brick rough, lighting daylight harsh, atmosphere clear blue, background sky cloudless, angle low angle"
+                }
+            }
+        },
+        "1/1_661.jpg": {
+            "filename": "1_661.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cityscape Boston skyline",
+                    "extended": "palette blue clear, layout urban dense, texture glass steel reflective, lighting daylight clear, background sky blue gradient, clock tower tall pointed, building high-rise modern, road highway concrete"
+                }
+            }
+        },
+        "1/1_688.jpg": {
+            "filename": "1_688.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building church clock-tower brick",
+                    "extended": "palette blue white, layout centered horizontal, texture brick stone, surface weathered rough, lighting daylight cloudy, atmosphere clear outdoor, background tree green leafy, angle low wide, people crowd walking"
+                }
+            }
+        },
+        "1/1_693.jpg": {
+            "filename": "1_693.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building historic ornate tower",
+                    "extended": "palette beige brown white, layout symmetrical octagonal, texture stone carved ornamental, lighting daylight clear, background sky blue gradient"
+                }
+            }
+        },
+        "1/1_691.jpg": {
+            "filename": "1_691.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building clock-tower brick, steeple tall",
+                    "extended": "palette beige brown, layout urban dense, texture brick stone, surface weathered rough, lighting daylight clear, atmosphere sunny calm, background blue sky, crowd group people, angle low wide"
+                }
+            }
+        },
+        "1/1_680.jpg": {
+            "filename": "1_680.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building stone ornate, fountain statue, horse-drawn carriage",
+                    "extended": "palette beige gray, layout symmetrical balanced, texture stone carved ornamental, surface weathered aged, lighting daylight soft natural, highlight subtle warm, background building facade ornate, angle low wide, contrast medium"
+                }
+            }
+        },
+        "1/1_604.jpg": {
+            "filename": "1_604.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Gothic Cologne, architecture stone",
+                    "extended": "palette grey dark, layout symmetrical vertical, texture stone carved ornate, lighting daylight soft natural, background sky blue cloudy, contrast medium"
+                }
+            }
+        },
+        "1/1_670.jpg": {
+            "filename": "1_670.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "city street skyscrapers, building Uptown Tower",
+                    "extended": "palette blue gray, layout centered, texture glass steel, surface asphalt, lighting daylight clear, atmosphere sunny, background blue sky, angle low"
+                }
+            }
+        },
+        "1/1_572.jpg": {
+            "filename": "1_572.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building university Gothic Revival architecture",
+                    "extended": "palette beige brown gray, layout symmetrical facade, texture stone brick, surface weathered aged, lighting daylight cloudy, atmosphere overcast soft, background cloudy blue, angle low wide"
+                }
+            }
+        },
+        "1/1_689.jpg": {
+            "filename": "1_689.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building clock-tower brown-brick",
+                    "extended": "palette grey overcast, layout centered vertical, texture brick brown, surface weathered rough, lighting diffuse soft, atmosphere cloudy gloomy, background building rooftops, flag flying waving"
+                }
+            }
+        },
+        "1/1_695.jpg": {
+            "filename": "1_695.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Notre Dame de Paris, facade west",
+                    "extended": "palette gold yellow, layout symmetrical frontal, texture stone carved ornate, lighting daylight warm sunlight, highlight specular sharp, background sky blue clear, architecture gothic ribbed vault"
+                }
+            }
+        },
+        "1/1_708.jpg": {
+            "filename": "1_708.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "St. Peter's Basilica, colonnade, fountain",
+                    "extended": "palette blue white, layout symmetrical expansive, texture stone ornate, lighting daylight soft, atmosphere partly cloudy, background cloudy blue, architecture Baroque, columns tall Doric, crowd group tourist"
+                }
+            }
+        },
+        "1/1_706.jpg": {
+            "filename": "1_706.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "castle Blarney stone",
+                    "extended": "palette beige gray, layout symmetrical asymmetrical, texture stone rough-hewn, surface weathered worn, lighting daylight soft, atmosphere cloudy overcast, background garden lush greenery, foliage ivy dense, contrast medium"
+                }
+            }
+        },
+        "1/1_710.jpg": {
+            "filename": "1_710.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "estate chateau french, garden formal",
+                    "extended": "palette beige gray, layout symmetrical axial, texture stone cobblestone, surface grass manicured, lighting overcast diffuse, atmosphere cloudy gloomy, background cloudy sky, angle low wide"
+                }
+            }
+        },
+        "1/1_705.jpg": {
+            "filename": "1_705.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral, architecture gothic",
+                    "extended": "palette gray stone, layout symmetrical facade, texture carved ornate, surface weathered aged, lighting daylight soft natural, highlight specular slight, background crowd people walking, angle low wide"
+                }
+            }
+        },
+        "1/1_700.jpg": {
+            "filename": "1_700.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral gothic architecture",
+                    "extended": "palette gray stone, layout symmetrical facade, texture intricate carvings, surface weathered aged, lighting daylight soft, atmosphere cloudy overcast, background blue sky, angle low wide"
+                }
+            }
+        },
+        "1/1_712.jpg": {
+            "filename": "1_712.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "castle Neuschwanstein Bavarian Alps",
+                    "extended": "palette gray white, layout asymmetrical hillside, texture stone rough-hewn, roofing slate dark, lighting overcast diffuse, atmosphere misty hazy, background landscape rolling hills lake, contrast medium low"
+                }
+            }
+        },
+        "1/1_707.jpg": {
+            "filename": "1_707.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "church tower brown stone, building facade brick",
+                    "extended": "palette blue white, layout centered, texture stone rough, surface weathered, lighting daylight cloudy, atmosphere urban daytime, background tree green, angle low, contrast medium"
+                }
+            }
+        },
+        "1/1_658.jpg": {
+            "filename": "1_658.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Gothic brick stone",
+                    "extended": "palette grey brown, layout asymmetrical, texture stone rough brick, surface weathered worn, lighting overcast diffuse, background sky white cloudy, architecture ornate intricate"
+                }
+            }
+        },
+        "1/1_711.jpg": {
+            "filename": "1_711.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "architecture Porta Nigra, gate Roman ancient",
+                    "extended": "palette grey brown, layout symmetrical facade, texture stone rough-hewn, surface weathered aged, lighting daylight soft, atmosphere overcast hazy, background sky blue-white gradient, contrast medium"
+                }
+            }
+        },
+        "1/1_681.jpg": {
+            "filename": "1_681.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building clock-tower modern",
+                    "extended": "palette gray dark, layout centered vertical, texture metallic glass, lighting daylight soft, background sky blue cloudy, clock face gold"
+                }
+            }
+        },
+        "1/1_714.jpg": {
+            "filename": "1_714.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building opera house, architecture classical",
+                    "extended": "palette beige brown, layout symmetrical balanced, texture stone carved ornate, surface weathered aged, lighting daylight clear, atmosphere urban formal, background sky blue cloudless, angle low wide"
+                }
+            }
+        },
+        "1/1_709.jpg": {
+            "filename": "1_709.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "train station building",
+                    "extended": "palette beige gray, layout symmetrical frontal, texture stone brick, surface weathered rough, lighting daylight cloudy, atmosphere clear calm, background blue sky white clouds, clock tower central, signage 'SKF' red"
+                }
+            }
+        },
+        "1/1_682.jpg": {
+            "filename": "1_682.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral York Minster Gothic",
+                    "extended": "palette beige gray, layout symmetrical balanced, texture stone carved ornate, surface weathered aged, lighting daylight soft, atmosphere partly cloudy blue, background sky white clouds, angle low wide"
+                }
+            }
+        },
+        "1/1_717.jpg": {
+            "filename": "1_717.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral church St. Francis Xavier, facade ornate",
+                    "extended": "palette beige gray, layout symmetrical frontal, texture stone carved ornate, surface weathered aged, lighting daylight soft natural, atmosphere cloudy serene, background trees green blurred, angle low wide"
+                }
+            }
+        },
+        "1/1_720.jpg": {
+            "filename": "1_720.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building church tan-brick",
+                    "extended": "palette tan beige, layout symmetrical balanced, texture brick stone, surface weathered aged, lighting daylight soft natural, atmosphere serene calm, background blue sky white clouds, foliage green lush, flowers colorful vibrant, statue figurine"
+                }
+            }
+        },
+        "1/1_713.jpg": {
+            "filename": "1_713.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "castle Chillon medieval",
+                    "extended": "palette grey blue, layout centered frontal, texture stone rough-hewn, surface weathered aged, lighting overcast diffuse, atmosphere misty calm, background mountain range distant, water lake calm reflective, angle low wide"
+                }
+            }
+        },
+        "1/1_698.jpg": {
+            "filename": "1_698.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building museum steps, entrance grand",
+                    "extended": "palette beige gray, layout symmetrical balanced, texture stone ornate, columns tall fluted, lighting daylight soft natural, atmosphere clear blue, background cloudy wispy, angle low wide, people crowd walking"
+                }
+            }
+        },
+        "1/1_721.jpg": {
+            "filename": "1_721.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "building church tower",
+                    "extended": "palette beige brown, layout asymmetrical, texture stone carved, lighting daylight soft, atmosphere serene natural, background foliage dense green, contrast low"
+                }
+            }
+        },
+        "1/1_674.jpg": {
+            "filename": "1_674.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "church tower gothic",
+                    "extended": "palette beige gray, layout centered, texture stone rough, lighting daylight soft, background blue sky wispy clouds, angle low"
+                }
+            }
+        },
+        "1/1_704.jpg": {
+            "filename": "1_704.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "church stone Gothic, sign The Queens Gallery",
+                    "extended": "palette grey brown, layout centered street, texture stone rough, surface wet reflective, lighting overcast diffuse, background building white multi-story, angle low wide, contrast medium"
+                }
+            }
+        },
+        "1/1_679.jpg": {
+            "filename": "1_679.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "street urban cityscape, building ornate facade",
+                    "extended": "palette beige yellow white, layout symmetrical grid, texture stone brick smooth, lighting daylight soft natural, background building storefronts, angle low wide, contrast medium color"
+                }
+            }
+        },
+        "1/1_715.jpg": {
+            "filename": "1_715.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "cathedral Gothic church",
+                    "extended": "palette beige gray, layout symmetrical facade, texture stone carved ornate, lighting daylight clear, background sky blue gradient, contrast medium"
+                }
+            }
+        },
+        "1/1_730.jpg": {
+            "filename": "1_730.jpg",
+            "class_label": "1",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "castle Neuschwanstein Bavarian Alps",
+                    "extended": "palette gray white, layout asymmetrical staggered, texture stone rough-hewn, roofing slate dark, lighting overcast diffuse, atmosphere misty foggy, background mountain rocky tree-covered, angle low wide"
+                }
+            }
         }
     }
 }
