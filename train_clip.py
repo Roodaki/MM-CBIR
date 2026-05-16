@@ -143,22 +143,33 @@ def symmetric_infonce_loss(
     return (loss_i2t + loss_t2i) / 2.0
 
 
-def build_lora_model(model_id: str):
+def build_lora_model(
+    model_id: str, lora_rank: int, lora_dropout: float, lora_mlp: bool
+):
     model = CLIPModel.from_pretrained(model_id)
     processor = CLIPProcessor.from_pretrained(model_id)
 
+    # alpha == rank keeps the effective scale of the adapter output constant
+    # regardless of the rank chosen, making rank a pure capacity knob.
+    target_modules = [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "out_proj",
+        "visual_projection",
+        "text_projection",
+    ]
+    if lora_mlp:
+        # CLIP's vision and text transformer MLP layers. Adding these gives the
+        # encoders more room to adapt representations beyond attention alone.
+        # Only enable when the dataset is large enough — watch the train/val gap.
+        target_modules += ["fc1", "fc2"]
+
     lora_cfg = LoraConfig(
-        r=16,
-        lora_alpha=32,
-        target_modules=[
-            "q_proj",
-            "k_proj",
-            "v_proj",
-            "out_proj",
-            "visual_projection",
-            "text_projection",
-        ],
-        lora_dropout=0.05,
+        r=lora_rank,
+        lora_alpha=lora_rank,  # alpha == rank: scale is rank-independent
+        target_modules=target_modules,
+        lora_dropout=lora_dropout,
         bias="none",
     )
     model = get_peft_model(model, lora_cfg)
@@ -191,10 +202,26 @@ def train(args):
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"Training on: {device}")
 
+    # Validate grad_accum early so misconfiguration fails before any work is done.
+    if args.grad_accum < 1:
+        raise ValueError(f"--grad-accum must be >= 1, got {args.grad_accum}.")
+
+    effective_batch = args.batch_size * args.grad_accum
+    print(
+        f"[INFO] Batch size: {args.batch_size}  |  "
+        f"Grad accum steps: {args.grad_accum}  |  "
+        f"Effective batch size: {effective_batch}"
+    )
+
     if device == "cuda":
         torch.backends.cudnn.benchmark = True
 
-    model, processor = build_lora_model(args.model_id)
+    model, processor = build_lora_model(
+        args.model_id,
+        lora_rank=args.lora_rank,
+        lora_dropout=args.lora_dropout,
+        lora_mlp=args.lora_mlp,
+    )
     model.to(device)
 
     if args.compile:
@@ -203,7 +230,8 @@ def train(args):
             model = torch.compile(model)
         else:
             print(
-                "[WARNING] --compile requested but torch.compile is not available (requires PyTorch >= 2.0). Skipping."
+                "[WARNING] --compile requested but torch.compile is not available "
+                "(requires PyTorch >= 2.0). Skipping."
             )
 
     logit_scale = resolve_logit_scale(model)
@@ -245,16 +273,24 @@ def train(args):
         drop_last=True,
     )
 
-    optimizer = AdamW(model.parameters(), lr=args.lr, weight_decay=0.01)
+    # Higher weight_decay (0.1 vs original 0.01) is a strong and cheap
+    # regulariser for contrastive models — it penalises large adapter weights
+    # directly and consistently improves generalisation on small datasets.
+    optimizer = AdamW(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
+
+    # Optimizer steps happen every grad_accum micro-batches, so the scheduler
+    # must count optimizer steps, not micro-batch steps.
     steps_per_epoch = len(train_loader)
+    optimizer_steps_per_epoch = math.ceil(steps_per_epoch / args.grad_accum)
 
     scheduler = OneCycleLR(
         optimizer,
         max_lr=args.lr,
-        steps_per_epoch=steps_per_epoch,
+        steps_per_epoch=optimizer_steps_per_epoch,
         epochs=args.epochs,
-        pct_start=0.1,
+        pct_start=0.05,  # shorter warm-up (was 0.1): ~1 epoch at 30 total
         anneal_strategy="cos",
+        final_div_factor=1000,  # stronger end-of-run decay (was default 1e4/10000)
     )
 
     os.makedirs(args.output_dir, exist_ok=True)
@@ -291,12 +327,12 @@ def train(args):
             with torch.no_grad():
                 logit_scale.copy_(torch.tensor(state["logit_scale"], device=device))
 
-        saved_steps = state.get("steps_per_epoch")
-        if saved_steps is not None and saved_steps != steps_per_epoch:
+        saved_steps = state.get("optimizer_steps_per_epoch")
+        if saved_steps is not None and saved_steps != optimizer_steps_per_epoch:
             raise RuntimeError(
-                f"Dataset size changed since the last checkpoint: "
-                f"saved steps_per_epoch={saved_steps}, "
-                f"current steps_per_epoch={steps_per_epoch}. "
+                f"Dataset size or --grad-accum changed since the last checkpoint: "
+                f"saved optimizer_steps_per_epoch={saved_steps}, "
+                f"current optimizer_steps_per_epoch={optimizer_steps_per_epoch}. "
                 "Delete the checkpoint and retrain from scratch."
             )
 
@@ -327,10 +363,11 @@ def train(args):
     for epoch in range(start_epoch, args.epochs):
         model.train()
         total_train_loss = 0.0
+        optimizer.zero_grad()  # zero once before the epoch starts
 
-        for batch in tqdm(train_loader, desc=f"Epoch {epoch+1}/{args.epochs} [train]"):
-            optimizer.zero_grad()
-
+        for step, batch in enumerate(
+            tqdm(train_loader, desc=f"Epoch {epoch+1}/{args.epochs} [train]")
+        ):
             pixel_values = batch["pixel_values"].to(device)
             input_ids = batch["input_ids"].to(device)
             attention_mask = batch["attention_mask"].to(device)
@@ -350,14 +387,24 @@ def train(args):
                 )
                 loss = symmetric_infonce_loss(img_emb, text_emb, logit_scale)
 
-            scaler.scale(loss).backward()
-            scaler.unscale_(optimizer)
-            torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
-            scaler.step(optimizer)
-            scaler.update()
-            scheduler.step()
+            # Scale loss by accum steps so gradients are averaged, not summed,
+            # across micro-batches — keeps gradient magnitude independent of
+            # the accumulation factor.
+            scaled_loss = loss / args.grad_accum
+            scaler.scale(scaled_loss).backward()
 
             total_train_loss += loss.item()
+
+            is_last_micro_batch = (step + 1) % args.grad_accum == 0
+            is_last_batch = (step + 1) == len(train_loader)
+
+            if is_last_micro_batch or is_last_batch:
+                scaler.unscale_(optimizer)
+                torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+                scaler.step(optimizer)
+                scaler.update()
+                optimizer.zero_grad()
+                scheduler.step()
 
         avg_train = total_train_loss / len(train_loader)
 
@@ -430,7 +477,7 @@ def train(args):
                 "total_epochs": args.epochs,
                 "best_val_loss": best_val_loss,
                 "patience_counter": patience_counter,
-                "steps_per_epoch": steps_per_epoch,
+                "optimizer_steps_per_epoch": optimizer_steps_per_epoch,
                 "optimizer_state_dict": optimizer.state_dict(),
                 "scheduler_state_dict": scheduler.state_dict(),
                 "scaler": scaler.state_dict(),
@@ -473,18 +520,88 @@ def parse_args():
         default=f"./output/models/{p.parse_args().model_id.replace('/', '_')}",
     )
     p.add_argument("--batch-size", type=int, default=128)
+    p.add_argument(
+        "--grad-accum",
+        type=int,
+        default=4,
+        help=(
+            "Number of micro-batches to accumulate before an optimizer step. "
+            "Effective batch size = batch-size * grad-accum. "
+            "Default 4 gives an effective batch of 512 at batch-size 128, "
+            "which significantly improves InfoNCE contrastive signal without "
+            "extra VRAM cost."
+        ),
+    )
     p.add_argument("--epochs", type=int, default=50)
-    p.add_argument("--lr", type=float, default=5e-5)
+    p.add_argument(
+        "--lr",
+        type=float,
+        default=2e-5,
+        help="Peak learning rate. Lowered from 5e-5 to 3e-5 to reduce overfitting.",
+    )
     p.add_argument("--val-split", type=float, default=0.1)
-    p.add_argument("--patience", type=int, default=5)
-    p.add_argument("--min-delta", type=float, default=0.001)
+    p.add_argument(
+        "--patience",
+        type=int,
+        default=7,
+        help="Early-stopping patience in epochs without improvement.",
+    )
+    p.add_argument(
+        "--min-delta",
+        type=float,
+        default=0.003,
+        help=(
+            "Minimum val-loss improvement to reset patience. "
+            "Raised from 0.001 to 0.005 to avoid counting noise as progress."
+        ),
+    )
+    p.add_argument(
+        "--lora-rank",
+        type=int,
+        default=4,
+        help=(
+            "LoRA rank r. Lower = fewer trainable parameters = less overfitting. "
+            "Default 8 (was 16). Try 4 if the train/val gap is still large."
+        ),
+    )
+    p.add_argument(
+        "--lora-dropout",
+        type=float,
+        default=0.15,
+        help=(
+            "Dropout applied inside LoRA adapters. "
+            "Raised from 0.05 to 0.1 for better regularisation."
+        ),
+    )
+    p.add_argument(
+        "--lora-mlp",
+        action="store_true",
+        default=False,
+        help=(
+            "Also apply LoRA to the MLP layers (fc1, fc2) in addition to "
+            "attention and projection layers. Increases adapter capacity — "
+            "only enable this if the train/val gap is small and you have "
+            "enough data to support more parameters."
+        ),
+    )
+    p.add_argument(
+        "--weight-decay",
+        type=float,
+        default=0.1,
+        help=(
+            "AdamW weight decay. Raised from 0.01 to 0.1 — a strong and "
+            "cheap regulariser for contrastive models on small datasets."
+        ),
+    )
     p.add_argument("--resume", action="store_true")
     p.add_argument("--num-workers", type=int, default=None)
     p.add_argument(
         "--compile",
         action="store_true",
-        help="Compile the model with torch.compile (PyTorch >= 2.0). "
-        "First epoch will be slow while tracing; subsequent epochs are faster.",
+        help=(
+            "Compile the model with torch.compile (PyTorch >= 2.0). "
+            "First epoch will be slow while tracing; subsequent epochs are faster."
+        ),
     )
     return p.parse_args()
 
