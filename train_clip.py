@@ -208,7 +208,9 @@ def unicl_loss(
     """
     # Clamp log-temperature and cast to embedding dtype so the temperature
     # scaling is numerically consistent under autocast (float16 on CUDA).
-    scale = logit_scale.exp().clamp(max=100.0).to(image_embeds.dtype)
+    # Ceiling of 50 (not 100): CLIP literature finds optimal scale is 20-50
+    # on small/medium datasets; 100 collapses the softmax and causes overfitting.
+    scale = logit_scale.exp().clamp(max=50.0).to(image_embeds.dtype)
 
     # (B, B) cosine similarity matrix
     logits = scale * (image_embeds @ text_embeds.T)
@@ -265,7 +267,29 @@ def build_lora_model(
     return model, processor
 
 
-def resolve_logit_scale(model: nn.Module) -> nn.Parameter:
+def resolve_logit_scale(model: nn.Module, reset: bool = True) -> nn.Parameter:
+    """
+    Finds logit_scale in the (possibly LoRA-wrapped) model, forces it trainable,
+    optionally resets it to the healthy CLIP pretraining start value, and returns it.
+
+    Why the reset matters
+    ---------------------
+    CLIP's pretrained logit_scale is ln(100) ~= 4.605, giving exp ~= 100 — right
+    at the clamp ceiling. With scale frozen at 100 the temperature is 0.01, making
+    the softmax extremely peaked and driving overfitting on small datasets.
+    Resetting to ln(1/0.07) ~= 2.659 (exp ~= 14.3) — the value CLIP used at the
+    START of its own pretraining — gives the optimiser a meaningful range to work
+    in. This is standard practice for CLIP fine-tuning.
+
+    reset=False is used on resume: the checkpoint value is restored separately
+    by the resume block, so we must not overwrite it here.
+
+    Why requires_grad may be False after LoRA wrapping
+    ---------------------------------------------------
+    PEFT freezes all base-model parameters before injecting adapters. logit_scale
+    is not a weight matrix so no LoRA adapter covers it, leaving it frozen.
+    We must explicitly re-enable its gradient here.
+    """
     named_params = dict(model.named_parameters())
     candidate_keys = [
         "base_model.model.logit_scale",
@@ -275,7 +299,28 @@ def resolve_logit_scale(model: nn.Module) -> nn.Parameter:
     for key in candidate_keys:
         if key in named_params:
             param = named_params[key]
+
+            # Re-enable gradient — PEFT freezes all base params by default.
             param.requires_grad = True
+
+            if reset:
+                # Reset to CLIP's pretraining start value so the learnable
+                # temperature has room to evolve rather than sitting at the
+                # clamp ceiling from epoch 1.
+                with torch.no_grad():
+                    param.fill_(2.659)  # ln(1 / 0.07) — exp ~= 14.3
+                print(
+                    f"[INFO] logit_scale found at '{key}'. "
+                    f"Reset to {param.item():.4f} (exp={param.exp().item():.2f}). "
+                    f"requires_grad={param.requires_grad}"
+                )
+            else:
+                print(
+                    f"[INFO] logit_scale found at '{key}'. "
+                    f"Current value: {param.item():.4f} (exp={param.exp().item():.2f}). "
+                    f"requires_grad={param.requires_grad} "
+                    f"(value will be restored from checkpoint)"
+                )
             return param
 
     raise RuntimeError(
@@ -323,7 +368,14 @@ def train(args):
     # ── Resolve logit_scale BEFORE torch.compile ──────────────────────────────
     # torch.compile wraps the model in OptimizedModule which may not expose
     # named_parameters() the same way, making resolve_logit_scale unreliable.
-    logit_scale = resolve_logit_scale(model)
+    # reset=False on resume: the checkpoint value is restored in the resume
+    # block below and must not be overwritten by the fresh-start reset.
+    is_resuming = (
+        args.resume
+        and os.path.exists(os.path.join(args.output_dir, "latest"))
+        and os.path.exists(os.path.join(args.output_dir, "latest", "trainer_state.pt"))
+    )
+    logit_scale = resolve_logit_scale(model, reset=not is_resuming)
 
     if args.compile:
         if hasattr(torch, "compile"):
@@ -503,7 +555,11 @@ def train(args):
 
             if is_last_micro_batch or is_last_batch:
                 scaler.unscale_(optimizer)
-                torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+                # Include logit_scale explicitly: it may not appear in
+                # model.parameters() in all PEFT/compile configurations,
+                # and an unclipped temperature gradient can cause divergence.
+                params_to_clip = list(model.parameters()) + [logit_scale]
+                torch.nn.utils.clip_grad_norm_(params_to_clip, max_norm=1.0)
                 scaler.step(optimizer)
                 scaler.update()
                 optimizer.zero_grad()
@@ -554,6 +610,13 @@ def train(args):
                 val_batches += 1
 
         avg_val = total_val_loss / max(val_batches, 1)
+
+        if val_batches == 0:
+            raise RuntimeError(
+                "All validation batches were skipped (every batch was either "
+                "size < 2 or mono-class). This should not happen with Corel-10K "
+                "and val_split=0.1. Check your dataset or reduce --val-split."
+            )
         current_lr = scheduler.get_last_lr()[0]
 
         print(

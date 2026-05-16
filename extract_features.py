@@ -5,7 +5,7 @@ import numpy as np
 import torch
 from PIL import Image
 from transformers import CLIPProcessor, CLIPModel
-from peft import PeftModel
+from peft import PeftModel, PeftConfig
 from tqdm import tqdm
 
 # ---------------------------------------------------------------------------
@@ -61,12 +61,17 @@ def load_model(model_dir: str, device: str):
     """
     print(f"[INFO] Loading base model + LoRA adapter from '{model_dir}'...")
 
-    base_model = CLIPModel.from_pretrained(model_dir)
+    # Load adapter config to correctly identify the base model
+    config = PeftConfig.from_pretrained(model_dir)
+    base_model_name = config.base_model_name_or_path
+
+    base_model = CLIPModel.from_pretrained(base_model_name)
     model = PeftModel.from_pretrained(base_model, model_dir)
     model.eval()
     model.to(device)
 
-    processor = CLIPProcessor.from_pretrained(model_dir)
+    # Use the base model name for the processor as well to guarantee alignment
+    processor = CLIPProcessor.from_pretrained(base_model_name)
 
     print("[INFO] Model loaded successfully.")
     return model, processor
@@ -145,7 +150,7 @@ def extract_features(
         attention_mask = text_inputs["attention_mask"].to(device)
 
         # ── forward passes ────────────────────────────────────────────────────
-        with torch.autocast(device_type=device, enabled=use_amp):
+        with torch.amp.autocast(device_type=device, enabled=use_amp):
             image_embeds = model.get_image_features(pixel_values=pixel_values)
             image_embeds = image_embeds / image_embeds.norm(dim=-1, keepdim=True)
 
@@ -321,7 +326,7 @@ def parse_args():
     p.add_argument(
         "--fusion-mode",
         choices=["concat", "avg", "weighted"],
-        default="avg",
+        default="concat",
         help=(
             "How to combine image and text embeddings into the KNN feature vector:\n"
             "  concat   — concatenate → (N, 2D). Keeps both modalities fully "

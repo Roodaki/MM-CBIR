@@ -24,11 +24,14 @@ FEATURE_VARIANTS = {
 # ---------------------------------------------------------------------------
 
 
-def build_index(features: np.ndarray, similarity: str, use_gpu: bool):
+def build_index(
+    features: np.ndarray, similarity: str, is_concat_fused: bool, use_gpu: bool
+):
     """
     Builds an exact FAISS index for the requested similarity metric.
 
-    cosine  — L2-normalises features, then uses IndexFlatIP (dot == cosine)
+    cosine  — L2-normalises features, then uses IndexFlatIP (dot == cosine).
+              Skips re-normalisation if features are concatenated embeddings.
     l2      — IndexFlatL2, exact Euclidean distance
     dot     — IndexFlatIP on raw (unnormalised) features
 
@@ -38,8 +41,15 @@ def build_index(features: np.ndarray, similarity: str, use_gpu: bool):
     dim = features.shape[1]
 
     if similarity == "cosine":
-        norms = np.linalg.norm(features, axis=1, keepdims=True)
-        feats = features / np.where(norms == 0, 1.0, norms)
+        if is_concat_fused:
+            # Concatenated vectors are joined from two already L2-normalised halves.
+            # Re-normalising the 2D vector would break their independent magnitudes.
+            # The Inner Product of the concatenated raw features already equals the
+            # sum of their individual cosine similarities.
+            feats = features.copy()
+        else:
+            norms = np.linalg.norm(features, axis=1, keepdims=True)
+            feats = features / np.where(norms == 0, 1.0, norms)
         index = faiss.IndexFlatIP(dim)
     elif similarity == "l2":
         feats = features.copy()
@@ -69,7 +79,8 @@ def build_index(features: np.ndarray, similarity: str, use_gpu: bool):
 
 
 def extract_labels(paths: np.ndarray) -> list[str]:
-    return [p.split(os.sep)[0] if os.sep in p else p.split("/")[0] for p in paths]
+    # Replace any Windows backslashes with forward slashes before splitting
+    return [p.replace("\\", "/").split("/")[0] for p in paths]
 
 
 # ---------------------------------------------------------------------------
@@ -275,6 +286,9 @@ def main(args):
     n = len(labels)
     n_cls = len(set(labels))
 
+    # Safely extract fusion_mode for the cosine guard clause
+    fusion_mode = str(data["fusion_mode"].item()) if "fusion_mode" in data else "concat"
+
     # Load all three feature arrays
     feature_arrays: dict[str, np.ndarray] = {
         variant: data[npz_key].astype(np.float32)
@@ -296,10 +310,15 @@ def main(args):
     for variant in variants:
         feats = feature_arrays[variant]
         for sim in similarities:
+            # We flag if this loop iteration is processing a concat vector
+            is_concat_fused = variant == "fused" and fusion_mode == "concat"
+
             print(
                 f"\n[INFO] [{variant.upper()}] Building index — similarity: {sim.upper()} ..."
             )
-            index, indexed_feats = build_index(feats, sim, use_gpu=args.gpu)
+            index, indexed_feats = build_index(
+                feats, sim, is_concat_fused, use_gpu=args.gpu
+            )
 
             print(f"[INFO] [{variant.upper()}] Evaluating ...")
             results = evaluate(index, indexed_feats, labels, ks=args.ks)
