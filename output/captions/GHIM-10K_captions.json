@@ -49196,6 +49196,416 @@
                     "extended": "palette brown orange, layout centered, texture feathered smooth, lighting daylight natural, background dirt debris scattered, contrast medium"
                 }
             }
+        },
+        "17/17_8939.jpg": {
+            "filename": "17_8939.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "rooster black white, chicks pair",
+                    "extended": "palette black white, layout centered, texture feathered fluffy, lighting daylight natural, background blurred greenery, angle low"
+                }
+            }
+        },
+        "17/17_8935.jpg": {
+            "filename": "17_8935.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal rooster white",
+                    "extended": "plumage white black, comb red, leg yellow, texture feathered smooth, lighting daylight natural, background foliage green dense, layout centered profile"
+                }
+            }
+        },
+        "17/17_8928.jpg": {
+            "filename": "17_8928.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "bird chicken rooster",
+                    "extended": "palette orange brown, layout centered, texture feathered fluffy, lighting daylight natural, background ground dirt cracked, angle overhead"
+                }
+            }
+        },
+        "17/17_8921.jpg": {
+            "filename": "17_8921.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "bird rooster",
+                    "extended": "palette orange red, texture feathery smooth, lighting daylight soft natural, background blurry unfocused, eye single"
+                }
+            }
+        },
+        "17/17_8940.jpg": {
+            "filename": "17_8940.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "rooster black white speckled, chicks white black speckled",
+                    "extended": "palette green bright, layout centered, texture grass lush, lighting daylight natural, background blur tree foliage, group chicks small"
+                }
+            }
+        },
+        "17/17_8933.jpg": {
+            "filename": "17_8933.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "bird rooster, group",
+                    "extended": "palette orange brown, layout scattered ground, texture feathered fluffy, lighting daylight natural warm, background snow patchy, angle low"
+                }
+            }
+        },
+        "17/17_8941.jpg": {
+            "filename": "17_8941.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "poultry rooster, hen, chick",
+                    "extended": "palette black white, layout grassy foreground, texture feathered fluffy, lighting daylight natural, background foliage blurred, group three"
+                }
+            }
+        },
+        "17/17_8932.jpg": {
+            "filename": "17_8932.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "bird rooster, hen, hen",
+                    "extended": "palette orange brown black, layout scattered, texture feathered fluffy, lighting daylight diffuse natural, background bamboo forest snowy, contrast medium color"
+                }
+            }
+        },
+        "17/17_8922.jpg": {
+            "filename": "17_8922.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal rooster speckled",
+                    "extended": "palette gray black, texture feathered speckled, lighting daylight soft, background blur ground dirt, head red wattle comb"
+                }
+            }
+        },
+        "17/17_8943.jpg": {
+            "filename": "17_8943.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "rooster black-white mottled, hen black-white mottled, chick black-white mottled",
+                    "extended": "palette green lush, layout grassy open, texture feathered fluffy, lighting daylight soft natural, background foliage dense blurred, group single pair"
+                }
+            }
+        },
+        "17/17_8908.jpg": {
+            "filename": "17_8908.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "bird rooster",
+                    "extended": "palette orange yellow red black, texture feathered smooth, lighting daylight natural, background dirt brown sparse vegetation, layout centered"
+                }
+            }
+        },
+        "17/17_8944.jpg": {
+            "filename": "17_8944.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal rooster",
+                    "extended": "palette orange yellow black, texture feathered fluffy, lighting daylight natural, background ground concrete, contrast medium color, leaf dry scattered"
+                }
+            }
+        },
+        "17/17_8937.jpg": {
+            "filename": "17_8937.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "bird chicken white",
+                    "extended": "palette white brown, layout profile left, texture plumage smooth, lighting daylight warm, background soil earthy, angle low close-up"
+                }
+            }
+        },
+        "17/17_8946.jpg": {
+            "filename": "17_8946.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "bird rooster",
+                    "extended": "palette orange brown black, texture feathered glossy, lighting daylight natural, background blurry out-of-focus, surface ground concrete"
+                }
+            }
+        },
+        "17/17_8947.jpg": {
+            "filename": "17_8947.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal rooster",
+                    "extended": "palette orange yellow black gray, texture feathered fluffy, lighting daylight natural, background blurry concrete, angle side profile"
+                }
+            }
+        },
+        "17/17_8901.jpg": {
+            "filename": "17_8901.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal chicken hen speckled brown",
+                    "extended": "palette golden brown, texture feathered fluffy, lighting daylight warm, background straw hay dry, layout profile close-up, angle low"
+                }
+            }
+        },
+        "17/17_8955.jpg": {
+            "filename": "17_8955.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal rooster",
+                    "extended": "palette brown gold, texture feathered fluffy, lighting daylight natural, background ground dirt, contrast medium"
+                }
+            }
+        },
+        "17/17_8953.jpg": {
+            "filename": "17_8953.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "bird rooster",
+                    "extended": "palette orange brown black, texture feathered smooth, lighting daylight natural, background blurry urban, legs yellow"
+                }
+            }
+        },
+        "17/17_8952.jpg": {
+            "filename": "17_8952.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "bird rooster",
+                    "extended": "palette orange brown black, layout centered, texture feathered fluffy, lighting daylight natural, background ground gravel, angle low"
+                }
+            }
+        },
+        "17/17_8938.jpg": {
+            "filename": "17_8938.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal rooster white",
+                    "extended": "palette white cream, layout centered profile, texture plumage smooth, lighting daylight natural soft, background garden blurred greenery, contrast low color"
+                }
+            }
+        },
+        "17/17_8956.jpg": {
+            "filename": "17_8956.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "bird chicken hen",
+                    "extended": "palette brown orange, texture feathery fluffy, lighting daylight natural, background concrete gray, surface wet reflective"
+                }
+            }
+        },
+        "17/17_8949.jpg": {
+            "filename": "17_8949.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal rooster",
+                    "extended": "palette orange yellow black, texture feathered iridescent, lighting daylight natural, background foliage green blurred, layout profile view"
+                }
+            }
+        },
+        "17/17_8913.jpg": {
+            "filename": "17_8913.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "poultry group chickens, rooster",
+                    "extended": "palette brown orange white, layout scattered ground, texture feathered fluffy, lighting daylight natural soft, background foliage green blurred, angle low"
+                }
+            }
+        },
+        "17/17_8942.jpg": {
+            "filename": "17_8942.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "poultry rooster black-white, chicks group",
+                    "extended": "palette green bright, layout grassy open, texture feathered fluffy, lighting daylight soft natural, background hedge dense green, foliage leafy lush, angle low wide"
+                }
+            }
+        },
+        "17/17_8929.jpg": {
+            "filename": "17_8929.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "rooster group, fowl domestic",
+                    "extended": "palette orange brown black, layout scattered ground, texture feathered fluffy, lighting daylight natural, background snow white, contrast medium color, atmosphere outdoor rural"
+                }
+            }
+        },
+        "17/17_8945.jpg": {
+            "filename": "17_8945.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "rooster",
+                    "extended": "plumage orange gold black, comb red, beak sharp black, eye white, texture feathered smooth, lighting daylight soft natural, background blur water, grass green lush"
+                }
+            }
+        },
+        "17/17_8958.jpg": {
+            "filename": "17_8958.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "rooster, hen",
+                    "extended": "palette brown orange, layout side-by-side, texture feathered fluffy, lighting daylight natural, background wall concrete gray, angle low"
+                }
+            }
+        },
+        "17/17_8905.jpg": {
+            "filename": "17_8905.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "rooster gallus gallus domesticus",
+                    "extended": "palette orange brown black, layout centered, texture plumage smooth, lighting daylight natural, background greenery blurred, angle low"
+                }
+            }
+        },
+        "17/17_8963.jpg": {
+            "filename": "17_8963.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "bird grouse",
+                    "extended": "plumage brown white spotted, texture feathered soft, lighting daylight natural, background rocks gray stacked, angle low close-up, posture one-legged"
+                }
+            }
+        },
+        "17/17_8959.jpg": {
+            "filename": "17_8959.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "rooster, hen, fowl",
+                    "extended": "palette brown orange, layout scattered, texture feathered fluffy, lighting daylight natural, background concrete wall weathered, angle low"
+                }
+            }
+        },
+        "17/17_8961.jpg": {
+            "filename": "17_8961.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal rooster",
+                    "extended": "palette red black white, texture scaly rough, lighting daylight natural, background blurry outdoors, eye orange"
+                }
+            }
+        },
+        "17/17_8951.jpg": {
+            "filename": "17_8951.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "bird rooster",
+                    "extended": "palette orange yellow black, texture feathered glossy, lighting daylight natural soft, background foliage green blurred, layout profile view"
+                }
+            }
+        },
+        "17/17_8964.jpg": {
+            "filename": "17_8964.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "chicken hen brown",
+                    "extended": "palette brown orange, layout multi-planar, texture feathered fluffy, lighting daylight soft natural, background brick wall blurred, group"
+                }
+            }
+        },
+        "17/17_8967.jpg": {
+            "filename": "17_8967.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal chicken hen",
+                    "extended": "feather light brown speckled, head red wattle, beak sharp pointed, texture plumage smooth, lighting daylight natural, background blur green foliage, scene outdoor rural"
+                }
+            }
+        },
+        "17/17_8920.jpg": {
+            "filename": "17_8920.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "bird rooster",
+                    "extended": "palette orange red, texture feathery smooth, lighting daylight soft natural, background blurry unfocused, head close-up profile"
+                }
+            }
+        },
+        "17/17_8969.jpg": {
+            "filename": "17_8969.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal chicken rooster",
+                    "extended": "feathers brown gray mottled, comb red, legs yellow, texture fluffy smooth, lighting daylight soft natural, background concrete gray blurry, surface ground rough"
+                }
+            }
+        },
+        "17/17_8970.jpg": {
+            "filename": "17_8970.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "chicken rooster brown speckled",
+                    "extended": "palette brown black, layout centered close-up, texture feathered mottled, lighting daylight natural, background blurry rocks, contrast medium"
+                }
+            }
+        },
+        "17/17_8957.jpg": {
+            "filename": "17_8957.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal rooster brown",
+                    "extended": "palette orange brown black, texture feathered smooth, lighting daylight natural, background debris wood concrete, layout centered close-up, contrast medium"
+                }
+            }
+        },
+        "17/17_8979.jpg": {
+            "filename": "17_8979.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal rooster brown",
+                    "extended": "palette brown orange, texture feathered mottled, lighting daylight natural, background concrete sidewalk, debris leaves scattered"
+                }
+            }
+        },
+        "17/17_8902.jpg": {
+            "filename": "17_8902.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "rooster pair, plumage orange brown",
+                    "extended": "palette orange brown green, layout scattered sparse, texture fibrous feathered, lighting daylight natural soft, background terrain earthy patchy, angle low close-up"
+                }
+            }
+        },
+        "17/17_8965.jpg": {
+            "filename": "17_8965.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal chicken hen",
+                    "extended": "palette brown orange white, texture feathery speckled, lighting daylight natural, background blurry ground dirt, contrast medium color"
+                }
+            }
         }
     }
 }
