@@ -220,5 +220,8 @@ __marimo__/
 # Datasets
 /data/
 
-# Models
+# Models 
 /output/models/
+
+# Features can be large and are often generated from the code, so it's common to exclude them from version control.
+/output/features/

@@ -14,6 +14,22 @@ from tqdm import tqdm
 
 MAX_TOKENS: int = 77  # Must match the value used during training
 
+# All fusion strategies that will be computed and saved in a single run.
+# Each entry: (key_name_in_npz, fusion_mode, text_weight_or_None)
+WEIGHTED_TEXT_WEIGHTS = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+
+FUSION_VARIANTS: list[tuple[str, str, float | None]] = [
+    ("fused_concat", "concat", None),
+    ("fused_avg", "avg", None),
+] + [
+    # round() before int() guards against IEEE-754 imprecision
+    # (e.g. 0.1 * 10 == 0.9999... in floating point → int() would give 0)
+    (f"fused_weighted_{round(w * 10):02d}", "weighted", w)
+    for w in WEIGHTED_TEXT_WEIGHTS
+]
+# e.g. keys saved: fused_concat, fused_avg,
+#                  fused_weighted_01 … fused_weighted_09
+
 
 def collect_image_paths_and_captions(
     img_dir: str, json_path: str
@@ -61,7 +77,6 @@ def load_model(model_dir: str, device: str):
     """
     print(f"[INFO] Loading base model + LoRA adapter from '{model_dir}'...")
 
-    # Load adapter config to correctly identify the base model
     config = PeftConfig.from_pretrained(model_dir)
     base_model_name = config.base_model_name_or_path
 
@@ -70,7 +85,6 @@ def load_model(model_dir: str, device: str):
     model.eval()
     model.to(device)
 
-    # Use the base model name for the processor as well to guarantee alignment
     processor = CLIPProcessor.from_pretrained(base_model_name)
 
     print("[INFO] Model loaded successfully.")
@@ -78,33 +92,26 @@ def load_model(model_dir: str, device: str):
 
 
 # ---------------------------------------------------------------------------
-# Feature extraction
+# Feature extraction  (single forward pass, returns raw embeddings)
 # ---------------------------------------------------------------------------
 
 
 @torch.no_grad()
-def extract_features(
+def extract_raw_embeddings(
     model,
     processor: CLIPProcessor,
     abs_paths: list[str],
     captions: list[str],
     batch_size: int,
     device: str,
-    fusion_mode: str,
-    text_weight: float,
-) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+) -> tuple[np.ndarray, np.ndarray]:
     """
-    Runs both CLIP encoders over all images and their captions in batches.
+    Runs both CLIP encoders over all images + captions in batches.
 
     Returns
     -------
-    image_features  : (N, D)   L2-normalised image embeddings
-    text_features   : (N, D)   L2-normalised text embeddings
-    fused_features  : (N, D*)  combined representation, ready for KNN
-                                shape depends on --fusion-mode:
-                                  'concat'  → (N, 2D)
-                                  'avg'     → (N, D)
-                                  'weighted'→ (N, D)
+    image_features : (N, D)  L2-normalised image embeddings  (float32)
+    text_features  : (N, D)  L2-normalised text embeddings   (float32)
     """
     use_amp = device == "cuda"
     all_img_embeds, all_txt_embeds = [], []
@@ -118,7 +125,6 @@ def extract_features(
         batch_caps = captions[batch_start : batch_start + batch_size]
         images = []
 
-        # ── image loading ────────────────────────────────────────────────────
         for i, path in enumerate(batch_paths):
             try:
                 img = Image.open(path).convert("RGB")
@@ -138,7 +144,6 @@ def extract_features(
             "pixel_values"
         ].to(device)
 
-        # ── text tokenisation ─────────────────────────────────────────────────
         text_inputs = processor.tokenizer(
             batch_caps,
             padding="max_length",
@@ -149,7 +154,6 @@ def extract_features(
         input_ids = text_inputs["input_ids"].to(device)
         attention_mask = text_inputs["attention_mask"].to(device)
 
-        # ── forward passes ────────────────────────────────────────────────────
         with torch.amp.autocast(device_type=device, enabled=use_amp):
             image_embeds = model.get_image_features(pixel_values=pixel_values)
             image_embeds = image_embeds / image_embeds.norm(dim=-1, keepdim=True)
@@ -171,40 +175,50 @@ def extract_features(
 
     image_features = np.concatenate(all_img_embeds, axis=0)  # (N, D)
     text_features = np.concatenate(all_txt_embeds, axis=0)  # (N, D)
+    return image_features, text_features
 
-    # ── fusion ────────────────────────────────────────────────────────────────
+
+# ---------------------------------------------------------------------------
+# Fusion helpers
+# ---------------------------------------------------------------------------
+
+
+def _l2_normalise(x: np.ndarray) -> np.ndarray:
+    norms = np.linalg.norm(x, axis=-1, keepdims=True)
+    return x / np.where(norms == 0, 1.0, norms)
+
+
+def fuse(
+    image_features: np.ndarray,
+    text_features: np.ndarray,
+    fusion_mode: str,
+    text_weight: float | None = None,
+) -> np.ndarray:
+    """
+    Combines L2-normalised image and text embeddings into a single vector.
+
+    concat   → (N, 2D)  — concatenation; each half already L2-normalised
+    avg      → (N, D)   — element-wise mean, then re-normalise
+    weighted → (N, D)   — weighted sum, then re-normalise
+                          text_weight ∈ [0, 1]; image_weight = 1 - text_weight
+    """
     if fusion_mode == "concat":
-        # (N, 2D) — keeps both modalities fully independent; KNN operates in
-        # the joint space. No re-normalisation needed because each half is
-        # already L2-normalised and equally scaled.
-        fused_features = np.concatenate([image_features, text_features], axis=1)
+        return np.concatenate([image_features, text_features], axis=1)
 
     elif fusion_mode == "avg":
-        # (N, D) — element-wise mean then re-normalise. Equivalent to the
-        # midpoint on the unit hypersphere; simple and effective when both
-        # modalities are equally reliable.
-        fused_features = image_features + text_features
-        norms = np.linalg.norm(fused_features, axis=-1, keepdims=True)
-        norms = np.where(norms == 0, 1.0, norms)  # guard against zero vectors
-        fused_features = fused_features / norms
+        return _l2_normalise(image_features + text_features)
 
     elif fusion_mode == "weighted":
-        # (N, D) — weighted sum then re-normalise. Use --text-weight to tune
-        # how much the text branch contributes (0 = image only, 1 = text only,
-        # 0.5 = equal). Useful when one modality is noisier than the other.
+        if text_weight is None:
+            raise ValueError("text_weight must be provided for fusion_mode='weighted'")
         img_weight = 1.0 - text_weight
-        fused_features = img_weight * image_features + text_weight * text_features
-        norms = np.linalg.norm(fused_features, axis=-1, keepdims=True)
-        norms = np.where(norms == 0, 1.0, norms)
-        fused_features = fused_features / norms
+        return _l2_normalise(img_weight * image_features + text_weight * text_features)
 
     else:
         raise ValueError(
-            f"Unknown --fusion-mode '{fusion_mode}'. "
+            f"Unknown fusion_mode '{fusion_mode}'. "
             "Choose from: concat | avg | weighted"
         )
-
-    return image_features, text_features, fused_features
 
 
 # ---------------------------------------------------------------------------
@@ -215,14 +229,6 @@ def extract_features(
 def main(args):
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"[INFO] Running on: {device}")
-    print(
-        f"[INFO] Fusion mode: '{args.fusion_mode}'"
-        + (
-            f"  (text weight: {args.text_weight})"
-            if args.fusion_mode == "weighted"
-            else ""
-        )
-    )
 
     model, processor = load_model(args.model_dir, device)
 
@@ -230,67 +236,85 @@ def main(args):
         args.img_dir, args.json_path
     )
 
-    if len(rel_paths) == 0:
+    if not rel_paths:
         raise RuntimeError(
             "No images found. Check --img-dir and --json-path arguments."
         )
 
-    image_features, text_features, fused_features = extract_features(
-        model,
-        processor,
-        abs_paths,
-        captions,
-        args.batch_size,
-        device,
-        args.fusion_mode,
-        args.text_weight,
+    # ── single forward pass for both encoders ────────────────────────────────
+    image_features, text_features = extract_raw_embeddings(
+        model, processor, abs_paths, captions, args.batch_size, device
     )
 
     n = len(rel_paths)
-    assert image_features.shape[0] == n, (
-        f"image_features count ({image_features.shape[0]}) != path count ({n}). "
-        "This is a bug — please report it."
-    )
-    assert text_features.shape[0] == n, (
-        f"text_features count ({text_features.shape[0]}) != path count ({n}). "
-        "This is a bug — please report it."
-    )
-    assert fused_features.shape[0] == n, (
-        f"fused_features count ({fused_features.shape[0]}) != path count ({n}). "
-        "This is a bug — please report it."
-    )
+    if image_features.shape[0] != n:
+        raise RuntimeError(
+            f"image_features row count ({image_features.shape[0]}) != path count ({n}). "
+            "This is a bug — please report it."
+        )
+    if text_features.shape[0] != n:
+        raise RuntimeError(
+            f"text_features row count ({text_features.shape[0]}) != path count ({n}). "
+            "This is a bug — please report it."
+        )
 
     print(f"\n[INFO] image_features shape : {image_features.shape}")
     print(f"[INFO] text_features shape  : {text_features.shape}")
-    print(f"[INFO] fused_features shape : {fused_features.shape}  ← use this for KNN")
 
-    os.makedirs(os.path.dirname(os.path.abspath(args.output)), exist_ok=True)
-    np.savez(
-        args.output,
-        # ── individual modality embeddings ──────────────────────────────────
-        image_features=image_features,  # float32 (N, D)  L2-normalised
-        text_features=text_features,  # float32 (N, D)  L2-normalised
-        # ── fused embedding — feed this array to your KNN index ─────────────
-        fused_features=fused_features,  # float32 (N, D or 2D) depends on fusion_mode
-        # ── metadata ────────────────────────────────────────────────────────
-        paths=np.array(rel_paths),  # (N,) relative paths, aligned with features
-        fusion_mode=np.array(args.fusion_mode),
+    # ── compute every fusion variant ─────────────────────────────────────────
+    fused_arrays: dict[str, np.ndarray] = {}
+    print("\n[INFO] Computing all fusion variants:")
+    for npz_key, fusion_mode, text_weight in FUSION_VARIANTS:
+        arr = fuse(image_features, text_features, fusion_mode, text_weight)
+        fused_arrays[npz_key] = arr
+        label = (
+            f"text_weight={text_weight}" if fusion_mode == "weighted" else fusion_mode
+        )
+        print(f"       {npz_key:<30}  shape={arr.shape}  [{label}]")
+
+    # ── build fusion metadata (saved alongside arrays for retrieval.py) ──────
+    fusion_meta = {}
+    for npz_key, fusion_mode, text_weight in FUSION_VARIANTS:
+        fusion_meta[npz_key] = {
+            "fusion_mode": fusion_mode,
+            "text_weight": text_weight,  # None for concat / avg
+            "dim": int(fused_arrays[npz_key].shape[1]),
+        }
+
+    # ── save ─────────────────────────────────────────────────────────────────
+    out_dir = os.path.dirname(os.path.abspath(args.output))
+    if out_dir:
+        os.makedirs(out_dir, exist_ok=True)
+
+    save_dict = {
+        # raw modality embeddings
+        "image_features": image_features,  # float32 (N, D)
+        "text_features": text_features,  # float32 (N, D)
+        # metadata
+        "paths": np.array(rel_paths),
+        "fusion_meta": np.array(json.dumps(fusion_meta)),  # JSON string scalar
+    }
+    # add every fused variant
+    save_dict.update(fused_arrays)
+
+    np.savez(args.output, **save_dict)
+
+    print(f"\n[INFO] Saved all features to '{args.output}.npz'")
+    print(
+        f"       Fixed keys   : image_features {image_features.shape}, "
+        f"text_features {text_features.shape}, paths ({n},), fusion_meta"
     )
-
-    print(f"\n[INFO] Saved features to '{args.output}.npz'")
-    print(f"       Keys:")
-    print(f"         'image_features'  {image_features.shape}")
-    print(f"         'text_features'   {text_features.shape}")
-    print(f"         'fused_features'  {fused_features.shape}  ← KNN index input")
-    print(f"         'paths'           ({n},)")
-    print(f"         'fusion_mode'     '{args.fusion_mode}'")
+    print(f"       Fused keys   ({len(fused_arrays)}):")
+    for npz_key, arr in fused_arrays.items():
+        print(f"         '{npz_key}'  {arr.shape}")
 
 
 def parse_args():
     p = argparse.ArgumentParser(
         description=(
-            "Extract CLIP image + text encoder features and save to a .npz file. "
-            "The fused_features array is ready to be loaded into a KNN index."
+            "Extract CLIP image + text encoder features and save ALL fusion "
+            "variants (concat, avg, weighted×9) to a single .npz file. "
+            "The fused_* arrays are ready to be loaded into a KNN index."
         )
     )
     p.add_argument(
@@ -322,29 +346,6 @@ def parse_args():
         type=int,
         default=256,
         help="Samples per forward pass. Increase on a large GPU, decrease if OOM.",
-    )
-    p.add_argument(
-        "--fusion-mode",
-        choices=["concat", "avg", "weighted"],
-        default="concat",
-        help=(
-            "How to combine image and text embeddings into the KNN feature vector:\n"
-            "  concat   — concatenate → (N, 2D). Keeps both modalities fully "
-            "independent. Best default choice.\n"
-            "  avg      — element-wise mean then L2-normalise → (N, D). "
-            "Equal weight, smaller index.\n"
-            "  weighted — weighted sum then L2-normalise → (N, D). "
-            "Control the text/image balance with --text-weight."
-        ),
-    )
-    p.add_argument(
-        "--text-weight",
-        type=float,
-        default=0.5,
-        help=(
-            "Weight assigned to the text embedding when --fusion-mode=weighted. "
-            "Image weight = 1 - text_weight. Range: [0.0, 1.0]. Default: 0.5."
-        ),
     )
     return p.parse_args()
 

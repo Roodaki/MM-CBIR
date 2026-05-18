@@ -49606,6 +49606,726 @@
                     "extended": "palette brown orange white, texture feathery speckled, lighting daylight natural, background blurry ground dirt, contrast medium color"
                 }
             }
+        },
+        "17/17_8981.jpg": {
+            "filename": "17_8981.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "bird chicken hen golden",
+                    "extended": "palette golden brown, layout centered, texture feathered smooth, lighting daylight soft natural, background grass green mossy, foreground leaves scattered, angle low"
+                }
+            }
+        },
+        "17/17_8954.jpg": {
+            "filename": "17_8954.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal rooster",
+                    "extended": "palette beige brown, texture feathery fluffy, lighting daylight natural, background blurry gray concrete, angle low profile"
+                }
+            }
+        },
+        "17/17_8966.jpg": {
+            "filename": "17_8966.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal chicken hen",
+                    "extended": "feather brown speckled, palette brown beige, layout centered, texture fibrous dry, lighting daylight soft natural, background blur green foliage, angle low close-up"
+                }
+            }
+        },
+        "17/17_8972.jpg": {
+            "filename": "17_8972.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "chicken hen, chicken rooster",
+                    "extended": "palette brown tan, layout scattered rocks, texture fluffy feathers, lighting daylight natural, background tarp crumpled, contrast medium color"
+                }
+            }
+        },
+        "17/17_8948.jpg": {
+            "filename": "17_8948.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "bird rooster",
+                    "extended": "palette gold brown black, layout profile left, texture feathered smooth, lighting daylight bright, background blur concrete, contrast medium color"
+                }
+            }
+        },
+        "17/17_8936.jpg": {
+            "filename": "17_8936.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal rooster white",
+                    "extended": "palette white brown, layout centered, texture fluffy feathered, lighting daylight natural, background blurry outdoors, contrast medium"
+                }
+            }
+        },
+        "17/17_8983.jpg": {
+            "filename": "17_8983.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal rooster brown",
+                    "extended": "palette brown orange, texture feathered fluffy, lighting daylight natural soft, background shed rustic dark, angle low profile"
+                }
+            }
+        },
+        "17/17_8986.jpg": {
+            "filename": "17_8986.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal chicken hen",
+                    "extended": "palette brown black green, layout profile left, texture feathered mottled, lighting daylight natural soft, background foliage dense rocky, contrast medium color"
+                }
+            }
+        },
+        "17/17_8975.jpg": {
+            "filename": "17_8975.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal chicken hen",
+                    "extended": "feather orange brown, texture plumage smooth, lighting daylight natural warm, background blurry chickens, palette earthy tones, comb red, eye orange"
+                }
+            }
+        },
+        "17/17_8950.jpg": {
+            "filename": "17_8950.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal rooster",
+                    "extended": "palette black gold red, texture feathery smooth, lighting daylight natural, background blurry green foliage, angle side profile"
+                }
+            }
+        },
+        "17/17_8987.jpg": {
+            "filename": "17_8987.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "bird hen chicken brown",
+                    "extended": "palette brown black, layout centered ground, texture feathered mottled, lighting daylight natural soft, background grass rocky blurred, contrast medium color"
+                }
+            }
+        },
+        "17/17_8960.jpg": {
+            "filename": "17_8960.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal chicken hen",
+                    "extended": "plumage orange brown speckled, comb red, beak yellow, legs yellow, background concrete gray weathered, texture feather fluffy smooth, lighting daylight natural, angle side profile"
+                }
+            }
+        },
+        "17/17_8971.jpg": {
+            "filename": "17_8971.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal chicken hen",
+                    "extended": "feathers brown speckled, palette earthy brown, texture fibrous fluffy, lighting daylight natural, background rocks gray stone, debris leaves twigs scattered, angle low profile"
+                }
+            }
+        },
+        "17/17_8897.jpg": {
+            "filename": "17_8897.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "bird rooster",
+                    "extended": "plumage orange brown, tail feather blue green, comb red, wattle red, ground dirt dry, background wood pile, lighting daylight soft"
+                }
+            }
+        },
+        "17/17_8976.jpg": {
+            "filename": "17_8976.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "chicken group, fowl domestic",
+                    "extended": "palette brown orange, layout scattered ground, texture feather fluffy, lighting daylight soft natural, background road asphalt wet, debris scattered white"
+                }
+            }
+        },
+        "17/17_8962.jpg": {
+            "filename": "17_8962.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "chicken hen brown, feather wing",
+                    "extended": "palette brown white black, layout centered, texture feathered fluffy, lighting daylight soft natural, background rock gray brick, contrast medium"
+                }
+            }
+        },
+        "17/17_8984.jpg": {
+            "filename": "17_8984.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "bird chicken rooster",
+                    "extended": "palette green brown, layout centered, texture feathered, lighting daylight natural, background foliage dense, angle low"
+                }
+            }
+        },
+        "17/17_8997.jpg": {
+            "filename": "17_8997.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "bird rooster",
+                    "extended": "palette orange black, layout centered, texture feathered mottled, lighting daylight soft, background blur person, angle low"
+                }
+            }
+        },
+        "17/17_8973.jpg": {
+            "filename": "17_8973.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "chicken rooster brown speckled, animal dog tan",
+                    "extended": "palette brown gray, layout scattered debris, texture fibrous rough, surface dirty ground, lighting daylight natural, background rocks large, angle low close-up, contrast medium"
+                }
+            }
+        },
+        "17/17_8974.jpg": {
+            "filename": "17_8974.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "chicken pair, rock gray",
+                    "extended": "palette brown gray, layout centered close-up, texture feather fluffy ruffled, lighting daylight natural, background debris scattered, contrast medium"
+                }
+            }
+        },
+        "17/17_8988.jpg": {
+            "filename": "17_8988.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "hen brown, chicks yellow",
+                    "extended": "palette brown yellow, layout centered, texture feathered soft, lighting daylight natural, background gravel ground, group chicks gathered"
+                }
+            }
+        },
+        "17/17_8982.jpg": {
+            "filename": "17_8982.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "bird chicken rooster, bird chicken hen",
+                    "extended": "palette brown orange, layout side-by-side, texture feathered fluffy, lighting daylight soft natural, background blurry outdoor, angle low"
+                }
+            }
+        },
+        "18/18_9003.jpg": {
+            "filename": "18_9003.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect katydid green",
+                    "extended": "palette green yellow brown, layout close-up macro, texture exoskeleton shiny, lighting daylight soft natural, background blurry green bokeh, antennae long thin, eyes yellow large"
+                }
+            }
+        },
+        "17/17_8989.jpg": {
+            "filename": "17_8989.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "hen chicken brown, brood chicks yellow",
+                    "extended": "palette brown yellow, layout scattered ground, texture fluffy downy, lighting daylight natural, background dirt dry leaves, group single hen, crowd chicks"
+                }
+            }
+        },
+        "17/17_8991.jpg": {
+            "filename": "17_8991.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "hen chicken brown, chicks yellow",
+                    "extended": "palette brown yellow, layout centered ground, texture dry leafy, lighting daylight natural, background foliage corn husk dry, group chicks gathered"
+                }
+            }
+        },
+        "17/17_8990.jpg": {
+            "filename": "17_8990.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "hen chicken brown, chick white",
+                    "extended": "palette brown beige, layout profile left, texture feathered fluffy, lighting daylight natural, background foliage dry dead, context outdoors rural"
+                }
+            }
+        },
+        "18/18_9004.jpg": {
+            "filename": "18_9004.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle longhorn",
+                    "extended": "palette black yellow, texture shiny smooth, antennae long striped, lighting daylight soft, background blur green yellow, legs six"
+                }
+            }
+        },
+        "17/17_8934.jpg": {
+            "filename": "17_8934.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal rooster",
+                    "extended": "palette white brown black red, texture feathered fluffy, lighting daylight natural, background foliage green dense, contrast medium color, animal standing"
+                }
+            }
+        },
+        "17/17_8992.jpg": {
+            "filename": "17_8992.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "chicken flock, hen, rooster",
+                    "extended": "palette brown black, layout scattered ground, texture feathered fluffy, lighting daylight natural, background foliage green blurred, group large"
+                }
+            }
+        },
+        "17/17_8980.jpg": {
+            "filename": "17_8980.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal chicken hen brown",
+                    "extended": "feathers fluffy brown, comb red, beak yellow, legs grey, ground dirt dry, background blurry building, leaves green foliage, lighting natural outdoor"
+                }
+            }
+        },
+        "17/17_8999.jpg": {
+            "filename": "17_8999.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal rooster",
+                    "extended": "palette orange brown, texture feathered fluffy, lighting daylight natural, background debris scattered, surface rough stone, angle low close-up"
+                }
+            }
+        },
+        "17/17_8977.jpg": {
+            "filename": "17_8977.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "chicken rooster hen",
+                    "extended": "palette brown black, layout side-by-side, texture feathered fluffy, lighting daylight natural soft, background foliage green blurred, angle low"
+                }
+            }
+        },
+        "18/18_9009.jpg": {
+            "filename": "18_9009.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect pink firefly, leaf green",
+                    "extended": "palette pink orange, layout centered close-up, texture wing translucent, lighting daylight soft natural, background bokeh green, contrast medium color"
+                }
+            }
+        },
+        "17/17_8968.jpg": {
+            "filename": "17_8968.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal chicken hen golden",
+                    "extended": "palette golden brown, layout centered profile, texture feathered smooth, lighting daylight soft natural, background bokeh green blur, contrast medium color"
+                }
+            }
+        },
+        "17/17_8985.jpg": {
+            "filename": "17_8985.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal rooster brown",
+                    "extended": "palette brown black, layout centered, texture feathered mottled, lighting natural outdoor, background foliage green blurred, angle low"
+                }
+            }
+        },
+        "17/17_8978.jpg": {
+            "filename": "17_8978.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal chicken hen",
+                    "extended": "feathers brown black, comb red, beak orange, legs grey, ground dirt grass, background foliage green dense, lighting daylight natural"
+                }
+            }
+        },
+        "18/18_9016.jpg": {
+            "filename": "18_9016.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle black",
+                    "extended": "palette yellow green, layout centered close-up, texture shiny smooth, lighting daylight soft natural, background bokeh blurred, antennae pair long thin"
+                }
+            }
+        },
+        "18/18_9017.jpg": {
+            "filename": "18_9017.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insects wasp, spider wasp",
+                    "extended": "palette black yellow brown, texture fuzzy hairy, lighting daylight diffuse natural, background leaf green blurred, contrast high color, layout centered overhead"
+                }
+            }
+        },
+        "18/18_9008.jpg": {
+            "filename": "18_9008.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect mantis green",
+                    "extended": "palette green yellow, layout centered overhead, texture fibrous leaf, surface specular glossy, lighting daylight diffuse natural, highlight specular soft, background bokeh shallow, angle low wide"
+                }
+            }
+        },
+        "17/17_8927.jpg": {
+            "filename": "17_8927.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "bird chicken rooster, pair",
+                    "extended": "palette orange brown, layout scattered ground, texture feathered fluffy, lighting daylight natural, background dirt cracked dry, contrast low color"
+                }
+            }
+        },
+        "17/17_8993.jpg": {
+            "filename": "17_8993.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "chicken group, fowl domestic",
+                    "extended": "palette brown orange, layout scattered ground, texture feathered fluffy, lighting daylight natural, background brick wall, debris scattered rubble, contrast medium"
+                }
+            }
+        },
+        "18/18_9018.jpg": {
+            "filename": "18_9018.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect grasshopper brown",
+                    "extended": "palette green bright, layout close-up macro, texture leaf waxy, surface glossy smooth, lighting daylight natural soft, highlight specular slight, background blur bokeh, angle low side"
+                }
+            }
+        },
+        "18/18_9006.jpg": {
+            "filename": "18_9006.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect earwig, antennae long thin",
+                    "extended": "palette orange black, layout centered close-up, texture shiny chitinous, lighting side-lit harsh, background blurred green leafy, text 'Sulin'"
+                }
+            }
+        },
+        "18/18_9012.jpg": {
+            "filename": "18_9012.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "spider jumping spider, prey insect",
+                    "extended": "palette green black, layout centered close-up, texture fibrous leaf, surface specular dewy, lighting daylight soft natural, highlight shiny eyes, background bokeh blurred, angle low macro"
+                }
+            }
+        },
+        "18/18_9010.jpg": {
+            "filename": "18_9010.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle dark-brown",
+                    "extended": "palette dark-brown metallic, texture shiny smooth, lighting side-lit harsh, background blur green blue, antennae long thin, legs six black"
+                }
+            }
+        },
+        "18/18_9002.jpg": {
+            "filename": "18_9002.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect jewel beetle green",
+                    "extended": "palette green gold, layout profile left, texture shiny metallic, lighting daylight diffuse natural, background blur green foliage, highlight specular bright"
+                }
+            }
+        },
+        "18/18_9027.jpg": {
+            "filename": "18_9027.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect jewel-beetle, flower zinnia",
+                    "extended": "palette green blue gold, layout profile left, texture shiny metallic, surface glossy wet, lighting daylight soft natural, highlight iridescent, background blur green bokeh, angle close-up macro"
+                }
+            }
+        },
+        "18/18_9023.jpg": {
+            "filename": "18_9023.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect ladybug seven-spotted",
+                    "extended": "palette orange black, layout profile close-up, texture shiny smooth, lighting daylight soft focus, background bokeh green blurred, antennae pair"
+                }
+            }
+        },
+        "17/17_8995.jpg": {
+            "filename": "17_8995.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal rooster",
+                    "extended": "palette orange brown, texture fluffy feathered, lighting daylight soft natural, background building brick concrete mossy, surface wet ground"
+                }
+            }
+        },
+        "17/17_8998.jpg": {
+            "filename": "17_8998.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal rooster brown",
+                    "extended": "palette brown red green, layout centered, texture feathered, lighting daylight natural, background foliage blurred, contrast medium"
+                }
+            }
+        },
+        "18/18_9001.jpg": {
+            "filename": "18_9001.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect boxelder bug, bug red-black",
+                    "extended": "palette red black, layout centered overhead, texture shiny smooth, surface specular reflective, lighting daylight diffuse natural, highlight specular soft, background green blurred out-of-focus, contrast high color"
+                }
+            }
+        },
+        "18/18_9026.jpg": {
+            "filename": "18_9026.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect ladybug seven-spotted",
+                    "extended": "palette green bright, layout close-up macro, texture leafy serrated wet, surface specular dewy, lighting daylight soft focus, background blurred bokeh, contrast medium"
+                }
+            }
+        },
+        "18/18_9019.jpg": {
+            "filename": "18_9019.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect ladybug Haliaeomyia notata",
+                    "extended": "palette yellow black, layout centered close-up, texture shiny smooth, surface glossy reflective, lighting daylight natural soft, background leaf green blurred, contrast high color"
+                }
+            }
+        },
+        "18/18_9031.jpg": {
+            "filename": "18_9031.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect weevil gray",
+                    "extended": "palette green blurred, texture leaf waxy smooth, lighting daylight soft focus, background out-of-focus bokeh, angle macro close-up"
+                }
+            }
+        },
+        "18/18_9025.jpg": {
+            "filename": "18_9025.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect ladybug seven-spotted",
+                    "extended": "palette red black orange, texture shiny smooth, lighting side-lit soft, background leaf green blurred, surface glossy reflective"
+                }
+            }
+        },
+        "18/18_9033.jpg": {
+            "filename": "18_9033.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect boxelder bug",
+                    "extended": "palette red black, texture shiny smooth, lighting side-lit harsh, background dark green blurred, antennae long thin, legs black six"
+                }
+            }
+        },
+        "18/18_9021.jpg": {
+            "filename": "18_9021.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle weevil",
+                    "extended": "palette green gray, texture fuzzy hairy, surface rough bumpy, lighting natural daylight, background blurry out-of-focus foliage, angle close-up macro"
+                }
+            }
+        },
+        "18/18_9022.jpg": {
+            "filename": "18_9022.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect jewel beetle green",
+                    "extended": "palette green yellow, layout centered close-up, texture shiny metallic, surface reflective smooth, lighting daylight soft focus, background blur green, contrast high color"
+                }
+            }
+        },
+        "18/18_9013.jpg": {
+            "filename": "18_9013.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect ladybug red",
+                    "extended": "palette red black, texture shiny smooth, lighting natural soft, background blur green, layout close-up profile"
+                }
+            }
+        },
+        "17/17_9000.jpg": {
+            "filename": "17_9000.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "chicken rooster trio",
+                    "extended": "palette brown gray white, layout group clustered, texture feathered mottled, lighting daylight soft natural, background tarp wrinkled green, angle low close-up"
+                }
+            }
+        },
+        "18/18_9034.jpg": {
+            "filename": "18_9034.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect ladybug seven-spotted",
+                    "extended": "palette red black, layout profile left, texture shiny smooth, lighting side-lit natural, background bokeh green, spot pattern black"
+                }
+            }
+        },
+        "18/18_9041.jpg": {
+            "filename": "18_9041.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle shiny black",
+                    "extended": "palette dark metallic, layout profile close-up, texture glossy smooth, lighting side-lit soft, background blur green bokeh, antennae long thin"
+                }
+            }
+        },
+        "18/18_9029.jpg": {
+            "filename": "18_9029.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "spider golden orb-web, abdomen black yellow",
+                    "extended": "palette green yellow purple, layout centered close-up, texture fibrous web silky, lighting daylight soft natural, background bokeh blurred flowers, contrast medium color"
+                }
+            }
+        },
+        "18/18_9043.jpg": {
+            "filename": "18_9043.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "spider golden orb-web, abdomen striped",
+                    "extended": "palette blue orange white, layout centered close-up, texture shiny smooth, lighting daylight diffuse natural, highlight specular soft, background bokeh green blurred, contrast high color"
+                }
+            }
+        },
+        "18/18_9015.jpg": {
+            "filename": "18_9015.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect ladybug seven-spotted",
+                    "extended": "palette red black, layout profile closeup, texture shiny smooth, lighting daylight soft focus, background blur green bokeh, contrast high color"
+                }
+            }
+        },
+        "18/18_9020.jpg": {
+            "filename": "18_9020.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "spider jumping spider, leaf green",
+                    "extended": "palette green black, layout centered close-up, texture fibrous leaf, surface specular shiny, lighting daylight natural soft, highlight reflective tiny, background blurry out-of-focus leaf, angle low macro"
+                }
+            }
+        },
+        "18/18_9028.jpg": {
+            "filename": "18_9028.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect ladybug pair, leaf green",
+                    "extended": "palette red black white, layout centered close-up, texture shiny smooth, lighting daylight soft natural, background blur bokeh green, contrast high color, water droplets"
+                }
+            }
+        },
+        "18/18_9046.jpg": {
+            "filename": "18_9046.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle green metallic",
+                    "extended": "palette green brown black, texture shiny metallic, lighting daylight diffuse natural, background blurry out-of-focus foliage, contrast high color"
+                }
+            }
+        },
+        "18/18_9040.jpg": {
+            "filename": "18_9040.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect boxelder bug, leaf green",
+                    "extended": "palette red black white, layout centered left, texture shiny smooth, surface glossy reflective, lighting daylight diffuse natural, highlight specular soft, background green uniform, angle low close-up"
+                }
+            }
+        },
+        "18/18_9030.jpg": {
+            "filename": "18_9030.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect boxelder bug, group",
+                    "extended": "palette orange black, texture shiny smooth, lighting daylight natural, background blur green foliage, layout clustered vertical"
+                }
+            }
+        },
+        "18/18_9050.jpg": {
+            "filename": "18_9050.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "spider orb-web",
+                    "extended": "palette green orange gradient, layout centered radial, texture web intricate thin, lighting diffuse soft, background blurred colorful, contrast medium"
+                }
+            }
+        },
+        "18/18_9032.jpg": {
+            "filename": "18_9032.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "spider golden orb-web, abdomen yellow green",
+                    "extended": "palette yellow black green, layout centered overhead, texture fibrous web, lighting daylight diffuse natural, background bokeh green foliage, contrast high color"
+                }
+            }
         }
     }
 }

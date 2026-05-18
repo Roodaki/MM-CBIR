@@ -4,63 +4,44 @@ import json
 import numpy as np
 import faiss
 from collections import defaultdict
-from tqdm import tqdm
 
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
 
-SIMILARITIES = ["cosine", "l2", "dot"]
-
-# Keys that must exist in the .npz produced by extract_features.py
-FEATURE_VARIANTS = {
-    "image_only": "image_features",
-    "text_only": "text_features",
-    "fused": "fused_features",
-}
+# Similarity used for every index — cosine is the natural choice for
+# L2-normalised CLIP embeddings.  Concat vectors are a special case handled
+# in build_index (each half is already normalised so we use IP directly).
+SIMILARITY = "cosine"
 
 # ---------------------------------------------------------------------------
 # FAISS index factory
 # ---------------------------------------------------------------------------
 
 
-def build_index(
-    features: np.ndarray, similarity: str, is_concat_fused: bool, use_gpu: bool
-):
+def build_index(features: np.ndarray, is_concat: bool, use_gpu: bool):
     """
-    Builds an exact FAISS index for the requested similarity metric.
+    Builds an exact cosine-similarity FAISS index.
 
-    cosine  — L2-normalises features, then uses IndexFlatIP (dot == cosine).
-              Skips re-normalisation if features are concatenated embeddings.
-    l2      — IndexFlatL2, exact Euclidean distance
-    dot     — IndexFlatIP on raw (unnormalised) features
+    For standard (non-concat) vectors the features are L2-normalised before
+    being added, so Inner Product == cosine similarity.
 
-    Returns (index, feats) where feats is the (possibly normalised) float32
-    array that was added to the index.
+    For concat vectors the two halves are already independently L2-normalised;
+    re-normalising the combined 2D vector would distort magnitudes, so we add
+    them as-is.  The resulting IP score equals the sum of the two per-modality
+    cosine similarities, which is still a valid ranking criterion.
+
+    Returns (index, indexed_feats).
     """
     dim = features.shape[1]
 
-    if similarity == "cosine":
-        if is_concat_fused:
-            # Concatenated vectors are joined from two already L2-normalised halves.
-            # Re-normalising the 2D vector would break their independent magnitudes.
-            # The Inner Product of the concatenated raw features already equals the
-            # sum of their individual cosine similarities.
-            feats = features.copy()
-        else:
-            norms = np.linalg.norm(features, axis=1, keepdims=True)
-            feats = features / np.where(norms == 0, 1.0, norms)
-        index = faiss.IndexFlatIP(dim)
-    elif similarity == "l2":
-        feats = features.copy()
-        index = faiss.IndexFlatL2(dim)
-    elif similarity == "dot":
-        feats = features.copy()
-        index = faiss.IndexFlatIP(dim)
+    if is_concat:
+        feats = features.copy().astype(np.float32)
     else:
-        raise ValueError(
-            f"Unknown similarity '{similarity}'. Choose from {SIMILARITIES}."
-        )
+        norms = np.linalg.norm(features, axis=1, keepdims=True)
+        feats = (features / np.where(norms == 0, 1.0, norms)).astype(np.float32)
+
+    index = faiss.IndexFlatIP(dim)
 
     if use_gpu:
         try:
@@ -69,8 +50,8 @@ def build_index(
         except Exception as e:
             print(f"[WARNING] GPU FAISS failed ({e}). Falling back to CPU.")
 
-    index.add(feats.astype(np.float32))
-    return index, feats.astype(np.float32)
+    index.add(feats)
+    return index, feats
 
 
 # ---------------------------------------------------------------------------
@@ -79,7 +60,6 @@ def build_index(
 
 
 def extract_labels(paths: np.ndarray) -> list[str]:
-    # Replace any Windows backslashes with forward slashes before splitting
     return [p.replace("\\", "/").split("/")[0] for p in paths]
 
 
@@ -145,7 +125,13 @@ def evaluate(
         for local_i, neighbours in enumerate(indices):
             query_idx = batch_start + local_i
             relevant = label_to_indices[labels[query_idx]] - {query_idx}
-            retrieved = [idx for idx in neighbours.tolist() if idx != query_idx]
+            # FAISS pads with -1 when k_search > n; exclude those and the
+            # query itself.  Checking idx >= 0 must come before idx != query_idx
+            # because -1 would pass the != check and then silently hit
+            # labels[-1] via Python's negative indexing.
+            retrieved = [
+                idx for idx in neighbours.tolist() if idx >= 0 and idx != query_idx
+            ]
 
             for k in ks:
                 p = precision_at_k(relevant, retrieved, k)
@@ -157,25 +143,35 @@ def evaluate(
 
     return {
         k: {
-            "precision": sum_p[k] / n,
-            "recall": sum_r[k] / n,
-            "f1": sum_f1[k] / n,
-            "map": sum_ap[k] / n,
+            "precision": round(sum_p[k] / n, 6),
+            "recall": round(sum_r[k] / n, 6),
+            "f1": round(sum_f1[k] / n, 6),
+            "map": round(sum_ap[k] / n, 6),
         }
         for k in ks
     }
 
 
 # ---------------------------------------------------------------------------
-# Reporting
+# Reporting helpers
 # ---------------------------------------------------------------------------
 
 
+def _fusion_label(meta: dict) -> str:
+    """Human-readable label for a fusion variant."""
+    mode = meta["fusion_mode"]
+    if mode == "weighted":
+        tw = meta["text_weight"]
+        iw = round(1.0 - tw, 1)
+        return f"weighted  img={iw}  txt={tw}"
+    return mode
+
+
 def print_variant_results(
-    variant: str, similarity: str, results: dict, ks: list[int]
+    npz_key: str, label: str, results: dict, ks: list[int]
 ) -> None:
-    title = f"  [{variant.upper()}]  Similarity: {similarity.upper()}  "
-    border = "=" * max(len(title), 58)
+    title = f"  [{npz_key}]  {label}  "
+    border = "=" * max(len(title), 62)
     header = f"{'K':>5}  {'P@K':>8}  {'R@K':>8}  {'F1@K':>8}  {'MAP@K':>8}"
 
     print(f"\n{border}")
@@ -195,70 +191,157 @@ def print_variant_results(
     print(border)
 
 
-def print_summary(
-    all_results: dict, ks: list[int], variants: list[str], similarities: list[str]
-) -> None:
+def print_summary(all_results: dict, fusion_meta: dict, ks: list[int]) -> None:
     """
-    Condensed comparison table at the median K showing every
-    variant × similarity combination side-by-side.
-    """
-    rep_k = ks[len(ks) // 2]
-    col_w = 10
+    Prints two compact summaries that stay readable regardless of the number
+    of fusion variants:
 
-    # Build column headers: one per (variant, similarity) pair
-    combos = [(v, s) for v in variants for s in similarities]
-    header_top = f"{'':>5}  " + "  ".join(f"{v+'/'+s:>{col_w*4+6}}" for v, s in combos)
-    header_mid = f"{'K':>5}  " + "  ".join(
-        f"{'P':>{col_w}} {'R':>{col_w}} {'F1':>{col_w}} {'MAP':>{col_w}}"
-        for _ in combos
+    1. Best-per-metric table — for every K, show which variant wins on each
+       of P, R, F1, MAP and its score.
+    2. Per-variant MAP@K table — one row per variant, one column per K,
+       sorted descending by MAP at the median K so the best strategies float
+       to the top.
+    """
+    keys = list(all_results.keys())
+    metrics = ("precision", "recall", "f1", "map")
+    rep_k = ks[len(ks) // 2]
+    col_w = 9  # width for score columns
+    var_w = 30  # width for variant-name column
+
+    # ── 1. Best-per-metric table ─────────────────────────────────────────────
+    k_col_w = 6
+
+    header = f"{'K':>{k_col_w}}  " + "  ".join(
+        f"{m.upper():^{var_w + col_w}}" for m in metrics
     )
-    sep = "=" * len(header_mid)
+    sep = "=" * len(header)
 
     print(f"\n{sep}")
-    print(f"  SUMMARY — all variants & similarities @ K={rep_k}")
+    print("  BEST VARIANT PER METRIC AT EACH K — cosine similarity")
     print(sep)
-    print(header_top)
-    print(header_mid)
-    print("-" * len(header_mid))
+    sub = f"{'K':>{k_col_w}}  " + "  ".join(
+        f"{'variant':<{var_w}} {'score':>{col_w}}" for _ in metrics
+    )
+    print(sub)
+    print("-" * len(sub))
 
-    row = f"{rep_k:>5}  "
-    for variant, sim in combos:
-        r = all_results[variant][sim][rep_k]
-        row += (
-            f"{r['precision']:>{col_w}.4f} "
-            f"{r['recall']:>{col_w}.4f} "
-            f"{r['f1']:>{col_w}.4f} "
-            f"{r['map']:>{col_w}.4f}  "
-        )
-    print(row)
+    for k in ks:
+        row = f"{k:>{k_col_w}}  "
+        for metric in metrics:
+            best_val = -1.0
+            best_name = ""
+            for npz_key in keys:
+                val = all_results[npz_key][k][metric]
+                if val > best_val:
+                    best_val = val
+                    best_name = _fusion_label(fusion_meta[npz_key])
+            row += f"{best_name:<{var_w}} {best_val:>{col_w}.4f}  "
+        print(row)
     print(sep)
 
-    # Also print per-metric best at rep_k
-    print(f"\n  Best per metric @ K={rep_k}:")
-    for metric in ("precision", "recall", "f1", "map"):
-        best_val = -1.0
-        best_name = ""
-        for variant, sim in combos:
-            val = all_results[variant][sim][rep_k][metric]
-            if val > best_val:
-                best_val = val
-                best_name = f"{variant}/{sim}"
-        print(f"    {metric.upper():>10}: {best_name:30s} {best_val:.4f}")
+    # ── 2. MAP@K table (all variants, sorted by MAP at median K) ────────────
+    sorted_keys = sorted(
+        keys,
+        key=lambda k_: all_results[k_][rep_k]["map"],
+        reverse=True,
+    )
+    k_headers = "  ".join(f"{k:>{col_w}}" for k in ks)
+    var_header = f"{'Variant':<{var_w}}"
+    header2 = f"{var_header}  {k_headers}"
+    sep2 = "=" * len(header2)
+
+    print(f"\n{sep2}")
+    print(f"  MAP@K — ALL VARIANTS (sorted by MAP@{rep_k}, best first)")
+    print(sep2)
+    print(f"  {'':>{var_w}}  " + "  ".join(f"{'K='+str(k):>{col_w}}" for k in ks))
+    print("-" * len(header2))
+
+    for npz_key in sorted_keys:
+        lbl = _fusion_label(fusion_meta[npz_key])
+        scores = "  ".join(f"{all_results[npz_key][k]['map']:>{col_w}.4f}" for k in ks)
+        marker = "  ◄ best" if npz_key == sorted_keys[0] else ""
+        print(f"  {lbl:<{var_w}}  {scores}{marker}")
+    print(sep2)
     print()
 
 
-def save_results(all_results: dict, output_path: str) -> None:
-    # all_results[variant][similarity][k] → {precision, recall, f1, map}
-    serialisable = {
-        variant: {
-            sim: {str(k): metrics for k, metrics in res.items()}
-            for sim, res in sim_results.items()
+# ---------------------------------------------------------------------------
+# JSON serialisation
+# ---------------------------------------------------------------------------
+
+
+def build_output(
+    all_results: dict,
+    fusion_meta: dict,
+    ks: list[int],
+) -> dict:
+    """
+    Builds the full JSON-serialisable results dict.
+
+    Structure
+    ---------
+    {
+      "similarity": "cosine",
+      "k_values": [...],
+      "variants": {
+        "<npz_key>": {
+          "fusion_mode":  "weighted",
+          "text_weight":  0.3,
+          "dim":          512,
+          "results": {
+            "10": {"precision": ..., "recall": ..., "f1": ..., "map": ...},
+            ...
+          }
+        },
+        ...
+      },
+      "best_per_metric": {
+        "<median_k>": {
+          "precision": {"variant": ..., "label": ..., "value": ...},
+          ...
         }
-        for variant, sim_results in all_results.items()
+      }
     }
+    """
+    rep_k = ks[len(ks) // 2]
+
+    best_per_metric: dict[str, dict] = {}
+    for metric in ("precision", "recall", "f1", "map"):
+        best_val = -1.0
+        best_key = ""
+        for npz_key in all_results:
+            val = all_results[npz_key][rep_k][metric]
+            if val > best_val:
+                best_val = val
+                best_key = npz_key
+        best_per_metric[metric] = {
+            "variant": best_key,
+            "label": _fusion_label(fusion_meta[best_key]),
+            "value": round(best_val, 6),
+        }
+
+    variants_out = {}
+    for npz_key, results_by_k in all_results.items():
+        meta = fusion_meta[npz_key]
+        variants_out[npz_key] = {
+            "fusion_mode": meta["fusion_mode"],
+            "text_weight": meta["text_weight"],  # None for concat/avg
+            "dim": meta["dim"],
+            "results": {str(k): results_by_k[k] for k in ks},
+        }
+
+    return {
+        "similarity": SIMILARITY,
+        "k_values": ks,
+        "variants": variants_out,
+        "best_per_metric": {str(rep_k): best_per_metric},
+    }
+
+
+def save_results(output: dict, output_path: str) -> None:
     os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
     with open(output_path, "w") as f:
-        json.dump(serialisable, f, indent=2)
+        json.dump(output, f, indent=2)
     print(f"[INFO] Results saved to '{output_path}'")
 
 
@@ -269,77 +352,99 @@ def save_results(all_results: dict, output_path: str) -> None:
 
 def main(args):
     print(f"[INFO] Loading features from '{args.npz_path}'...")
-    data = np.load(args.npz_path)
+    data = np.load(args.npz_path, allow_pickle=True)
 
-    # Validate that the npz was produced by the multimodal extract_features.py
-    missing = [key for key in FEATURE_VARIANTS.values() if key not in data]
-    if missing:
+    if "fusion_meta" not in data:
         raise KeyError(
-            f"The .npz file is missing keys: {missing}. "
-            "Make sure you generated it with the multimodal extract_features.py "
-            "(not the image-only version). Expected keys: "
-            f"{list(FEATURE_VARIANTS.values())}."
+            "The .npz file is missing the 'fusion_meta' key. "
+            "Re-run extract_features.py to regenerate the feature file."
         )
+
+    fusion_meta: dict = json.loads(data["fusion_meta"].item())
 
     paths = data["paths"]
     labels = extract_labels(paths)
     n = len(labels)
     n_cls = len(set(labels))
 
-    # Safely extract fusion_mode for the cosine guard clause
-    fusion_mode = str(data["fusion_mode"].item()) if "fusion_mode" in data else "concat"
+    print(f"[INFO] Dataset: {n} embeddings | {n_cls} classes")
+    print(f"[INFO] Fusion variants found in .npz: {list(fusion_meta.keys())}")
 
-    # Load all three feature arrays
-    feature_arrays: dict[str, np.ndarray] = {
-        variant: data[npz_key].astype(np.float32)
-        for variant, npz_key in FEATURE_VARIANTS.items()
-    }
+    # Also include image-only and text-only baselines if present
+    baselines = {}
+    for bname, npz_key in [
+        ("image_only", "image_features"),
+        ("text_only", "text_features"),
+    ]:
+        if npz_key in data:
+            baselines[bname] = npz_key
 
-    for variant, feats in feature_arrays.items():
+    # Extend fusion_meta with baseline entries now, before any variant validation
+    for bname, npz_key in baselines.items():
+        arr = data[npz_key].astype(np.float32)
+        fusion_meta[bname] = {
+            "fusion_mode": bname,
+            "text_weight": None,
+            "dim": int(arr.shape[1]),
+        }
+
+    # Optionally restrict to a subset of variants (validated against the full
+    # set including baselines, which are now in fusion_meta)
+    all_known = set(fusion_meta.keys())
+    if args.variants:
+        unknown = [v for v in args.variants if v not in all_known]
+        if unknown:
+            raise ValueError(
+                f"Requested variant(s) not found in .npz: {unknown}. "
+                f"Available: {sorted(all_known)}"
+            )
+        # Preserve baselines at the front, then requested fused variants
+        baseline_keys = [k for k in baselines if k in args.variants]
+        fused_keys = [v for v in args.variants if v not in baselines]
+        eval_keys = baseline_keys + fused_keys
+    else:
+        # Default: baselines first, then all fused variants from fusion_meta
+        fused_keys = [k for k in fusion_meta if k not in baselines]
+        eval_keys = list(baselines.keys()) + fused_keys
+
+    all_results: dict[str, dict] = {}
+
+    for variant_key in eval_keys:
+        # Resolve which array to load
+        if variant_key in baselines:
+            npz_array_key = baselines[variant_key]
+            is_concat = False
+        else:
+            npz_array_key = variant_key
+            is_concat = fusion_meta[variant_key]["fusion_mode"] == "concat"
+
+        feats = data[npz_array_key].astype(np.float32)
+        label = _fusion_label(fusion_meta[variant_key])
+
         print(
-            f"[INFO] {variant:>12}: {feats.shape[0]} embeddings | "
-            f"dim {feats.shape[1]} | {n_cls} classes"
+            f"\n[INFO] Building index for '{variant_key}'  [{label}]  dim={feats.shape[1]} ..."
         )
+        index, indexed_feats = build_index(feats, is_concat=is_concat, use_gpu=args.gpu)
 
-    similarities = args.similarities if args.similarities else SIMILARITIES
-    variants = list(FEATURE_VARIANTS.keys())  # image_only, text_only, fused
+        print(f"[INFO] Evaluating '{variant_key}' ...")
+        results = evaluate(index, indexed_feats, labels, ks=args.ks)
 
-    # all_results[variant][similarity] → {k: {precision, recall, f1, map}}
-    all_results: dict[str, dict[str, dict]] = {v: {} for v in variants}
+        print_variant_results(variant_key, label, results, ks=args.ks)
+        all_results[variant_key] = results
 
-    for variant in variants:
-        feats = feature_arrays[variant]
-        for sim in similarities:
-            # We flag if this loop iteration is processing a concat vector
-            is_concat_fused = variant == "fused" and fusion_mode == "concat"
-
-            print(
-                f"\n[INFO] [{variant.upper()}] Building index — similarity: {sim.upper()} ..."
-            )
-            index, indexed_feats = build_index(
-                feats, sim, is_concat_fused, use_gpu=args.gpu
-            )
-
-            print(f"[INFO] [{variant.upper()}] Evaluating ...")
-            results = evaluate(index, indexed_feats, labels, ks=args.ks)
-
-            print_variant_results(variant, sim, results, ks=args.ks)
-            all_results[variant][sim] = results
-
-    if len(similarities) > 1 or len(variants) > 1:
-        print_summary(
-            all_results, ks=args.ks, variants=variants, similarities=similarities
-        )
+    print_summary(all_results, fusion_meta, ks=args.ks)
 
     if args.output:
-        save_results(all_results, args.output)
+        output_doc = build_output(all_results, fusion_meta, ks=args.ks)
+        save_results(output_doc, args.output)
 
 
 def parse_args():
     p = argparse.ArgumentParser(
         description=(
-            "CBIR evaluation over image-only / text-only / fused features, "
-            "across cosine / L2 / dot-product similarity metrics and all K values."
+            "CBIR evaluation ablating fusion strategies "
+            "(image-only, text-only, concat, avg, weighted×9) "
+            "using cosine similarity across all requested K values."
         )
     )
     p.add_argument(
@@ -347,22 +452,25 @@ def parse_args():
         default="./output/features/clip_multimodal_features.npz",
         help=(
             "Path to the .npz file produced by extract_features.py. "
-            "Must contain 'image_features', 'text_features', 'fused_features', and 'paths'."
+            "Must contain 'fusion_meta' and all fused_* arrays."
         ),
     )
     p.add_argument(
-        "--similarities",
+        "--variants",
         nargs="+",
-        choices=SIMILARITIES,
         default=None,
-        help=f"Subset of similarities to evaluate. Default: all {SIMILARITIES}",
+        help=(
+            "Subset of fusion variants to evaluate (by npz key, e.g. "
+            "'fused_concat fused_avg fused_weighted_05'). "
+            "Defaults to all variants found in the .npz file."
+        ),
     )
     p.add_argument(
         "--ks",
         nargs="+",
         type=int,
         default=list(range(10, 101, 10)),
-        help="Values of K to evaluate at. Default: 10 20 30 ... 100",
+        help="Values of K to evaluate at. Default: 10 20 30 … 100",
     )
     p.add_argument(
         "--output",
