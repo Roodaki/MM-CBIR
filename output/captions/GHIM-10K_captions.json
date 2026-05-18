@@ -50326,6 +50326,826 @@
                     "extended": "palette yellow black green, layout centered overhead, texture fibrous web, lighting daylight diffuse natural, background bokeh green foliage, contrast high color"
                 }
             }
+        },
+        "18/18_9036.jpg": {
+            "filename": "18_9036.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle red-black",
+                    "extended": "palette red black, layout centered close-up, texture shiny exoskeleton, lighting daylight diffuse natural, background blurred green leaf, antennae long thin"
+                }
+            }
+        },
+        "18/18_9045.jpg": {
+            "filename": "18_9045.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect grasshopper green",
+                    "extended": "palette green bright, texture shiny smooth, lighting natural daylight, background blurry out-of-focus, antennae long thin, eyes large compound"
+                }
+            }
+        },
+        "18/18_9051.jpg": {
+            "filename": "18_9051.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect robber-fly",
+                    "extended": "palette green blurred, layout profile view, texture fuzzy hairy, wings brown transparent, lighting daylight soft natural, background bokeh out-of-focus, angle side close-up"
+                }
+            }
+        },
+        "18/18_9035.jpg": {
+            "filename": "18_9035.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect click-beetle",
+                    "extended": "palette yellow black, layout profile close-up, texture shiny smooth, lighting daylight soft natural, background blur green, antennae long thin, wings black reflective"
+                }
+            }
+        },
+        "18/18_9054.jpg": {
+            "filename": "18_9054.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect weevil brown",
+                    "extended": "palette brown white, texture fuzzy hairy, surface rough bumpy, lighting side-lit harsh, background blur green leafy, contrast high color, pattern spotted"
+                }
+            }
+        },
+        "18/18_9053.jpg": {
+            "filename": "18_9053.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect click-beetle",
+                    "extended": "palette green black, layout close-up overhead, texture shiny smooth, surface glossy reflective, lighting daylight diffuse natural, highlight specular soft, background leaf green blurred, contrast high color"
+                }
+            }
+        },
+        "18/18_9024.jpg": {
+            "filename": "18_9024.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle orange",
+                    "extended": "palette orange brown, texture shiny exoskeleton, lighting side-lit soft, background blur green, leaf green broad"
+                }
+            }
+        },
+        "18/18_9014.jpg": {
+            "filename": "18_9014.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect praying-mantis green",
+                    "extended": "palette green, layout centered, texture fibrous leaf, lighting daylight diffuse natural, background bokeh shallow, angle low close-up"
+                }
+            }
+        },
+        "18/18_9037.jpg": {
+            "filename": "18_9037.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect wasp black yellow wings",
+                    "extended": "palette black yellow brown, layout centered close-up, texture fuzzy hairy, wings translucent veined, lighting daylight diffuse natural, background leaf green blurred, contrast medium color"
+                }
+            }
+        },
+        "18/18_9042.jpg": {
+            "filename": "18_9042.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect plant bug, antennae long thin",
+                    "extended": "palette green blurred, layout centered close-up, texture shiny exoskeleton, surface spotted brown, lighting daylight soft focus, highlight glistening dew, background out-of-focus foliage, contrast medium"
+                }
+            }
+        },
+        "18/18_9047.jpg": {
+            "filename": "18_9047.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect praying-mantis brown",
+                    "extended": "palette green brown, layout diagonal close-up, texture fuzzy hairy, surface glossy smooth, lighting daylight soft natural, background bokeh blurred, angle low macro"
+                }
+            }
+        },
+        "18/18_9005.jpg": {
+            "filename": "18_9005.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect boxelder bug",
+                    "extended": "palette orange red black, layout centered close-up, texture shiny smooth, surface glossy reflective, lighting daylight soft natural, highlight specular subtle, background blur green bokeh, angle side low"
+                }
+            }
+        },
+        "18/18_9052.jpg": {
+            "filename": "18_9052.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle",
+                    "extended": "palette dark brown metallic, layout close-up profile, texture shiny smooth, lighting side-lit harsh, background blur green bokeh, antennae long thin"
+                }
+            }
+        },
+        "18/18_9049.jpg": {
+            "filename": "18_9049.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "spider salticidae, prey insect cricket",
+                    "extended": "palette green dark, layout centered close-up, texture leaf venation fine, surface leaf waxy, lighting daylight diffuse natural, highlight specular soft, background leaf blurred, contrast medium"
+                }
+            }
+        },
+        "17/17_8994.jpg": {
+            "filename": "17_8994.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "animal rooster",
+                    "extended": "palette orange brown, layout centered close-up, texture feathery smooth, lighting daylight soft natural, background blur green bokeh, contrast medium color"
+                }
+            }
+        },
+        "18/18_9038.jpg": {
+            "filename": "18_9038.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect click-beetle",
+                    "extended": "palette black yellow green blue, texture shiny metallic, lighting side-lit harsh, background blur green bokeh, antennae long thin, legs six jointed"
+                }
+            }
+        },
+        "18/18_9048.jpg": {
+            "filename": "18_9048.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "spider orb-web araneid",
+                    "extended": "palette green blurred, layout centered close-up, texture fuzzy hairy, lighting daylight soft natural, background bokeh green out-of-focus, web radial threads"
+                }
+            }
+        },
+        "17/17_8996.jpg": {
+            "filename": "17_8996.jpg",
+            "class_label": "17",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "rooster brown, hen light-brown, hen light-brown",
+                    "extended": "palette green dominant, layout scattered, texture feathered fluffy, lighting daylight soft natural, background blurry foliage, angle low close-up"
+                }
+            }
+        },
+        "18/18_9039.jpg": {
+            "filename": "18_9039.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle jewel",
+                    "extended": "palette green gold brown, texture shiny metallic, lighting daylight diffuse natural, background leaf green blurred, angle close-up macro"
+                }
+            }
+        },
+        "18/18_9044.jpg": {
+            "filename": "18_9044.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect leaf-footed-bug",
+                    "extended": "palette brown orange, layout centered profile, texture exoskeleton shiny, lighting daylight diffuse natural, background blur green bokeh, antennae long thin, legs six jointed"
+                }
+            }
+        },
+        "18/18_9007.jpg": {
+            "filename": "18_9007.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect red-bug six-legged",
+                    "extended": "palette red orange green, layout profile close-up, texture shiny smooth, surface matte leaf, lighting side-lit harsh, background solid green, contrast high color"
+                }
+            }
+        },
+        "18/18_9011.jpg": {
+            "filename": "18_9011.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect stick-insect brown",
+                    "extended": "palette green brown, layout centered, texture leafy serrated, lighting natural diffuse, background foliage dense, contrast medium"
+                }
+            }
+        },
+        "18/18_9055.jpg": {
+            "filename": "18_9055.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle click",
+                    "extended": "palette blue black orange white, layout centered overhead, texture shiny exoskeleton, lighting daylight diffuse natural, background moss green leafy, contrast high color"
+                }
+            }
+        },
+        "18/18_9060.jpg": {
+            "filename": "18_9060.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect weevil pair, leaf green",
+                    "extended": "palette brown gray, layout side-by-side, texture exoskeleton rough, lighting daylight soft, background blur green foliage, contrast medium"
+                }
+            }
+        },
+        "18/18_9062.jpg": {
+            "filename": "18_9062.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect grasshopper pair, body yellow brown",
+                    "extended": "palette green yellow brown red, layout side-by-side close-up, texture exoskeleton shiny, lighting natural soft diffused, background blur gradient green, antennae long thin, eyes compound large"
+                }
+            }
+        },
+        "18/18_9066.jpg": {
+            "filename": "18_9066.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect ladybug pair",
+                    "extended": "palette orange black, layout side-by-side, texture shiny smooth, lighting daylight soft, background blurred brown, contrast high color"
+                }
+            }
+        },
+        "18/18_9065.jpg": {
+            "filename": "18_9065.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect boxelder bug, bug",
+                    "extended": "palette orange black white, texture shiny smooth, lighting side-lit harsh, background blur green, antennae long thin, spots white oval"
+                }
+            }
+        },
+        "18/18_9073.jpg": {
+            "filename": "18_9073.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle click-beetle",
+                    "extended": "palette brown black, layout centered close-up, texture shiny smooth, surface glossy reflective, lighting side-lit natural, background blur green bokeh, angle macro close"
+                }
+            }
+        },
+        "18/18_9069.jpg": {
+            "filename": "18_9069.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect boxelder nymph, bug red orange",
+                    "extended": "palette orange white black, layout close-up overhead, texture exoskeleton ridged, surface matte hairy, lighting daylight soft natural, background blur green bokeh, contrast medium color"
+                }
+            }
+        },
+        "18/18_9057.jpg": {
+            "filename": "18_9057.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect grasshopper green",
+                    "extended": "palette green brown black, layout centered close-up, texture shiny exoskeleton, lighting daylight soft natural, background blur foliage leafy, antennae long thin"
+                }
+            }
+        },
+        "18/18_9067.jpg": {
+            "filename": "18_9067.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect click-beetle",
+                    "extended": "palette orange black white, texture shiny exoskeleton, lighting daylight soft natural, background blur green foliage, antennae long curved"
+                }
+            }
+        },
+        "18/18_9074.jpg": {
+            "filename": "18_9074.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "spider Phidippus formosus, prey fly",
+                    "extended": "palette green bright, layout centered close-up, texture leaf venation prominent, surface leaf glossy, lighting daylight diffuse natural, highlight specular soft, background leaf blurred, contrast high color, texture spider hairy, color spider black yellow"
+                }
+            }
+        },
+        "18/18_9063.jpg": {
+            "filename": "18_9063.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle blister orange black spots",
+                    "extended": "palette orange black, layout clustered, texture shiny exoskeleton, lighting daylight natural, background blur green foliage, group three insects, antennae long thin, wings absent"
+                }
+            }
+        },
+        "18/18_9070.jpg": {
+            "filename": "18_9070.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "spider araneid garden, web orb-web",
+                    "extended": "palette brown black, layout radial symmetrical, texture fibrous hairy, lighting daylight soft natural, background bokeh green blurred, contrast medium color"
+                }
+            }
+        },
+        "18/18_9056.jpg": {
+            "filename": "18_9056.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect leaf-footed-bug",
+                    "extended": "palette brown orange, layout centered close-up, texture exoskeleton ridged, surface matte rough, lighting daylight soft natural, highlight specular slight, background blur green leaf, angle low macro"
+                }
+            }
+        },
+        "18/18_9061.jpg": {
+            "filename": "18_9061.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle click",
+                    "extended": "palette orange black, texture shiny exoskeleton, lighting daylight soft, background blur green foliage, antennae long thin"
+                }
+            }
+        },
+        "18/18_9068.jpg": {
+            "filename": "18_9068.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect robber-fly",
+                    "extended": "palette black orange, texture shiny smooth, lighting daylight diffuse natural, background bokeh green blurred, wing single"
+                }
+            }
+        },
+        "18/18_9075.jpg": {
+            "filename": "18_9075.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect bug brown shield-backed",
+                    "extended": "palette brown black, texture exoskeleton ridged, layout profile left, lighting daylight soft focus, background blur green bokeh, antennae long thin, legs six jointed"
+                }
+            }
+        },
+        "18/18_9077.jpg": {
+            "filename": "18_9077.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle jewel",
+                    "extended": "palette green gold, layout close-up macro, texture shiny metallic, lighting side-lit natural, background blur green leafy, antennae pair curved"
+                }
+            }
+        },
+        "18/18_9072.jpg": {
+            "filename": "18_9072.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle fire-red",
+                    "extended": "palette red black, layout centered overhead, texture glossy smooth, lighting daylight diffuse natural, background flower white green blurred, antennae long thin, legs six black"
+                }
+            }
+        },
+        "18/18_9076.jpg": {
+            "filename": "18_9076.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle orange",
+                    "extended": "palette orange brown, texture shiny smooth, lighting daylight diffuse natural, background leaf green blurred, antennae long thin, legs six orange"
+                }
+            }
+        },
+        "18/18_9058.jpg": {
+            "filename": "18_9058.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect weevil pair",
+                    "extended": "palette brown green, layout profile close-up, texture exoskeleton rough, lighting daylight soft natural, background blur bokeh green, angle low macro"
+                }
+            }
+        },
+        "18/18_9078.jpg": {
+            "filename": "18_9078.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect grasshopper brown",
+                    "extended": "palette brown green, layout centered close-up, texture fibrous leafy, surface matte rough, lighting daylight soft natural, background bokeh blurred green, antennae long thin"
+                }
+            }
+        },
+        "18/18_9093.jpg": {
+            "filename": "18_9093.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect grasshopper green",
+                    "extended": "palette green black brown, texture leafy veined, lighting daylight natural, background blurred foliage, antennae long thin"
+                }
+            }
+        },
+        "18/18_9071.jpg": {
+            "filename": "18_9071.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect thrip dark, antennae long thin",
+                    "extended": "palette dark brown black, layout centered close-up, texture hairy thorax, surface shiny smooth, lighting side-lit harsh, background blur green bokeh, contrast high color"
+                }
+            }
+        },
+        "18/18_9094.jpg": {
+            "filename": "18_9094.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle dung",
+                    "extended": "palette black shiny, texture ridged glossy, lighting daylight harsh, background fruit pulp soft"
+                }
+            }
+        },
+        "18/18_9096.jpg": {
+            "filename": "18_9096.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle brown",
+                    "extended": "palette green brown, layout close-up overhead, texture shiny exoskeleton, surface glossy smooth, lighting daylight soft natural, highlight specular slight, background blurry foliage, angle low macro"
+                }
+            }
+        },
+        "18/18_9091.jpg": {
+            "filename": "18_9091.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle orange",
+                    "extended": "palette orange black, layout profile close-up, texture shiny smooth, lighting daylight diffuse natural, background blue gradient blurred, antennae long thin, legs black six"
+                }
+            }
+        },
+        "18/18_9059.jpg": {
+            "filename": "18_9059.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect grasshopper green",
+                    "extended": "palette green yellow black, texture shiny smooth, lighting daylight diffuse natural, background leaf green blurred, antennae long thin"
+                }
+            }
+        },
+        "18/18_9097.jpg": {
+            "filename": "18_9097.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect spotted lanternfly",
+                    "extended": "palette pink black, texture glossy exoskeleton, lighting daylight diffuse natural, background bokeh green blurry, contrast high color, leg black six, wing spotted red"
+                }
+            }
+        },
+        "18/18_9090.jpg": {
+            "filename": "18_9090.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect weevil brown",
+                    "extended": "palette brown black, layout profile close-up, texture shiny chitinous, lighting daylight harsh, background blur green leafy, antennae pair curved"
+                }
+            }
+        },
+        "18/18_9083.jpg": {
+            "filename": "18_9083.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect grasshopper green brown",
+                    "extended": "palette green brown black, texture fibrous leafy, lighting daylight natural, background blurry out-of-focus, angle close-up macro"
+                }
+            }
+        },
+        "18/18_9087.jpg": {
+            "filename": "18_9087.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle click",
+                    "extended": "palette green bright, layout blurred background, texture shiny brown, lighting natural daylight, highlight specular, background foliage leafy out-of-focus"
+                }
+            }
+        },
+        "18/18_9095.jpg": {
+            "filename": "18_9095.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect grasshopper yellow",
+                    "extended": "palette yellow brown green, texture rough bark, lighting daylight natural, background blur green bokeh, antennae long thin"
+                }
+            }
+        },
+        "18/18_9085.jpg": {
+            "filename": "18_9085.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect stink-bug pair, plant leafy green",
+                    "extended": "palette brown green, layout centered overhead, texture shiny chitinous, surface smooth glossy, lighting daylight diffuse natural, highlight specular soft, background blurry foliage dense, contrast medium color"
+                }
+            }
+        },
+        "18/18_9064.jpg": {
+            "filename": "18_9064.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect eggs larva, species ladybug",
+                    "extended": "palette green light, layout clustered central, texture leaf venation ribbed, surface specular dewy, lighting daylight diffuse natural, background foliage blurred, contrast medium"
+                }
+            }
+        },
+        "18/18_9080.jpg": {
+            "filename": "18_9080.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect grasshopper brown",
+                    "extended": "palette green bright, layout close-up macro, texture leaf venation prominent, surface leaf glossy, lighting daylight soft natural, highlight specular subtle, background blur bokeh shallow, angle low side"
+                }
+            }
+        },
+        "18/18_9100.jpg": {
+            "filename": "18_9100.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "spider argiope, abdomen striped",
+                    "extended": "palette green blurred, layout centered close-up, texture fibrous hairy, lighting daylight soft natural, highlight specular subtle, background bokeh out-of-focus, contrast medium color"
+                }
+            }
+        },
+        "18/18_9079.jpg": {
+            "filename": "18_9079.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "araneae spider huntsman",
+                    "extended": "palette brown tan, texture hairy fibrous, lighting daylight natural soft, background leaf green blurred, layout centered close-up"
+                }
+            }
+        },
+        "18/18_9112.jpg": {
+            "filename": "18_9112.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect ladybug orange",
+                    "extended": "palette orange black, texture shiny smooth, lighting daylight natural, background blur green, leaf green glossy, antennae black thin, legs black"
+                }
+            }
+        },
+        "18/18_9101.jpg": {
+            "filename": "18_9101.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle",
+                    "extended": "palette dark brown, texture shiny smooth, lighting side-lit harsh, background blur blue, antennae long thin, legs six black"
+                }
+            }
+        },
+        "18/18_9088.jpg": {
+            "filename": "18_9088.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect jewel beetle emerald green",
+                    "extended": "palette purple blue, layout centered close-up, texture shiny metallic, lighting side-lit bright, background blurred purple, color iridescent green black"
+                }
+            }
+        },
+        "18/18_9107.jpg": {
+            "filename": "18_9107.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect ladybug checkered",
+                    "extended": "palette black yellow, layout partial close-up, texture shiny smooth, lighting side-lit natural, background green leafy blurred, contrast high color"
+                }
+            }
+        },
+        "18/18_9098.jpg": {
+            "filename": "18_9098.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect spotted lanternfly, plant leaf green",
+                    "extended": "palette pink black, layout close-up side, texture spotted glossy, lighting daylight soft natural, background bokeh green blurry, contrast medium color"
+                }
+            }
+        },
+        "18/18_9116.jpg": {
+            "filename": "18_9116.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle ladybug, beetle weevil",
+                    "extended": "palette yellow black pink, layout side-by-side profile, texture shiny smooth, surface fibrous soft, lighting daylight diffuse natural, highlight specular soft, background bokeh blue, contrast medium color"
+                }
+            }
+        },
+        "18/18_9115.jpg": {
+            "filename": "18_9115.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle weevil pair",
+                    "extended": "palette green yellow black, texture exoskeleton rough, lighting daylight macro close-up, background blur green, contrast high color, pair copulating"
+                }
+            }
+        },
+        "18/18_9109.jpg": {
+            "filename": "18_9109.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect grasshopper green black yellow",
+                    "extended": "palette green black yellow, texture shiny chitinous, lighting daylight natural, background leaf green blurred, antennae long thin, wings folded"
+                }
+            }
+        },
+        "18/18_9113.jpg": {
+            "filename": "18_9113.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect weevil pair",
+                    "extended": "palette black orange, texture exoskeleton rough, lighting daylight soft natural, background blur green bokeh, angle macro close-up, contrast high color"
+                }
+            }
+        },
+        "18/18_9114.jpg": {
+            "filename": "18_9114.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect weevil dark-brown",
+                    "extended": "palette green bright, layout centered close-up, texture shiny chitinous, lighting daylight soft natural, background blurred out-of-focus, wing motion blur"
+                }
+            }
+        },
+        "18/18_9082.jpg": {
+            "filename": "18_9082.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle longhorn",
+                    "extended": "palette green black, layout leafy overhead, texture glossy leaf, lighting daylight diffuse natural, highlight specular soft, background foliage blurred bokeh, antennae striped long"
+                }
+            }
+        },
+        "18/18_9084.jpg": {
+            "filename": "18_9084.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect bug plant bug, antennae long curved",
+                    "extended": "palette brown orange, layout profile left, texture exoskeleton smooth, surface matte, lighting side-lit soft, background blur dark, angle low close-up"
+                }
+            }
+        },
+        "18/18_9117.jpg": {
+            "filename": "18_9117.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect weevil pair",
+                    "extended": "palette brown gray, texture ridged textured, lighting daylight soft, background blur green, angle close-up macro"
+                }
+            }
+        },
+        "18/18_9081.jpg": {
+            "filename": "18_9081.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect spotted lanternfly",
+                    "extended": "palette orange pink black, texture wing membrane spotted, lighting daylight diffuse natural, background bokeh green blurry, angle low macro"
+                }
+            }
+        },
+        "18/18_9120.jpg": {
+            "filename": "18_9120.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect weevil brown",
+                    "extended": "palette brown yellow, layout profile close-up, texture shiny exoskeleton, surface rough ridged, lighting side-lit natural, background blur bokeh, angle low macro"
+                }
+            }
+        },
+        "18/18_9086.jpg": {
+            "filename": "18_9086.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "spider orb-weaver golden",
+                    "extended": "palette green dominant, layout centered overhead, texture fibrous leafy, lighting daylight diffuse natural, background bokeh shallow, angle low wide, web spiral zig-zag"
+                }
+            }
+        },
+        "18/18_9089.jpg": {
+            "filename": "18_9089.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle green red",
+                    "extended": "palette green red, texture shiny metallic, lighting daylight natural, background blurry white, leaf blade green, angle close-up macro"
+                }
+            }
+        },
+        "18/18_9111.jpg": {
+            "filename": "18_9111.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect ladybug seven-spot",
+                    "extended": "palette red black, layout centered profile, texture shiny smooth, lighting daylight soft focus, background blur green bokeh, angle side close-up"
+                }
+            }
+        },
+        "18/18_9099.jpg": {
+            "filename": "18_9099.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "spider argiope, abdomen striped",
+                    "extended": "palette green yellow black, layout centered blurred background, texture fibrous hairy, lighting daylight soft natural, highlight specular subtle, background foliage out-of-focus, contrast medium color"
+                }
+            }
+        },
+        "18/18_9108.jpg": {
+            "filename": "18_9108.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect bug shield-bug brown",
+                    "extended": "palette green bright, texture leaf veined, surface glossy waxy, lighting daylight soft natural, background blur foliage, hole perforation damage, angle close-up macro"
+                }
+            }
+        },
+        "18/18_9118.jpg": {
+            "filename": "18_9118.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect weevil brown",
+                    "extended": "palette red orange, layout close-up macro, texture fibrous leaf, surface glossy waxy, lighting daylight soft natural, highlight specular subtle, background blur yellow, angle low side"
+                }
+            }
+        },
+        "18/18_9105.jpg": {
+            "filename": "18_9105.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect beetle click-beetle",
+                    "extended": "palette brown orange, layout centered close-up, texture exoskeleton ridged, surface matte hairy, lighting daylight soft natural, highlight specular slight, background leaf green blurred, contrast medium"
+                }
+            }
+        },
+        "18/18_9130.jpg": {
+            "filename": "18_9130.jpg",
+            "class_label": "18",
+            "captions": {
+                "meta-llama/llama-4-scout-17b-16e-instruct": {
+                    "primary": "insect fly empididae, body black",
+                    "extended": "palette green blurred, layout close-up macro, texture shiny smooth, wings transparent brown, lighting natural daylight, eyes red compound, background bokeh out-of-focus, angle low profile"
+                }
+            }
         }
     }
 }

@@ -1,9 +1,11 @@
 """
-plot_precision_at_k.py
-----------------------
-Generates two separate publication-quality PNGs:
-  1. precision_at_k_cosine.png  — Precision@K
-  2. map_at_k_cosine.png        — MAP@K
+plot_retrieval_metrics.py
+--------------------------
+Generates four publication-quality PNGs:
+  precision_at_k.png  |  map_at_k.png  |  recall_at_k.png  |  f1_at_k.png
+
+All 13 variants are treated equally — same linewidth, each with a unique
+color + marker combination so the reader can distinguish every line.
 """
 
 import json
@@ -13,39 +15,90 @@ import matplotlib.ticker as mticker
 from matplotlib.lines import Line2D
 
 # ── 0. Load data ──────────────────────────────────────────────────────────────
-DATA_PATH = "./output\\results\\corel10k_retrieval_results.json"
-OUT_PRECISION = "./output\\results\\precision_at_k_cosine.png"
-OUT_MAP = "./output\\results\\map_at_k_cosine.png"
+DATA_PATH = "output\\results\\corel10k_retrieval_results.json"
 
 with open(DATA_PATH) as f:
     data = json.load(f)
 
-# ── 1. Extract cosine values ──────────────────────────────────────────────────
-STRATEGIES = {
-    "image_only": "Image-Only",
-    "text_only": "Text-Only",
-    "fused": "Fused (Image + Text)",
+variants = data["variants"]
+k_values = sorted(data["k_values"])
+
+# ── 1. Build a flat ordered list of all variants ──────────────────────────────
+VARIANT_ORDER = [
+    "image_only",
+    "text_only",
+    "fused_concat",
+    "fused_avg",
+    "fused_weighted_01",
+    "fused_weighted_02",
+    "fused_weighted_03",
+    "fused_weighted_04",
+    "fused_weighted_05",
+    "fused_weighted_06",
+    "fused_weighted_07",
+    "fused_weighted_08",
+    "fused_weighted_09",
+]
+
+SHORT_LABELS = {
+    "image_only": "Image-only",
+    "text_only": "Text-only",
+    "fused_concat": "Concat",
+    "fused_avg": "Average",
+    "fused_weighted_01": "Weighted 0.9/0.1",
+    "fused_weighted_02": "Weighted 0.8/0.2",
+    "fused_weighted_03": "Weighted 0.7/0.3",
+    "fused_weighted_04": "Weighted 0.6/0.4",
+    "fused_weighted_05": "Weighted 0.5/0.5",
+    "fused_weighted_06": "Weighted 0.4/0.6",
+    "fused_weighted_07": "Weighted 0.3/0.7",
+    "fused_weighted_08": "Weighted 0.2/0.8",
+    "fused_weighted_09": "Weighted 0.1/0.9",
 }
 
-series = {}
-for key, label in STRATEGIES.items():
-    cos = data[key]["cosine"]
-    ks = sorted(int(k) for k in cos.keys())
-    precision = [cos[str(k)]["precision"] for k in ks]
-    map_vals = [cos[str(k)]["map"] for k in ks]
-    series[label] = (ks, precision, map_vals)
+# 13 maximally-distinct colors (Okabe-Ito extended + Kelly's set)
+COLORS = [
+    "#0072B2",  # strong blue
+    "#D55E00",  # vermillion
+    "#009E73",  # bluish green
+    "#CC79A7",  # pink
+    "#E69F00",  # amber
+    "#56B4E9",  # sky blue
+    "#F0E442",  # yellow (dark edge makes it visible)
+    "#000000",  # black
+    "#8B0000",  # dark red
+    "#4B0082",  # indigo
+    "#008080",  # teal
+    "#FF69B4",  # hot pink
+    "#6B8E23",  # olive
+]
 
-# ── 2. Style / theme ──────────────────────────────────────────────────────────
+# 13 distinct marker shapes
+MARKERS = ["o", "s", "^", "D", "v", "P", "*", "X", "p", "h", "<", ">", "H"]
+
+LW = 1.7  # uniform linewidth
+MS = 6.0  # uniform marker size
+MEW = 0.6  # marker edge width
+
+# ── 2. Build style dict ───────────────────────────────────────────────────────
+STYLES = {}
+for i, key in enumerate(VARIANT_ORDER):
+    STYLES[key] = dict(
+        label=SHORT_LABELS[key],
+        color=COLORS[i],
+        marker=MARKERS[i],
+    )
+
+# ── 3. Global rcParams ────────────────────────────────────────────────────────
 matplotlib.rcParams.update(
     {
         "font.family": "serif",
         "font.serif": ["Times New Roman", "DejaVu Serif", "Georgia"],
         "font.size": 11,
-        "axes.titlesize": 13,
         "axes.labelsize": 12,
         "xtick.labelsize": 10,
         "ytick.labelsize": 10,
-        "legend.fontsize": 10,
+        "legend.fontsize": 8.8,
         "figure.dpi": 300,
         "savefig.dpi": 300,
         "axes.linewidth": 0.8,
@@ -62,60 +115,39 @@ matplotlib.rcParams.update(
     }
 )
 
-PALETTE = {
-    "Image-Only": "#0072B2",
-    "Text-Only": "#D55E00",
-    "Fused (Image + Text)": "#009E73",
-}
-MARKERS = {
-    "Image-Only": "o",
-    "Text-Only": "s",
-    "Fused (Image + Text)": "^",
-}
-OFFSETS = {
-    "Image-Only": (0, 6),
-    "Text-Only": (0, 6),
-    "Fused (Image + Text)": (0, -11),
-}
+
+# ── 4. Helper ─────────────────────────────────────────────────────────────────
+def get_series(key, metric):
+    res = variants[key]["results"]
+    return [res[str(k)][metric] for k in k_values]
 
 
-# ── 3. Reusable plot function ─────────────────────────────────────────────────
-def make_plot(metric_idx, ylabel, ylim, y_major, y_minor, title, out_path):
-    fig, ax = plt.subplots(figsize=(6.5, 4.2))
+# ── 5. Plot function ──────────────────────────────────────────────────────────
+def make_plot(metric, ylabel, ylim, y_major, y_minor, out_path):
+    fig, ax = plt.subplots(figsize=(8.5, 5.2))
 
-    for label, (ks, precision, map_vals) in series.items():
-        vals = precision if metric_idx == 0 else map_vals
+    for key in VARIANT_ORDER:
+        s = STYLES[key]
+        vals = get_series(key, metric)
+        edge = "#888800" if s["color"] == "#F0E442" else "white"
         ax.plot(
-            ks,
+            k_values,
             vals,
-            color=PALETTE[label],
+            color=s["color"],
             linestyle="-",
-            linewidth=1.8,
-            marker=MARKERS[label],
-            markersize=5.5,
-            markerfacecolor=PALETTE[label],
-            markeredgecolor="white",
-            markeredgewidth=0.6,
-            label=label,
+            linewidth=LW,
+            marker=s["marker"],
+            markersize=MS,
+            markerfacecolor=s["color"],
+            markeredgecolor=edge,
+            markeredgewidth=MEW,
+            label=s["label"],
             zorder=3,
         )
-        dx, dy = OFFSETS[label]
-        for k, v in zip(ks, vals):
-            ax.annotate(
-                f"{v:.3f}",
-                xy=(k, v),
-                xytext=(dx, dy),
-                textcoords="offset points",
-                fontsize=6.2,
-                color=PALETTE[label],
-                ha="center",
-                va="bottom" if dy >= 0 else "top",
-            )
 
     ax.set_xlabel("$K$", labelpad=6)
     ax.set_ylabel(ylabel, labelpad=6)
-    ax.set_title(title, pad=10)
-    ax.set_xlim(5, 105)
+    ax.set_xlim(k_values[0] - 3, k_values[-1] + 3)
     ax.set_ylim(*ylim)
     ax.xaxis.set_major_locator(mticker.MultipleLocator(10))
     ax.xaxis.set_minor_locator(mticker.MultipleLocator(5))
@@ -125,32 +157,38 @@ def make_plot(metric_idx, ylabel, ylim, y_major, y_minor, title, out_path):
     ax.grid(which="major", linestyle="--", linewidth=0.45, color="#cccccc", zorder=0)
     ax.grid(which="minor", linestyle=":", linewidth=0.30, color="#e8e8e8", zorder=0)
 
-    legend_handles = [
+    handles = [
         Line2D(
             [0],
             [0],
-            color=PALETTE[lbl],
+            color=STYLES[k]["color"],
             linestyle="-",
-            linewidth=1.8,
-            marker=MARKERS[lbl],
-            markersize=5.5,
-            markerfacecolor=PALETTE[lbl],
-            markeredgecolor="white",
-            markeredgewidth=0.6,
-            label=lbl,
+            linewidth=LW,
+            marker=STYLES[k]["marker"],
+            markersize=MS,
+            markerfacecolor=STYLES[k]["color"],
+            markeredgecolor="#888800" if STYLES[k]["color"] == "#F0E442" else "white",
+            markeredgewidth=MEW,
+            label=STYLES[k]["label"],
         )
-        for lbl in STRATEGIES.values()
+        for k in VARIANT_ORDER
     ]
     ax.legend(
-        handles=legend_handles,
-        loc="lower left",
+        handles=handles,
+        loc="upper left",
+        bbox_to_anchor=(1.01, 1.0),
         frameon=True,
-        framealpha=0.92,
+        framealpha=0.95,
         edgecolor="#bbbbbb",
-        borderpad=0.6,
-        labelspacing=0.4,
+        borderpad=0.7,
+        labelspacing=0.45,
         handlelength=2.2,
+        handletextpad=0.5,
         fancybox=False,
+        fontsize=8.8,
+        ncol=1,
+        title="img/txt weight",
+        title_fontsize=8.5,
     )
 
     fig.tight_layout()
@@ -159,23 +197,8 @@ def make_plot(metric_idx, ylabel, ylim, y_major, y_minor, title, out_path):
     plt.close(fig)
 
 
-# ── 4. Generate both plots ────────────────────────────────────────────────────
-make_plot(
-    metric_idx=0,
-    ylabel="Precision@$K$",
-    ylim=(0.68, 0.96),
-    y_major=0.05,
-    y_minor=0.025,
-    title="",
-    out_path=OUT_PRECISION,
-)
-
-make_plot(
-    metric_idx=1,
-    ylabel="MAP@$K$",
-    ylim=(0.62, 0.95),
-    y_major=0.05,
-    y_minor=0.025,
-    title="",
-    out_path=OUT_MAP,
-)
+# ── 6. Generate all four plots ────────────────────────────────────────────────
+make_plot("precision", "Precision@$K$", (0.68, 0.96), 0.05, 0.025, "precision_at_k.png")
+make_plot("map", "MAP@$K$", (0.62, 0.95), 0.05, 0.025, "map_at_k.png")
+make_plot("recall", "Recall@$K$", (0.00, 0.90), 0.10, 0.05, "recall_at_k.png")
+make_plot("f1", "F1@$K$", (0.10, 0.90), 0.10, 0.05, "f1_at_k.png")
