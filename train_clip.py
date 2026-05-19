@@ -548,6 +548,13 @@ def train(args):
             scaled_loss = loss / args.grad_accum
             scaler.scale(scaled_loss).backward()
 
+            if step == 0 and epoch == start_epoch:
+                print(f"[DIAG] logit_scale.grad = {logit_scale.grad}")
+                print(f"[DIAG] logit_scale.requires_grad = {logit_scale.requires_grad}")
+                print(
+                    f"[DIAG] logit_scale value = {logit_scale.item():.4f} (exp={logit_scale.exp().item():.2f})"
+                )
+
             total_train_loss += loss.item()
 
             is_last_micro_batch = (step + 1) % args.grad_accum == 0
@@ -699,9 +706,9 @@ def parse_args():
     p.add_argument("--model-id", default="openai/clip-vit-base-patch32")
     p.add_argument(
         "--json-path",
-        default=os.path.join("output/captions", "Corel-10K_captions.json"),
+        default=os.path.join("output/captions", "GHIM-10K_captions.json"),
     )
-    p.add_argument("--img-dir", default=os.path.join("data", "Corel-10K"))
+    p.add_argument("--img-dir", default=os.path.join("data", "GHIM-10K"))
     p.add_argument(
         "--output-dir",
         default=None,  # FIX: resolved in train() to avoid recursive p.parse_args()
@@ -739,7 +746,7 @@ def parse_args():
     p.add_argument(
         "--epochs",
         type=int,
-        default=30,
+        default=50,
         help=(
             "Total training epochs. "
             "Reduced from 50: UniCL's stronger label-aware signal converges "

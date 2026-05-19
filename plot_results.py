@@ -15,7 +15,7 @@ import matplotlib.ticker as mticker
 from matplotlib.lines import Line2D
 
 # ── 0. Load data ──────────────────────────────────────────────────────────────
-DATA_PATH = "output\\results\\corel10k_retrieval_results.json"
+DATA_PATH = "output\\results\\Corel-10K\\corel10k_retrieval_results.json"
 
 with open(DATA_PATH) as f:
     data = json.load(f)
@@ -123,12 +123,14 @@ def get_series(key, metric):
 
 
 # ── 5. Plot function ──────────────────────────────────────────────────────────
-def make_plot(metric, ylabel, ylim, y_major, y_minor, out_path):
+def make_plot(metric, ylabel, out_path):
     fig, ax = plt.subplots(figsize=(8.5, 5.2))
 
+    all_vals = []
     for key in VARIANT_ORDER:
         s = STYLES[key]
         vals = get_series(key, metric)
+        all_vals.extend(vals)
         edge = "#888800" if s["color"] == "#F0E442" else "white"
         ax.plot(
             k_values,
@@ -145,15 +147,21 @@ def make_plot(metric, ylabel, ylim, y_major, y_minor, out_path):
             zorder=3,
         )
 
+    # Auto-compute tight y-limits with 10% padding around the data range
+    data_min, data_max = min(all_vals), max(all_vals)
+    data_range = data_max - data_min if data_max != data_min else data_max * 0.1
+    pad = data_range * 0.10
+    ylim = (data_min - pad, data_max + pad)
+
     ax.set_xlabel("$K$", labelpad=6)
     ax.set_ylabel(ylabel, labelpad=6)
     ax.set_xlim(k_values[0] - 3, k_values[-1] + 3)
     ax.set_ylim(*ylim)
     ax.xaxis.set_major_locator(mticker.MultipleLocator(10))
     ax.xaxis.set_minor_locator(mticker.MultipleLocator(5))
-    ax.yaxis.set_major_locator(mticker.MultipleLocator(y_major))
-    ax.yaxis.set_minor_locator(mticker.MultipleLocator(y_minor))
-    ax.yaxis.set_major_formatter(mticker.FormatStrFormatter("%.2f"))
+    ax.yaxis.set_major_locator(mticker.AutoLocator())
+    ax.yaxis.set_minor_locator(mticker.AutoMinorLocator())
+    ax.yaxis.set_major_formatter(mticker.FormatStrFormatter("%.4f"))
     ax.grid(which="major", linestyle="--", linewidth=0.45, color="#cccccc", zorder=0)
     ax.grid(which="minor", linestyle=":", linewidth=0.30, color="#e8e8e8", zorder=0)
 
@@ -198,7 +206,7 @@ def make_plot(metric, ylabel, ylim, y_major, y_minor, out_path):
 
 
 # ── 6. Generate all four plots ────────────────────────────────────────────────
-make_plot("precision", "Precision@$K$", (0.68, 0.96), 0.05, 0.025, "precision_at_k.png")
-make_plot("map", "MAP@$K$", (0.62, 0.95), 0.05, 0.025, "map_at_k.png")
-make_plot("recall", "Recall@$K$", (0.00, 0.90), 0.10, 0.05, "recall_at_k.png")
-make_plot("f1", "F1@$K$", (0.10, 0.90), 0.10, 0.05, "f1_at_k.png")
+make_plot("precision", "Precision@$K$", "precision_at_k.png")
+make_plot("map", "MAP@$K$", "map_at_k.png")
+make_plot("recall", "Recall@$K$", "recall_at_k.png")
+make_plot("f1", "F1@$K$", "f1_at_k.png")
