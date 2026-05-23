@@ -228,6 +228,26 @@ def unicl_loss(
     return (loss_i2t + loss_t2i) / 2.0
 
 
+def infonce_loss(
+    image_embeds: torch.Tensor,  # (B, D)  L2-normalised
+    text_embeds: torch.Tensor,  # (B, D)  L2-normalised
+    logit_scale: torch.Tensor,  # scalar  learnable log-temperature
+) -> torch.Tensor:
+    """
+    Symmetric InfoNCE loss (standard CLIP objective).
+
+    Only the diagonal is treated as positive; all off-diagonal entries are
+    negatives regardless of class label.  This is the special case of UniCL
+    when every sample in the batch has a unique label.
+    """
+    scale = logit_scale.exp().clamp(max=50.0).to(image_embeds.dtype)
+    logits = scale * (image_embeds @ text_embeds.T)  # (B, B)
+    labels = torch.arange(logits.size(0), device=logits.device)
+    loss_i2t = F.cross_entropy(logits, labels)
+    loss_t2i = F.cross_entropy(logits.T, labels)
+    return (loss_i2t + loss_t2i) / 2.0
+
+
 # ---------------------------------------------------------------------------
 # Model building
 # ---------------------------------------------------------------------------
@@ -339,7 +359,9 @@ def resolve_logit_scale(model: nn.Module, reset: bool = True) -> nn.Parameter:
 def train(args):
     # ── Resolve output dir before any work ────────────────────────────────────
     if args.output_dir is None:
-        args.output_dir = f"./output/models/{args.model_id.replace('/', '_')}"
+        args.output_dir = (
+            f"./output/models/{args.model_id.replace('/', '_')}_{args.loss}"
+        )
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"Training on: {device}")
@@ -542,8 +564,11 @@ def train(args):
                     dim=-1, keepdim=True
                 )
 
-                # ── UniCL loss replaces symmetric_infonce_loss ─────────────
-                loss = unicl_loss(img_emb, text_emb, labels, logit_scale)
+                # ── Loss ──────────────────────────────────────────────────
+                if args.loss == "unicl":
+                    loss = unicl_loss(img_emb, text_emb, labels, logit_scale)
+                else:
+                    loss = infonce_loss(img_emb, text_emb, logit_scale)
 
             scaled_loss = loss / args.grad_accum
             scaler.scale(scaled_loss).backward()
@@ -592,10 +617,10 @@ def train(args):
                 if pixel_values.size(0) < 2:
                     continue
 
-                # Skip mono-class batches: when all labels are identical every
-                # target row is all-ones, log_softmax collapses to uniform, and
-                # the loss is 0. This silently deflates avg_val with shuffle=False.
-                if labels.unique().numel() == 1:
+                # Skip mono-class batches only for UniCL: when all labels are
+                # identical every target row is all-ones, log_softmax collapses
+                # to uniform, and the loss is 0. InfoNCE is unaffected.
+                if args.loss == "unicl" and labels.unique().numel() == 1:
                     continue
 
                 with autocast(device, enabled=use_amp):
@@ -611,7 +636,10 @@ def train(args):
                     text_emb = outputs.text_embeds / outputs.text_embeds.norm(
                         dim=-1, keepdim=True
                     )
-                    loss = unicl_loss(img_emb, text_emb, labels, logit_scale)
+                    if args.loss == "unicl":
+                        loss = unicl_loss(img_emb, text_emb, labels, logit_scale)
+                    else:
+                        loss = infonce_loss(img_emb, text_emb, logit_scale)
 
                 total_val_loss += loss.item()
                 val_batches += 1
@@ -834,6 +862,19 @@ def parse_args():
             "Slightly raised from 0.1 to 0.15 to compensate for the higher "
             "learning rate. Keeps adapter weights small and prevents the "
             "logit_scale from diverging."
+        ),
+    )
+
+    # ── Loss ──────────────────────────────────────────────────────────────────
+    p.add_argument(
+        "--loss",
+        choices=["unicl", "infonce"],
+        default="infonce",
+        help=(
+            "Loss function to use during training. "
+            "'unicl' (default) treats same-class pairs as positives (Yang et al., CVPR 2022). "
+            "'infonce' is the standard symmetric CLIP objective (diagonal-only positives). "
+            "The choice is reflected in the output directory name."
         ),
     )
 

@@ -1,7 +1,7 @@
 import json
 import matplotlib.pyplot as plt
 
-with open("output/models/openai_clip-vit-base-patch32/training_log.json") as f:
+with open("output/models/openai_clip-vit-base-patch32_infonce/training_log.json") as f:
     log = json.load(f)
 
 epochs = [e["epoch"] for e in log]
