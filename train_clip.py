@@ -734,9 +734,9 @@ def parse_args():
     p.add_argument("--model-id", default="openai/clip-vit-base-patch32")
     p.add_argument(
         "--json-path",
-        default=os.path.join("output/captions", "GHIM-10K_captions.json"),
+        default=os.path.join("output/captions", "Corel-10K_captions.json"),
     )
-    p.add_argument("--img-dir", default=os.path.join("data", "GHIM-10K"))
+    p.add_argument("--img-dir", default=os.path.join("data", "Corel-10K"))
     p.add_argument(
         "--output-dir",
         default=None,  # FIX: resolved in train() to avoid recursive p.parse_args()

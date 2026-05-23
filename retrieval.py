@@ -449,7 +449,7 @@ def parse_args():
     )
     p.add_argument(
         "--npz-path",
-        default="./output/features/clip_multimodal_features.npz",
+        default=r"output\features\corel10k_infonce_clip_multimodal_features.npz",
         help=(
             "Path to the .npz file produced by extract_features.py. "
             "Must contain 'fusion_meta' and all fused_* arrays."

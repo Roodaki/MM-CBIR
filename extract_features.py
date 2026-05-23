@@ -319,17 +319,17 @@ def parse_args():
     )
     p.add_argument(
         "--model-dir",
-        default="./output/models/openai_clip-vit-base-patch32",
+        default="output\models\corel10k_openai_clip-vit-base-patch32_infonce",
         help="Path to the directory containing the best saved LoRA checkpoint.",
     )
     p.add_argument(
         "--img-dir",
-        default=os.path.join("data", "GHIM-10K"),
+        default=os.path.join("data", "Corel-10K"),
         help="Root directory of the image dataset.",
     )
     p.add_argument(
         "--json-path",
-        default="output\\captions\\GHIM-10K_captions.json",
+        default="output\\captions\\Corel-10K_captions.json",
         help=(
             "Path to the caption JSON used during training. "
             "Captions are encoded by the text encoder and fused with the image "
